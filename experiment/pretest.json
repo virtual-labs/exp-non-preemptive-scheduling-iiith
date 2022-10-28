@@ -2,20 +2,20 @@
   "version": 2.0,
   "questions": [
     {
-      "question": "This is a Sample Question 1?",
+      "question": "What is the difference between preemption and non-preemption?",
       "answers": {
-        "a": "answer1",
-        "b": "answer2",
-        "c": "answer3",
-        "d": "answer4"
+        "a": "Whether or not a ready process can be involuntarily terminated",
+        "b": "Whether or not a process in the middle of execution can be  interrupted",
+        "c": "Whether or not a blocked process can have its resources involuntarily taken away from it",
+        "d": "Waiting time is more in preemptive scheduling and less in non-preemptive"
       },
       "explanations": {
-        "a": "Explanation 1  <a href='www.google.com'>here</a>",
-        "b": "Explanation 2",
+        "a": "Explanation 1",
+        "b": "Preemptive scheduling - Processor can be preempted to execute a different process in the middle of execution of any current process.Non-preemptive scheduling - Once a Processor starts to execute a process it must finish it before executing the other. It cannot be paused in the middle.",
         "c": "Explanation 2",
         "d": "Explanation 2"
       },
-      "correctAnswer": "a",
+      "correctAnswer": "b",
       "difficulty": "beginner"
     },
     {
