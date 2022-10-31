@@ -53,5 +53,23 @@
       "correctAnswer": "c",
       "difficulty": "beginner"
     }
+    ,
+    {
+      "question": "In RR algorithm the new process will go to the :",
+      "answers": {
+        "a": "top of the ready queue",
+        "b": "tail of the ready queue",
+        "c": "anywhere in the ready queue",
+        "d": "None of the above"
+      },
+      "explanations": {
+        "a": "Explanation 1  <a href='www.google.com'>here</a>",
+        "b": "Explanation 2",
+        "c": "Explanation 2",
+        "d": "Explanation 2"
+      },
+      "correctAnswer": "b",
+      "difficulty": "beginner"
+    }
   ]
 }
