@@ -32,6 +32,24 @@
         "c": "Explanation 2",
         "d": "Explanation 2"
       },
+      "correctAnswer": "a",
+      "difficulty": "beginner"
+    }
+    ,
+    {
+      "question": "The SJF algorithm is :",
+      "answers": {
+        "a": "nonpreemptive only",
+        "b": "preemptive only",
+        "c": "can be preeptive or non preemptive",
+        "d": "None of the above"
+      },
+      "explanations": {
+        "a": "Explanation 1  <a href='www.google.com'>here</a>",
+        "b": "Explanation 2",
+        "c": "Explanation 2",
+        "d": "Explanation 2"
+      },
       "correctAnswer": "c",
       "difficulty": "beginner"
     }
