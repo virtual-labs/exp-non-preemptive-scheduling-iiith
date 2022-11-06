@@ -21,20 +21,25 @@ let cpu_proc: Process | null = null;
 let prempt: number = 0;
 // const cpu_time = 2;
 
+const get_process = (id: number) => {
+    const p = document.createElement('p');
+    p.classList.add("process");
+    p.textContent = `P${id}`;
+    return p;
+}
+
 function update_ready_queue() {
-    const ready_queue = document.querySelector("#ready_queue .queue_body");
+    const ready_queue = document.querySelector("#ready_queue");
     ready_queue.innerHTML = "";
-    ready.forEach((process: Process) => {
+    ready.forEach((process: Process, index: number) => {
+        const sec = document.createElement('section');
+        sec.classList.add("queue_element");
+        sec.appendChild(get_process(process.id));
         const p = document.createElement('p');
-        p.textContent = "P" + String(process.id);
-        p.classList.add('process');
-        ready_queue.appendChild(p);
-        p.onclick = () => {
-            console.log("hello eswar")
-            cpu_proc = process;
-            ready = ready.filter(proc => proc.id !== process.id);
-            update();
-        }
+        p.textContent = String(index);
+        p.classList.add('q_index');
+        sec.appendChild(p);
+        ready_queue.appendChild(sec);
     });
 }
 
@@ -82,7 +87,7 @@ function update_instruction() {
     if (completed.length == 6) {
         inst = "Well Done! You have completed running all processes."
     }
-    else if (processes.length > 0 && processes[0].start_time == current_time) {
+    else if (processes.length > 0 && processes[0].start_time <= current_time) {
         inst = `There is a new process P${processes[0].id} request please create it`;
     }
     else if (cpu_proc === null && ready.length > 0) {
@@ -132,9 +137,16 @@ document.getElementById("advance_clock").onclick = () => {
     update();
 }
 
+const get_index = () => {
+    if(ready.length == 0) return 0;
+    let id: number = Number(prompt("Enter the index to insert process: ", ""));
+    return id;
+}
+
 document.getElementById("create").onclick = () => {
     if (processes.length > 0 && processes[0].start_time == current_time) {
-        ready.push(processes[0]);
+        const ind = get_index();
+        ready.splice(ind, 0, processes[0]);
         processes.shift();
         update();
     }
@@ -142,7 +154,8 @@ document.getElementById("create").onclick = () => {
 
 document.getElementById("prempt").onclick = () => {
     if (cpu_proc !== null && prempt == quantum) {
-        ready.push(cpu_proc);
+        const ind = get_index();
+        ready.splice(ind, 0, cpu_proc);
         cpu_proc = null;
         prempt = 0;
         update();
@@ -169,7 +182,8 @@ document.getElementById("collect").onclick = () => {
         }
     }
     process.io.start_time = -1;
-    ready.push(process);
+    const ind = get_index();
+    ready.splice(ind, 0, process);
     io = io.filter(proc => proc.id !== process.id);
     update();
 }
@@ -179,6 +193,14 @@ document.getElementById("kill").onclick = () => {
         completed.push(cpu_proc);
         cpu_proc = null;
         prempt = 0;
+        update();
+    }
+}
+
+document.getElementById("load").onclick = () => {
+    console.log("hello eswar");
+    if (cpu_proc === null && ready.length > 0) {
+        cpu_proc = ready.shift();
         update();
     }
 }
