@@ -57,7 +57,7 @@ html, body, main {
     border: solid;
     border-radius: 10px;
 }
-.ready_queue {
+#ready_queue {
 	display: flex;
 	width: 50%;
 	justify-content: space-around;
@@ -113,7 +113,7 @@ html, body, main {
     display: flex;
     justify-content: center;
     align-items: center;
-    cursor: pointer;
+    /* cursor: pointer; */
     font-weight: bold;
 }
 .controls {
