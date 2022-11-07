@@ -10,3 +10,10 @@
   - Has detailed discriptions on what algorithms are,their purpose and objectives
   - has examples for each algorithm that u can practice to understand
   - has clear characterists along with the pro's and cons's for each algorithm
+
+
+## Go here for more quizes:
+
+* https://examradar.com/process-scheduling-algorithm-fcfs-first-come-first-serve-questions-answers/
+* https://examradar.com/shortest-job-first-sjf-scheduling-algorithms-questions-answers/
+* https://examradar.com/shortest-job-first-sjf-scheduling-algorithms-questions-answers/
