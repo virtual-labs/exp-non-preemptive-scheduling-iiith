@@ -2,7 +2,7 @@
   "version": 2.0,
   "questions": [
     {
-      "question": "Each process has given a fairly _____ time and is concidered to be ____ type of algorithm",
+      "question": "In RR each process has given a fairly _____ time and is concidered to be ____ type of algorithm",
       "answers": {
         "a": "fixed,preemptive",
         "b": "random,non-preemptive",
@@ -33,6 +33,23 @@
         "d": "its biggest draw back is wait time causing a convoy effect but FIFO is correct"
       },
       "correctAnswer": "b",
+      "difficulty": "beginner"
+    },
+      {
+      "question": "In SJF algorithm the process to be executded is based on the _____ and has ______ ",
+      "answers": {
+        "a": "shortest execution time,high wait time",
+        "b": "priority,high wait time",
+        "c": "shortest execution time,low wait time",
+        "d": "priority,low wait time"
+      },
+      "explanations": {
+        "a": "",
+        "b": "",
+        "c": "",
+        "d": ""
+      },
+      "correctAnswer": "c",
       "difficulty": "beginner"
     }
   ]
