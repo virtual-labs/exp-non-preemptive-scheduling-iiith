@@ -2,37 +2,37 @@
   "version": 2.0,
   "questions": [
     {
-      "question": "This is a Sample Question 1?",
+      "question": "Each process has given a fairly _____ time and is concidered to be ____ type of algorithm",
       "answers": {
-        "a": "answer1",
-        "b": "answer2",
-        "c": "answer3",
-        "d": "answer4"
+        "a": "fixed,preemptive",
+        "b": "random,non-preemptive",
+        "c": "fixed,non-preemptive",
+        "d": "random,preemptive"
       },
       "explanations": {
-        "a": "Explanation 1  <a href='www.google.com'>here</a>",
-        "b": "Explanation 2",
-        "c": "Explanation 2",
-        "d": "Explanation 2"
+        "a": "Round robin seems to be fair as every process gets an equal share of CPU.",
+        "b": "neither is true",
+        "c": "while it is fixed it is not non preemptive",
+        "d": "preemptive but not random"
       },
       "correctAnswer": "a",
       "difficulty": "beginner"
     },
     {
-      "question": "This is a Sample Question 2?",
+      "question": "The main drawback of FCFS algorithm is ____ and is implemented by using ____ queue",
       "answers": {
-        "a": "answer1",
-        "b": "answer2",
-        "c": "answer3",
-        "d": "answer4"
+        "a": "process starvation,FILO",
+        "b": "wait time,FIFO",
+        "c": "wait time,FILO",
+        "d": "overload on CPU,FIFO"
       },
       "explanations": {
-        "a": "Explanation 1  <a href='www.google.com'>here</a>",
-        "b": "Explanation 2",
-        "c": "Explanation 2",
-        "d": "Explanation 2"
+        "a": "its biggest draw back is wait time causing a convoy effect and follows FIFO",
+        "b": "its biggest draw back is wait time causing a convoy effect and does follow FIFO queue,FIFO stands for First in First Out and this is what is used in FCFS algorithm.",
+        "c": "its biggest draw back is wait time causing a convoy effect and follows FIFO queue",
+        "d": "its biggest draw back is wait time causing a convoy effect but FIFO is correct"
       },
-      "correctAnswer": "c",
+      "correctAnswer": "b",
       "difficulty": "beginner"
     }
   ]
