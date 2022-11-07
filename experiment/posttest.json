@@ -44,12 +44,29 @@
         "d": "priority,low wait time"
       },
       "explanations": {
-        "a": "",
-        "b": "",
-        "c": "",
-        "d": ""
+        "a": "Incorrect",
+        "b": "Incorrect",
+        "c": "Correct",
+        "d": "Incorrect"
       },
       "correctAnswer": "c",
+      "difficulty": "beginner"
+    },
+    {
+      "question": "Select the correct order in which the complexities of the algorithms go from least to highest.",
+      "answers": {
+        "a": "FCFS<SJF<RR",
+        "b": "SJF<FCFS<RR",
+        "c": "fRR<SJF<FCFS",
+        "d": "SJF<RR<FCFS"
+      },
+      "explanations": {
+        "a": "Correct",
+        "b": "Incorrect",
+        "c": "Incorrect",
+        "d": "Incorrect"
+      },
+      "correctAnswer": "a",
       "difficulty": "beginner"
     }
   ]
