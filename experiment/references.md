@@ -10,6 +10,8 @@
   - Has detailed discriptions on what algorithms are,their purpose and objectives
   - has examples for each algorithm that u can practice to understand
   - has clear characterists along with the pro's and cons's for each algorithm
+* https://www.tutorialspoint.com/preemptive-and-non-preemptive-scheduling
+  - basic explanation on what preemption and non preemption. 
 
 
 ## Go here for more quizes:
