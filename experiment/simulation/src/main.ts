@@ -4,6 +4,7 @@ let instruction = document.getElementById("instruction");
 instruction.textContent = "Nothing";
 
 let algo: string = "rr";
+let score: number = 0;
 
 // document.getElementById("policy-drpdwn").addEventListener("change", function(): void {
 //     algo = this.t
@@ -138,13 +139,17 @@ document.getElementById("advance_clock").onclick = () => {
 }
 
 const get_index = () => {
-    if(ready.length == 0) return 0;
+    if (ready.length == 0) return 0;
     let id: number = Number(prompt("Enter the index to insert process: ", ""));
+    if (algo == "rr" || algo == "fcfs") {
+        score = score + (ready.length === id ? 1 : -1);
+        console.log(score);
+    }
     return id;
 }
 
 document.getElementById("create").onclick = () => {
-    if (processes.length > 0 && processes[0].start_time == current_time) {
+    if (processes.length > 0 && processes[0].start_time <= current_time) {
         const ind = get_index();
         ready.splice(ind, 0, processes[0]);
         processes.shift();
@@ -163,7 +168,7 @@ document.getElementById("prempt").onclick = () => {
 }
 
 document.getElementById("goto_io").onclick = () => {
-    if (cpu_proc !== null && cpu_proc.cur_ticks === cpu_proc.io.start_time) {
+    if (cpu_proc !== null && cpu_proc.cur_ticks <= cpu_proc.io.start_time) {
         io.push(cpu_proc);
         console.log("In Goto IO");
         console.log(cpu_proc);
@@ -176,7 +181,7 @@ document.getElementById("goto_io").onclick = () => {
 document.getElementById("collect").onclick = () => {
     let process: Process;
     for (let index = 0; index < io.length; index++) {
-        if (io[index].io.ticks === 0) {
+        if (io[index].io.ticks <= 0) {
             process = io[index];
             break;
         }
