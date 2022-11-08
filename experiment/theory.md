@@ -28,4 +28,15 @@ These two stages happen in cycles continuously until the process is completed
   - If the process goes from waiting -> ready
   - If the process goes from running -> kill
 
+* CPU scheduling can happen in 2 ways:
+  - Preemption
+  - Non preemption
+
+### Preemption:
+Here we give the CPU limited time slots or quantum to execute each process. Meaning the process might not be completely executed before it gets preempted back into the ready state.
+### Non preemption:
+Here the process holds onto the CPU until its execution gets completed. This means that unless the process gets an I/O call it won't leave the CPU.
+
+
+
 
