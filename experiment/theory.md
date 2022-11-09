@@ -37,6 +37,14 @@ Here we give the CPU limited time slots or quantum to execute each process. Mean
 ### Non preemption:
 Here the process holds onto the CPU until its execution gets completed. This means that unless the process gets an I/O call it won't leave the CPU.
 
+### First come first serve (FCFS):
+This algorithm simply schedules the process according to their arrival time. The process which comes first in the ready queue will get the CPU first. The lesser the arrival time of the process, the sooner the process will get the CPU. 
+
+### Shortest Job First(SJF):
+However, the SJF scheduling algorithm schedules the processes according to their burst time. The process with the lowest burst time, among the list of available processes in the ready queue, is going to be scheduled next.
+
+### Round Robin(RR):
+Round Robin scheduling algorithm is one of the most popular scheduling algorithms which can actually be implemented in most of the operating systems. This is the preemptive version of first come first serve scheduling. The Algorithm focuses on Time Sharing. In this algorithm, every process gets executed in a cyclic way. A certain time slice is defined in the system which is called time quantum. Each process present in the ready queue is assigned the CPU for that time quantum, if the execution of the process is completed during that time then the process will terminate else the process will go back to the ready queue and waits for the next turn to complete the execution.
 
 
 
