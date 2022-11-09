@@ -2,37 +2,71 @@
   "version": 2.0,
   "questions": [
     {
-      "question": "This is a Sample Question 1?",
+      "question": "In RR each process has given a fairly _____ time and is concidered to be ____ type of algorithm",
       "answers": {
-        "a": "answer1",
-        "b": "answer2",
-        "c": "answer3",
-        "d": "answer4"
+        "a": "fixed,preemptive",
+        "b": "random,non-preemptive",
+        "c": "fixed,non-preemptive",
+        "d": "random,preemptive"
       },
       "explanations": {
-        "a": "Explanation 1  <a href='www.google.com'>here</a>",
-        "b": "Explanation 2",
-        "c": "Explanation 2",
-        "d": "Explanation 2"
+        "a": "Round robin seems to be fair as every process gets an equal share of CPU.",
+        "b": "neither is true",
+        "c": "while it is fixed it is not non preemptive",
+        "d": "preemptive but not random"
       },
       "correctAnswer": "a",
       "difficulty": "beginner"
     },
     {
-      "question": "This is a Sample Question 2?",
+      "question": "The main drawback of FCFS algorithm is ____ and is implemented by using ____ queue",
       "answers": {
-        "a": "answer1",
-        "b": "answer2",
-        "c": "answer3",
-        "d": "answer4"
+        "a": "process starvation,FILO",
+        "b": "wait time,FIFO",
+        "c": "wait time,FILO",
+        "d": "overload on CPU,FIFO"
       },
       "explanations": {
-        "a": "Explanation 1  <a href='www.google.com'>here</a>",
-        "b": "Explanation 2",
-        "c": "Explanation 2",
-        "d": "Explanation 2"
+        "a": "its biggest draw back is wait time causing a convoy effect and follows FIFO",
+        "b": "its biggest draw back is wait time causing a convoy effect and does follow FIFO queue,FIFO stands for First in First Out and this is what is used in FCFS algorithm.",
+        "c": "its biggest draw back is wait time causing a convoy effect and follows FIFO queue",
+        "d": "its biggest draw back is wait time causing a convoy effect but FIFO is correct"
+      },
+      "correctAnswer": "b",
+      "difficulty": "beginner"
+    },
+      {
+      "question": "In SJF algorithm the process to be executded is based on the _____ and has ______ ",
+      "answers": {
+        "a": "shortest execution time,high wait time",
+        "b": "priority,high wait time",
+        "c": "shortest execution time,low wait time",
+        "d": "priority,low wait time"
+      },
+      "explanations": {
+        "a": "Incorrect",
+        "b": "Incorrect",
+        "c": "Correct",
+        "d": "Incorrect"
       },
       "correctAnswer": "c",
+      "difficulty": "beginner"
+    },
+    {
+      "question": "Select the correct order in which the complexities of the algorithms go from least to highest.",
+      "answers": {
+        "a": "FCFS<SJF<RR",
+        "b": "SJF<FCFS<RR",
+        "c": "fRR<SJF<FCFS",
+        "d": "SJF<RR<FCFS"
+      },
+      "explanations": {
+        "a": "Correct",
+        "b": "Incorrect",
+        "c": "Incorrect",
+        "d": "Incorrect"
+      },
+      "correctAnswer": "a",
       "difficulty": "beginner"
     }
   ]

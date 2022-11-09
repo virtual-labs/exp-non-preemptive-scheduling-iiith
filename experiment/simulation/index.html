@@ -1,13 +1,60 @@
 <!DOCTYPE html>
-<html>
-<head>
-	<!-- Add CSS at the head of HTML file -->
-    <link rel="stylesheet" href="./css/main.css">
-</head>
-<body>
-		<!-- Your code goes here-->
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CPU Scheduling</title>
+    <link rel="stylesheet" href="./dist/styles.css">
+  </head>
+  <body>
+      <main>
+      <section class="config">
+        <section class="policy">
+          <p id="algo">Policy</p>
+          <!-- <select name="algo" onChange={this.props.change_policy} id="algo"> -->
+          <select name="algo" id="policy">
+            <option value="rr" id="rr">Round Robin</option>
+            <option value="sjfp" id="sjfp">Shortest Job First Premptive</option>
+            <option value="sjfnp" id="sjfnp">Shortest Job First Non Premptive</option>
+            <option value="fcfs" id="fcfs">First Come First Serve</option>
+          </select>
+        </section>
+        <p id="instruction"></p>
+      </section>
+      <section class="exp">
+        <section class="row">
+          <section id="cpu">
+            <h4 class="queue_head">CPU</h4>
+            <section class="queue_body"></section>
+          </section>
+          <section class="queue" id="io_queue">
+            <h4 class="queue_head">I/O Queue</h4>
+            <section class="queue_body"></section>
+          </section>
+          <section class="queue" id="complete_pool">
+            <h4 class="queue_head">Completed Processes</h4>
+            <section class="queue_body"></section>
+          </section>
+        </section>
+        <section class="row row-1">
+          <h4 class="rq_head">Ready Queue</h4>
+          <section id="ready_queue">
+          </section>
+        </section>
+      </section>
+      <section class="controls">
+        <button class="button-18" role="button" id="create">Create</button>
+        <button class="button-18" role="button" id="advance_clock">Advance Clock</button>
+        <button id="load" class="button-18" role="button">Load</button>
+        <button class="button-18" role="button" id="prempt">Pre-empt</button>
+        <button class="button-18" role="button" id="goto_io">Goto-IO</button>
+        <button class="button-18" role="button" id="collect">Collect</button>
+        <button class="button-18" role="button" id="kill">Kill</button>
+      </section>
 
-	<!-- Add JS at the bottom of HTML file --> 
-        <script src="./js/main.js"></script>
-</body>
+    </main>
+    <script src="./dist/main.js"></script>
+  </body>
 </html>
+
