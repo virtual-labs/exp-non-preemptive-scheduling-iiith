@@ -1,5 +1,5 @@
 ### Procedure
-We will be covering these policies in the case of priority:
+You will be covering these policies in the case of priority:
 * Round Robin
 * Shortest Job First(Preemption,Non-preemption)
 * First Come First Serve (Non-preemption)
