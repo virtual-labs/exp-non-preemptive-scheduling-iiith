@@ -1,4 +1,3 @@
-### Link your references in here
 
 ## Go here for more information:
 * https://www.geeksforgeeks.org/cpu-scheduling-in-operating-systems/
