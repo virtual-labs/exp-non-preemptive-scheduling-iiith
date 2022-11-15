@@ -1,5 +1,3 @@
-### Link your theory in here\
-
 
 ## Why do we need CPU scheduling?
 Essentially the purpose of CPU scheduling is to enable multiprocessing by switching the CPU among the processes which makes the computer more productive
