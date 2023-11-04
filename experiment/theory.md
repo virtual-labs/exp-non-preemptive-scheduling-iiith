@@ -10,4 +10,11 @@ Before diving into the topic of scheduling, let us first clearly understand what
 
 **Scheduling** is the overall concept and process of determining the order in which processes or tasks are executed on the CPU. It encompasses the strategies and algorithms used to make decisions about when and for how long each process runs on the CPU. It ensures fairness, optimizing resource utilization, and achieving specific system performance goals.
 
-**Scheduler** is the actual software entity responsible for executing the software policies defined by the OS. The scheduler code is implemented as a part of the kernel code.
+**Scheduler** is the actual *software entity* responsible for executing the software policies defined by the OS. The scheduler code is implemented as a part of the kernel code.
+
+-----------------
+### Key aspects of scheduling include:
+
+> Process Prioritization: Each process is assigned a priority or a scheduling class, which determines its relative importance in the scheduling algorithm.
+
+> Scheduling Algorithms: Various scheduling algorithms, such as First-Come-First-Serve (FCFS), Round Robin, Priority Scheduling, and Shortest Job First (SJF), are used to decide which process should run next. These algorithms are responsible for making the actual scheduling decisions based on process priorities, runtimes, and other criteria.
