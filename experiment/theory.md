@@ -10,4 +10,4 @@ Before diving into the topic of scheduling, let us first clearly understand what
 
 **Scheduling** is the overall concept and process of determining the order in which processes or tasks are executed on the CPU. It encompasses the strategies and algorithms used to make decisions about when and for how long each process runs on the CPU. It ensures fairness, optimizing resource utilization, and achieving specific system performance goals.
 
-**Scheduler** is the actual software entity responsible for executing the software policies defined by the OS.
+**Scheduler** is the actual software entity responsible for executing the software policies defined by the OS. The scheduler code is implemented as a part of the kernel code.
