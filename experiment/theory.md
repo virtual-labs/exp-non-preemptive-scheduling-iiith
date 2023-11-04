@@ -15,6 +15,6 @@ Before diving into the topic of scheduling, let us first clearly understand what
 -----------------
 ### Key aspects of scheduling include:
 
-> Process Prioritization: Each process is assigned a priority or a scheduling class, which determines its relative importance in the scheduling algorithm.
+* Process Prioritization: Each process is assigned a priority or a scheduling class, which determines its relative importance in the scheduling algorithm.
 
-> Scheduling Algorithms: Various scheduling algorithms, such as First-Come-First-Serve (FCFS), Round Robin, Priority Scheduling, and Shortest Job First (SJF), are used to decide which process should run next. These algorithms are responsible for making the actual scheduling decisions based on process priorities, runtimes, and other criteria.
+* Scheduling Algorithms: Various scheduling algorithms, such as First-Come-First-Serve (FCFS), Round Robin, Priority Scheduling, and Shortest Job First (SJF), are used to decide which process should run next. These algorithms are responsible for making the actual scheduling decisions based on process priorities, runtimes, and other criteria.
