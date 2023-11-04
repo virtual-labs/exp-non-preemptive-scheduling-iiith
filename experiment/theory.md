@@ -6,3 +6,6 @@ Similar to that of context switching, the mechanism of **scheduling** is also a 
 
 ## Scheduling and Scheduler
 
+Before diving into the topic of scheduling, let us first clearly understand what scheduling and scheduler means. 
+
+**Scheduling** is the overall concept and process of determining the order in which processes or tasks are executed on the CPU. It encompasses the strategies and algorithms used to make decisions about when and for how long each process runs on the CPU. It ensures fairness, optimizing resource utilization, and achieving specific system performance goals.
