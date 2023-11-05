@@ -12,6 +12,8 @@ Before diving into the topic of scheduling, let us first clearly understand what
 
 **Scheduler** is the actual *software entity* responsible for executing the software policies defined by the OS. The scheduler code is implemented as a part of the kernel code.
 
+> Note: The objective of this experiment is to understand process of scheduling and we won't go into in-depth analysis of the scheduling algorithms used by the operating systems.
+
 -----------------
 
 ### The scheduler performs the following tasks:
@@ -24,4 +26,16 @@ Before diving into the topic of scheduling, let us first clearly understand what
 
 * **Managing the Ready Queue:** It maintains a ready queue or a list of processes that are in a state to execute and selects processes from this queue for execution.
 
-> **Note:** Context switching is not a subpart of scheduling or a job done by the scheduler. It is an independent mechanism which aids the OS to implement the decision (which process to run next) made by the scheduler. 
+> **Note:** Context switching is not a subpart of scheduling or a job done by the scheduler. It is an independent mechanism which aids the OS to implement the decision (which process to run next) made by the scheduler.
+
+## Why do we need scheduling?
+
+We now have a basic understanding of what scheduler is. But why is it important in process management? 
+
+Well, the answer is simple. It is because not all processes are equally important. Some processes demand immediate attention by the OS (Example: interrupts). The currently running process on the CPU, no matter whether it is a user process or a kernel process, will be replaced the interrupt handler to deal with the interrupt. 
+
+You might think that the process will resume it's execution after the CPU executes the interupt handler. Yes, it true! But the resumption of the process execution doesn't necessarily happen immediately after interrupt handling. 
+
+The previous process, let's say 'P', when swapped out of the CPU, goes and waits in the ready queue for the CPU to handle the interrupt. And this ready queue doesn't contain only one process 'P' waiting in it. There are many other programs waiting for the CPU. This is where the **scheduler** comes into play. It manages the ready queue, i.e., it lines up all the processes waiting in a queue using the scheduling algorithm defined by the OS and rearranges the queue in such a way that the head of the 
+
+
