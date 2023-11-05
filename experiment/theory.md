@@ -32,10 +32,39 @@ Before diving into the topic of scheduling, let us first clearly understand what
 
 We now have a basic understanding of what scheduler is. But why is it important in process management? 
 
-Well, the answer is simple. It is because not all processes are equally important. Some processes demand immediate attention by the OS (Example: interrupts). The currently running process on the CPU, no matter whether it is a user process or a kernel process, will be replaced the interrupt handler to deal with the interrupt. 
+Almost all programs have some alternating cycle of CPU usage and waiting for I/O of some kind. ( Even a simple fetch from memory takes a long time relative to CPU speeds. )
+In a simple system running a single process, the time spent waiting for I/O is wasted, and those CPU cycles are lost forever. A scheduling system allows one process to use the CPU while another is waiting for I/O, thereby making full use of otherwise lost CPU cycles.
 
-You might think that the process will resume it's execution after the CPU executes the interupt handler. Yes, it true! But the resumption of the process execution doesn't necessarily happen immediately after interrupt handling. 
+**CPU-I/O Burst Cycle**
 
-The previous process, let's say 'P', when swapped out of the CPU, goes and waits in the ready queue for the CPU to handle the interrupt. And this ready queue doesn't contain only one process 'P' waiting in it. There are many other programs waiting for the CPU. This is where the **scheduler** comes into play. It manages the ready queue, i.e., it lines up all the processes waiting in a queue using the scheduling algorithm defined by the OS and rearranges the queue in such a way that the head of the 
+Almost all processes alternate between two important in a continuing cycle:
+* A CPU burst (running state) of performing calculations, and
+* An I/O burst (waiting state), waiting for data transfer in or out of the system.
+
+There is also a ready state where the process is ready to use the CPU resources but let us look at how the process execution flow looks like if no other process is allowed to compete for the CPU resources before the current process executes till it's completion.
+
+
+
+### Step-by-step flow of scheduling mechanism
+Some processes demand immediate attention by the OS (Example: Interrupts). The currently running process on the CPU, no matter whether it is a user process or a kernel process, will be replaced by the interrupt handler to deal with the interrupt. 
+
+You might think that the process will resume it's execution after the CPU executes the interupt handler. Yes, its true! But the resumption of the process execution doesn't necessarily happen immediately after interrupt handling. 
+
+The previous process, let's say 'P', when swapped out of the CPU, goes and waits in the ready queue for the CPU to handle the interrupt. And this ready queue doesn't contain only one process 'P' waiting in it. There are many other programs waiting for the CPU. This is where the **scheduler** comes into play. Whenever the CPU becomes idle, it is the job of the CPU Scheduler ( a.k.a. the short-term scheduler ) to select another process from the ready queue to run next. It manages the ready queue, i.e., it lines up all the processes waiting in a queue using the scheduling algorithm defined by the OS and rearranges the queue in such a way that the first index of the queue is the next process to be executed on the CPU. There are various algorithms that the OS prefers to prioritize one process over another. They will be discussed in later sections.
+
+> Note: As we have mentioned previously, scheduling only a concept and scheduler is the one that implements it. And scheduler is a software module and it has to run on the CPU to schedule the processes in the ready queue.
+
+There are two major kinds of scheduling, preemptive and non-preemptive. But before that, there are few terminologies we need to be familiar with.
+Almost all programs have some alternating cycle of CPU number crunching and waiting for I/O of some kind. ( Even a simple fetch from memory takes a long time relative to CPU speeds. )
+In a simple system running a single process, the time spent waiting for I/O is wasted, and those CPU cycles are lost forever.
+
+* **Burst Time:** 
+## Types of scheduling
+
+**Non-preemptive scheduling:** The simplest case of process execution is where the processes run till completion. Then the scheduler runs on the CPU and chooses the earliest arriving process. This is basically the **first-come-first-serve (FCFS)** idea. In this kind of process, there is no chance that any arrival of a new process can halt the current process's execution and replace it. Every new incoming process has to wait in the ready queue before the scheduler finally permits it to use the CPU. This kind of scheduling is called non-preemptive scheduling. Few other examples of non-preemptive scheduling are Shortest-job first(SJF) and Priority scheduling.
+
+-------------
+
+**Preemptive scheduling:** Preemptive cpu scheduling algorithms may take the cpu away from a running process BEFORE it has finished its current cpu burst.
 
 
