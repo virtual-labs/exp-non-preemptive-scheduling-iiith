@@ -13,18 +13,13 @@ Before diving into the topic of scheduling, let us first clearly understand what
 **Scheduler** is the actual *software entity* responsible for executing the software policies defined by the OS. The scheduler code is implemented as a part of the kernel code.
 
 -----------------
-### Key aspects of scheduling include:
-
-* **Process Prioritization:** Each process is assigned a priority or a scheduling class, which determines its relative importance in the scheduling algorithm.
-
-* **Scheduling Algorithms:** Various scheduling algorithms, such as First-Come-First-Serve (FCFS), Round Robin, Priority Scheduling, and Shortest Job First (SJF), are used to decide which process should run next. These algorithms are responsible for making the actual scheduling decisions based on process priorities, runtimes, and other criteria.
 
 ### The scheduler performs the following tasks:
 
-* Selecting Processes: It decides which process from the pool of ready processes should be granted access to the CPU. The specific scheduling algorithm used determines the selection criteria.
+* **Selecting Processes:** It decides which process from the pool of ready processes should be granted access to the CPU. The specific scheduling algorithm used determines the selection criteria.
 
-* Enforcing Priorities: If priority-based scheduling is in use, the scheduler ensures that higher-priority processes are given precedence over lower-priority ones.
+* **Enforcing Priorities:** If priority-based scheduling is in use, the scheduler ensures that higher-priority processes are given precedence over lower-priority ones.
 
-* Allocating CPU Time: The scheduler determines how much CPU time each process is allowed to use. In a preemptive scheduling system, it can interrupt the currently running process to allocate CPU time to a higher-priority process.
+* **Allocating CPU Time:** The scheduler determines how much CPU time each process is allowed to use. In a preemptive scheduling system, it can interrupt the currently running process to allocate CPU time to a higher-priority process.
 
-* Managing the Ready Queue: It maintains a ready queue or a list of processes that are in a state to execute and selects processes from this queue for execution.
+* **Managing the Ready Queue:** It maintains a ready queue or a list of processes that are in a state to execute and selects processes from this queue for execution.
