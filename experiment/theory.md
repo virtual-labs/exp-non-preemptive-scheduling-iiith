@@ -1,5 +1,5 @@
 # Scheduling in OS
-## Introdcution
+## Introduction
 By now you must have already realized that an Operating system (OS) is not a monolithic system and rather a complex and meticulous synchronization of various subsystems (Process Management subsytem, Memory management subsytem, I/O management subsystem etc..) that provide services to the user and applications. In the previous [Context Switching](https://virtual-labs.github.io/exp-context-switching-iiith/theory.html) experiment we have already seen Process Management sussystem, Error handling subsystem and I/O management subsystem working together to make a successful context switch between two processes.
 
 Similar to that of context switching, the mechanism of **scheduling** is also a part of 'Process Management Subsystem'. However, while context switching is responsible to **store, restore and load** the new context on the Central Processing Unit (CPU), scheduling is responsible for **selecting** or handing the over the next process ready to be executed on the CPU. We will discuss more about this in the following sections.
@@ -15,6 +15,16 @@ Before diving into the topic of scheduling, let us first clearly understand what
 -----------------
 ### Key aspects of scheduling include:
 
-* Process Prioritization: Each process is assigned a priority or a scheduling class, which determines its relative importance in the scheduling algorithm.
+* **Process Prioritization:** Each process is assigned a priority or a scheduling class, which determines its relative importance in the scheduling algorithm.
 
-* Scheduling Algorithms: Various scheduling algorithms, such as First-Come-First-Serve (FCFS), Round Robin, Priority Scheduling, and Shortest Job First (SJF), are used to decide which process should run next. These algorithms are responsible for making the actual scheduling decisions based on process priorities, runtimes, and other criteria.
+* **Scheduling Algorithms:** Various scheduling algorithms, such as First-Come-First-Serve (FCFS), Round Robin, Priority Scheduling, and Shortest Job First (SJF), are used to decide which process should run next. These algorithms are responsible for making the actual scheduling decisions based on process priorities, runtimes, and other criteria.
+
+### The scheduler performs the following tasks:
+
+* Selecting Processes: It decides which process from the pool of ready processes should be granted access to the CPU. The specific scheduling algorithm used determines the selection criteria.
+
+* Enforcing Priorities: If priority-based scheduling is in use, the scheduler ensures that higher-priority processes are given precedence over lower-priority ones.
+
+* Allocating CPU Time: The scheduler determines how much CPU time each process is allowed to use. In a preemptive scheduling system, it can interrupt the currently running process to allocate CPU time to a higher-priority process.
+
+* Managing the Ready Queue: It maintains a ready queue or a list of processes that are in a state to execute and selects processes from this queue for execution.
