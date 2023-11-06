@@ -53,7 +53,8 @@ In case the above command is not found on your system, then first install it usi
 
 The `iostat` command displays two reports. CPU utilization report and Device utilization report.
 
-> CPU Utilization Report
+**CPU Utilization Report**
+![cpu utilization report](./images/cpu_report.png)
 
 For multiprocessor systems, the CPU values are global averages among all processors. Below is a CPU utilization report generated on a linux machine.
 
