@@ -100,7 +100,7 @@ Due to space constraints, let us represent readyQ with **rQ** and Ptime Map with
 
 Now let us look at the below transition diagram and understand how scheduling mechanism changes the system state.
 
-
+![transition diagram](./images/ts_states.png)
 
 Let us have a deeper look at this CPU-I/O burst cycles. Use the below command and run it on your linux machine to get a deeper view of how processes utilize I/O systems and CPU.
 ```
