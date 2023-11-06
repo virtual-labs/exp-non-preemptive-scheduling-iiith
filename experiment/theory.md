@@ -54,9 +54,31 @@ In case the above command is not found on your system, then first install it usi
 The `iostat` command displays two reports. CPU utilization report and Device utilization report.
 
 **CPU Utilization Report**
-![cpu utilization report](./images/cpu_report.png)
 
 For multiprocessor systems, the CPU values are global averages among all processors. Below is a CPU utilization report generated on a linux machine.
+
+![cpu utilization report](./images/cpu_report.png)
+
+What does the above report indicate?
+
+<table>
+  <tr>
+    <td>%user</td>
+    <td>percentage of CPU utilization that while executing at user level.</td>
+  </tr>
+  <tr>
+    <td>%system</td>
+    <td>Percentage of CPU utilization while executing at kernel level.</td>
+  </tr>
+  <tr>
+    <td>%iowait</td>
+    <td>Percentage of time that the CPU or CPUs were idle due to an I/O request.</td>
+  </tr>
+  <tr>
+    <td>%idle</td>
+    <td>Percentage of time that the CPU or CPUs were idle without an I/O request.</td>
+  </tr>
+</table>
 
 
 ### Step-by-step flow of scheduling mechanism
