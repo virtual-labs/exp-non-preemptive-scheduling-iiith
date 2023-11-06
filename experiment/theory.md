@@ -64,7 +64,7 @@ What does the above report indicate?
 <table>
   <tr>
     <td>%user</td>
-    <td>percentage of CPU utilization that while executing at user level.</td>
+    <td>Percentage of CPU utilization that while executing at user level.</td>
   </tr>
   <tr>
     <td>%system</td>
