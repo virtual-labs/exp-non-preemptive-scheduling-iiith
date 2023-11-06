@@ -64,8 +64,11 @@ What does the above report indicate?
 <table>
   <tr>
     <td>%user</td>
-    <td>Percentage of CPU utilization that while executing at user level.</td>
+    <td>Percentage of CPU utilization while executing at user level.</td>
   </tr>
+  <tr>
+    <td>%nice</td>
+    <td>Percentage of CPU utilization while executing at user level with nice priority.</td>
   <tr>
     <td>%system</td>
     <td>Percentage of CPU utilization while executing at kernel level.</td>
@@ -76,7 +79,7 @@ What does the above report indicate?
   </tr>
   <tr>
     <td>%idle</td>
-    <td>Percentage of time that the CPU or CPUs were idle without an I/O request.</td>
+    <td>Percentage of time that the CPU or CPUs on idle time (no processes, and not waiting on a disk read/write).</td>
   </tr>
 </table>
 
