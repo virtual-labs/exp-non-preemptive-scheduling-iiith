@@ -45,7 +45,17 @@ There is also a ready state where the process is ready to use the CPU resources 
 
 ![CPU I/O Burst cycle](./images/CPU_IO_cycle.png)
 
-In general, the I/O burst time is much higher than that of the CPU burst time. Which means that the CPU is idle for most of it's time. Instead of making CPU wait for the I/O request to be fulfilled, it would be more efficient if we use these clock cycles for other waiting processes. Scheduling does a pretty good job in utilising the CPU cycles efficiently. There are few other methods like caching, and parallelization to reduce the wastage of clock cycles and decrease the I/O wait time but scheduling is 
+In general, the I/O burst time is much higher than that of the CPU burst time. Which means that the CPU is idle for most of it's time. Instead of making CPU wait for the I/O request to be fulfilled, it would be more efficient if we use these clock cycles for other waiting processes. Scheduling does a pretty good job in utilising the CPU cycles efficiently. There are few other methods like caching, and parallelization to reduce the wastage of clock cycles and decrease the I/O wait time but scheduling mechanism is the one that helps the CPU cycles to be utilized more efficiently.
+
+## Types of scheduling
+
+**Non-preemptive scheduling:** The simplest case of process execution is where the processes run till completion. Then the scheduler runs on the CPU and chooses the earliest arriving process. This is basically the **first-come-first-serve (FCFS)** idea. In this kind of process, there is no chance that any arrival of a new process can halt the current process's execution and replace it. Every new incoming process has to wait in the ready queue before the scheduler finally permits it to use the CPU. This kind of scheduling is called non-preemptive scheduling. Few other examples of non-preemptive scheduling are Shortest-job first(SJF) and Priority scheduling.
+
+-------------
+
+**Preemptive scheduling:** Preemptive cpu scheduling algorithms may take the cpu away from a running process BEFORE it has finished its current cpu burst.
+
+
 
 Let us have a deeper look at this CPU-I/O burst cycles. Use the below command and run it on your linux machine to get a deeper view of how processes utilize I/O systems and CPU.
 ```
