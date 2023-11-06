@@ -41,7 +41,9 @@ Almost all processes alternate between two important in a continuing cycle:
 * A CPU burst (running state) of performing calculations, and
 * An I/O burst (waiting state), waiting for data transfer in or out of the system.
 
-There is also a ready state where the process is ready to use the CPU resources but let us look at how the process execution flow looks like if no other process is allowed to compete for the CPU resources before the current process executes till it's completion.
+There is also a ready state where the process is ready to use the CPU resources but let us look at how the process execution flow looks like if no other process is allowed to compete for the CPU resources before the current process executes till it's completion. Below figure shows a simple alternating CPU and I/O burst cycle.
+
+![CPU I/O Burst cycle](./images/CPU_IO_cycle.png)
 
 
 
