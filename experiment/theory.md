@@ -32,19 +32,30 @@ Before diving into the topic of scheduling, let us first clearly understand what
 
 We now have a basic understanding of what scheduler is. But why is it important in process management? 
 
-Almost all programs have some alternating cycle of CPU usage and waiting for I/O of some kind. ( Even a simple fetch from memory takes a long time relative to CPU speeds. )
+Almost all programs have some alternating cycle of CPU usage and waiting for I/O of some kind.
 In a simple system running a single process, the time spent waiting for I/O is wasted, and those CPU cycles are lost forever. A scheduling system allows one process to use the CPU while another is waiting for I/O, thereby making full use of otherwise lost CPU cycles.
 
 **CPU-I/O Burst Cycle**
 
-Almost all processes alternate between two important in a continuing cycle:
+Almost all processes alternate between two important time periods in a continuing cycle:
 * A CPU burst (running state) of performing calculations, and
 * An I/O burst (waiting state), waiting for data transfer in or out of the system.
 
-There is also a ready state where the process is ready to use the CPU resources but let us look at how the process execution flow looks like if no other process is allowed to compete for the CPU resources before the current process executes till it's completion. Below figure shows a simple alternating CPU and I/O burst cycle.
+There is also a ready state where the process is ready to use the CPU resources but let us just look at how the process execution flow looks like if no other process is allowed to compete for the CPU resources before the current process executes till it's completion. Below figure shows a simple alternating CPU and I/O burst cycle.
 
 ![CPU I/O Burst cycle](./images/CPU_IO_cycle.png)
 
+Let us have a deeper look at this CPU-I/O burst cycles. Use the below command and run it on your linux machine to get a deeper view of how processes utilize I/O systems and CPU.
+```
+iostat
+```
+In case the above command is not found on your system, then first install it using `sudo apt install sysstat` and then run the above command again.
+
+The `iostat` command displays two reports. CPU utilization report and Device utilization report.
+
+> CPU Utilization Report
+
+For multiprocessor systems, the CPU values are global averages among all processors. Below is a CPU utilization report generated on a linux machine.
 
 
 ### Step-by-step flow of scheduling mechanism
