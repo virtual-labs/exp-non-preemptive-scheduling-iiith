@@ -112,7 +112,10 @@ It is also important to remember that every time a scheduling occurs, the CPU ha
 
 ![graph](./images/graph.png)
 
-Let us have a deeper look at this CPU-I/O burst cycles. Use the below command and run it on your linux machine to get a deeper view of how processes utilize I/O systems and CPU.
+
+## Check how efficient your system is
+
+Let us have a deeper look at CPU-I/O burst cycles. This will give you an insight into how your CPU resources are utilized. Use the below command and run it on your linux machine to get a deeper view of how processes utilize I/O systems and the CPU.
 ```
 iostat
 ```
@@ -195,15 +198,3 @@ A **loop device** is a virtual or pseudo-device in Unix-like operating systems t
   
 </table>
 
-### Step-by-step flow of scheduling mechanism
-Some processes demand immediate attention by the OS (Example: Interrupts). The currently running process on the CPU, no matter whether it is a user process or a kernel process, will be replaced by the interrupt handler to deal with the interrupt. 
-
-You might think that the process will resume it's execution after the CPU executes the interupt handler. Yes, its true! But the resumption of the process execution doesn't necessarily happen immediately after interrupt handling. 
-
-The previous process, let's say 'P', when swapped out of the CPU, goes and waits in the ready queue for the CPU to handle the interrupt. And this ready queue doesn't contain only one process 'P' waiting in it. There are many other programs waiting for the CPU. This is where the **scheduler** comes into play. Whenever the CPU becomes idle, it is the job of the CPU Scheduler ( a.k.a. the short-term scheduler ) to select another process from the ready queue to run next. It manages the ready queue, i.e., it lines up all the processes waiting in a queue using the scheduling algorithm defined by the OS and rearranges the queue in such a way that the first index of the queue is the next process to be executed on the CPU. There are various algorithms that the OS prefers to prioritize one process over another. They will be discussed in later sections.
-
-> Note: As we have mentioned previously, scheduling only a concept and scheduler is the one that implements it. And scheduler is a software module and it has to run on the CPU to schedule the processes in the ready queue.
-
-There are two major kinds of scheduling, preemptive and non-preemptive. But before that, there are few terminologies we need to be familiar with.
-Almost all programs have some alternating cycle of CPU number crunching and waiting for I/O of some kind. ( Even a simple fetch from memory takes a long time relative to CPU speeds. )
-In a simple system running a single process, the time spent waiting for I/O is wasted, and those CPU cycles are lost forever.
