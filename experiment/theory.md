@@ -78,11 +78,17 @@ What does the above report indicate?
     <td>Percentage of time that the CPU or CPUs were idle due to an I/O request.</td>
   </tr>
   <tr>
+    <td>%steal</td>
+    <td>-</td>
+  <tr>
     <td>%idle</td>
     <td>Percentage of time that the CPU or CPUs on idle time (no processes, and not waiting on a disk read/write).</td>
   </tr>
 </table>
 
+**Device Utilization report**
+
+A loop device is a virtual or pseudo-device in Unix-like operating systems that allows a computer file to be accessed as a block device. A loop device maps its data blocks to the blocks of a regular file in a filesystem or to another block device.
 
 ### Step-by-step flow of scheduling mechanism
 Some processes demand immediate attention by the OS (Example: Interrupts). The currently running process on the CPU, no matter whether it is a user process or a kernel process, will be replaced by the interrupt handler to deal with the interrupt. 
