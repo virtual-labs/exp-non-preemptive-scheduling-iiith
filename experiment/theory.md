@@ -78,15 +78,13 @@ In general, most of the applications we use are I/O bound. Which means that the 
 Let us look at how the system state changes as the execution of processes starts on the CPU.
 
 Let us represent each state as 
-$$
-X_{s} = 
+$$X_{s} = 
 \begin{cases}
 readyQ: \overrightarrow{id}\\ 
 cpu: current pid\\
 Process Time Map: \overrightarrow{id} \rightarrow executedTime:TotalExecutionTime\\
 timer: T
-\end{cases}
-$$
+\end{cases}$$
 
 Let us have a deeper look at this CPU-I/O burst cycles. Use the below command and run it on your linux machine to get a deeper view of how processes utilize I/O systems and CPU.
 ```
