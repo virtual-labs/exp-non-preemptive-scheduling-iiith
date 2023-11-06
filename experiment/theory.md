@@ -90,6 +90,18 @@ X_{s} =
 \end{cases}
 $$
 
+Due to space constraints, let us represent readyQ with **rQ** and Ptime Map with **map**. A transition system can change it's state only when we have a function or action that triggers the state change. So let us define few basic functions that can change the state of a system.
+
+***timer_itr ():*** The hardware generates an interrupt whenever the Timer count reaches 0. This implies that the currect process running on the CPU has used up it's time quanta and need to move out so that other process can use the CPU.
+
+***syscall ():*** The currently running process encounters a trap (read, or exit) which would need it to release the CPU. A new process would likely come and use the CPU resources then.
+
+***sch():*** This schedule() function selects the next process to run on the CPU. 
+
+Now let us look at the below transition diagram and understand how scheduling mechanism changes the system state.
+
+
+
 Let us have a deeper look at this CPU-I/O burst cycles. Use the below command and run it on your linux machine to get a deeper view of how processes utilize I/O systems and CPU.
 ```
 iostat
