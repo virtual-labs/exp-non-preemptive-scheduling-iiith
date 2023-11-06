@@ -30,7 +30,7 @@ Before diving into the topic of scheduling, let us first clearly understand what
 
 ## Why do we need scheduling?
 
-We now have a basic understanding of what scheduler is. But why is it important in process management? 
+We now have a basic understanding of what a scheduler is. But why is it important in process management? 
 
 Almost all programs have some alternating cycle of CPU usage and waiting for I/O of some kind.
 In a simple system running a single process, the time spent waiting for I/O is wasted, and those CPU cycles are lost forever. A scheduling system allows one process to use the CPU while another is waiting for I/O, thereby making full use of otherwise lost CPU cycles.
@@ -77,7 +77,16 @@ In general, most of the applications we use are I/O bound. Which means that the 
 
 Let us look at how the system state changes as the execution of processes starts on the CPU.
 
-Let us represent each state as $$X_{s} = (readyQ: \overrightarrow{id}, cpu: current pid, Process_Time_Map: \overrightarrow{id} \rightarrow executed_time:total_execution_time, timer: T)$$
+Let us represent each state as 
+$$
+X_{s} = 
+\begin{cases}
+readyQ: \overrightarrow{id}\\ 
+cpu: current pid\\
+Process Time Map: \overrightarrow{id} \rightarrow executedTime:TotalExecutionTime\\
+timer: T
+\end{cases}
+$$
 
 Let us have a deeper look at this CPU-I/O burst cycles. Use the below command and run it on your linux machine to get a deeper view of how processes utilize I/O systems and CPU.
 ```
