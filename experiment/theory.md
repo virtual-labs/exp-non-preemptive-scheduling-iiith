@@ -55,6 +55,8 @@ In general, most of the applications we use are I/O bound. Which means that the 
 
 [CPU and I/O burst cycles - Baeldung](https://www.baeldung.com/cs/cpu-io-burst-cycles)
 
+------------
+
 ## Types of scheduling
 
 **Non-preemptive scheduling:** The simplest case of process execution is where the processes run till completion. Then the scheduler runs on the CPU and chooses the earliest arriving process. This is basically the **first-come-first-serve (FCFS)** idea. In this kind of process, there is no chance that any arrival of a new process can halt the current process's execution and replace it. Every new incoming process has to wait in the ready queue before the scheduler finally permits it to use the CPU. This kind of scheduling is called non-preemptive scheduling. No matter how many I/O bursts the process has, the scheduler will not give the CPU a new process till the current one terminates. Few other examples of non-preemptive scheduling are Shortest-job first(SJF) and Priority scheduling.
@@ -71,6 +73,11 @@ In general, most of the applications we use are I/O bound. Which means that the 
 
 -------------
 
+## Transitional state view of scheduling
+
+Let us look at how the system state changes as the execution of processes starts on the CPU.
+
+Let us represent each state as $$ X_{s} = (readyQ: \overrightarrow{id}, cpu: current pid, Process_Time_Map: \overrightarrow{id} \rightarrow executed_time:total_execution_time, timer: T) $$
 
 Let us have a deeper look at this CPU-I/O burst cycles. Use the below command and run it on your linux machine to get a deeper view of how processes utilize I/O systems and CPU.
 ```
