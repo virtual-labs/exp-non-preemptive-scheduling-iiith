@@ -1,14 +1,6 @@
 # Scheduling in OS
 ## Introduction 
 
-$$
-f(x)=
-\begin{cases}
-1/d_{ij} & \quad \text{when $d_{ij} \leq 160$}\\ 
-0 & \quad \text{otherwise}
-\end{cases}
-$$
-
 By now you must have already realized that an Operating system (OS) is not a monolithic system and rather a complex and meticulous synchronization of various subsystems (Process Management subsytem, Memory management subsytem, I/O management subsystem etc..) that provide services to the user and applications. In the previous [Context Switching](https://virtual-labs.github.io/exp-context-switching-iiith/theory.html) experiment we have already seen Process Management sussystem, Error handling subsystem and I/O management subsystem working together to make a successful context switch between two processes.
 
 Similar to that of context switching, the mechanism of **scheduling** is also a part of 'Process Management Subsystem'. However, while context switching is responsible to **store, restore and load** the new context on the Central Processing Unit (CPU), scheduling is responsible for **selecting** or handing the over the next process ready to be executed on the CPU. We will discuss more about this in the following sections.
@@ -89,20 +81,12 @@ Let us look at how the system state changes as the execution of processes starts
 Let us represent each state as 
 
 $$
-f(x)=
-\begin{cases}
-1/d_{ij} & \quad \text{when $d_{ij} \leq 160$}\\ 
-0 & \quad \text{otherwise}
-\end{cases}
-$$
-
-$$
 X_{s} = 
 \begin{cases}
 \text{readyQ:} \overrightarrow{id} & \quad \text{A vectore representing all the processes in the ready queue.}\\ 
 \text{cpu: current pid} & \quad \text{current pid represents the current process running on the CPU.}\\
-\text{Process Time Map:} \overrightarrow{id} \rightarrow \overrightarrow{executedTime}:\overrightarrow{TotalExecutionTime} & \quad \text{Maps each process to the time they have spent on the CPU and the total time they need to complete their execution}\\
-\text{timer: T}
+\text{Ptime Map:} \overrightarrow{id} \rightarrow \overrightarrow{executedTime}:\overrightarrow{TotalExecutionTime} & \quad \text{Maps each process to the time they have spent on the CPU and the total time they need to complete their execution}\\
+\text{timer: T} & \quad \text{The amount of time after which the CPU is prompted to take a new process}
 \end{cases}
 $$
 
