@@ -101,7 +101,7 @@ X_{s} =
 \begin{cases}
 \text{readyQ:} \overrightarrow{id} & \quad \text{A vectore representing all the processes in the ready queue.}\\ 
 \text{cpu: current pid} & \quad \text{current pid represents the current process running on the CPU.}\\
-\text{Process Time Map:} \overrightarrow{id} \rightarrow \text{\overrightarrow{executedTime}:\overrightarrow{TotalExecutionTime}} & \quad \text{Maps each process to the time they have spent on the CPU and the total time they need to complete their execution}\\
+\text{Process Time Map:} \overrightarrow{id} \rightarrow \overrightarrow{executedTime}:\overrightarrow{TotalExecutionTime} & \quad \text{Maps each process to the time they have spent on the CPU and the total time they need to complete their execution}\\
 \text{timer: T}
 \end{cases}
 $$
