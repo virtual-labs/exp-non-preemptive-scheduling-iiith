@@ -45,16 +45,31 @@ There is also a ready state where the process is ready to use the CPU resources 
 
 ![CPU I/O Burst cycle](./images/CPU_IO_cycle.png)
 
-In general, the I/O burst time is much higher than that of the CPU burst time. Which means that the CPU is idle for most of it's time. Instead of making CPU wait for the I/O request to be fulfilled, it would be more efficient if we use these clock cycles for other waiting processes. Scheduling does a pretty good job in utilising the CPU cycles efficiently. There are few other methods like caching, and parallelization to reduce the wastage of clock cycles and decrease the I/O wait time but scheduling mechanism is the one that helps the CPU cycles to be utilized more efficiently.
+Process with more I/O bursts are called I/O bound, whereas processes with higher computation and need more CPU resources are termed as CPU bound. 
+
+In general, most of the applications we use are I/O bound. Which means that the CPU is idle for most of it's time. Instead of making CPU wait for the I/O request to be fulfilled, it would be more efficient if we use these clock cycles for other waiting processes. Scheduling does a pretty good job in utilising the CPU cycles efficiently. There are few other methods like caching, and parallelization to reduce the wastage of clock cycles and decrease the I/O wait time but scheduling mechanism is the one that helps the CPU cycles to be utilized more efficiently.
+
+### Resources
+
+[CPU bound and I/O bound - Wikipedia](https://en.wikipedia.org/wiki/I/O_bound)
+
+[CPU and I/O burst cycles - Baeldung](https://www.baeldung.com/cs/cpu-io-burst-cycles)
 
 ## Types of scheduling
 
-**Non-preemptive scheduling:** The simplest case of process execution is where the processes run till completion. Then the scheduler runs on the CPU and chooses the earliest arriving process. This is basically the **first-come-first-serve (FCFS)** idea. In this kind of process, there is no chance that any arrival of a new process can halt the current process's execution and replace it. Every new incoming process has to wait in the ready queue before the scheduler finally permits it to use the CPU. This kind of scheduling is called non-preemptive scheduling. Few other examples of non-preemptive scheduling are Shortest-job first(SJF) and Priority scheduling.
+**Non-preemptive scheduling:** The simplest case of process execution is where the processes run till completion. Then the scheduler runs on the CPU and chooses the earliest arriving process. This is basically the **first-come-first-serve (FCFS)** idea. In this kind of process, there is no chance that any arrival of a new process can halt the current process's execution and replace it. Every new incoming process has to wait in the ready queue before the scheduler finally permits it to use the CPU. This kind of scheduling is called non-preemptive scheduling. No matter how many I/O bursts the process has, the scheduler will not give the CPU a new process till the current one terminates. Few other examples of non-preemptive scheduling are Shortest-job first(SJF) and Priority scheduling.
 
 -------------
 
-**Preemptive scheduling:** Preemptive cpu scheduling algorithms may take the cpu away from a running process BEFORE it has finished its current cpu burst.
+**Preemptive scheduling:** Preemptive cpu scheduling algorithms may take the cpu away from a running process BEFORE it has finished it's burst time. In this kind of scheduling every process is given a **burst time** by the scheduler. The burst time is the amount of time the scheduler thinks would be enough to execute the process till the end. Note that the burst time of a process would only be known to the scheduler after the process completes it's entire execution. Till then, it only calculates the burst time based on the prior information of the execution times of the previous processes.
 
+### Resources
+
+[Process scheduling - Who goes to run next](https://people.cs.rutgers.edu/~pxk/416/notes/07-scheduling.html)
+
+[CPU scheduling - Finding the Burst time - Stack overflow](https://stackoverflow.com/questions/24848864/cpu-scheduling-finding-burst-time#:~:text=in%20general%20scheduler%20estimates%20the,CPU%20bursts%20for%20that%20process%20.)
+
+-------------
 
 
 Let us have a deeper look at this CPU-I/O burst cycles. Use the below command and run it on your linux machine to get a deeper view of how processes utilize I/O systems and CPU.
@@ -152,14 +167,3 @@ The previous process, let's say 'P', when swapped out of the CPU, goes and waits
 There are two major kinds of scheduling, preemptive and non-preemptive. But before that, there are few terminologies we need to be familiar with.
 Almost all programs have some alternating cycle of CPU number crunching and waiting for I/O of some kind. ( Even a simple fetch from memory takes a long time relative to CPU speeds. )
 In a simple system running a single process, the time spent waiting for I/O is wasted, and those CPU cycles are lost forever.
-
-* **Burst Time:** 
-## Types of scheduling
-
-**Non-preemptive scheduling:** The simplest case of process execution is where the processes run till completion. Then the scheduler runs on the CPU and chooses the earliest arriving process. This is basically the **first-come-first-serve (FCFS)** idea. In this kind of process, there is no chance that any arrival of a new process can halt the current process's execution and replace it. Every new incoming process has to wait in the ready queue before the scheduler finally permits it to use the CPU. This kind of scheduling is called non-preemptive scheduling. Few other examples of non-preemptive scheduling are Shortest-job first(SJF) and Priority scheduling.
-
--------------
-
-**Preemptive scheduling:** Preemptive cpu scheduling algorithms may take the cpu away from a running process BEFORE it has finished its current cpu burst.
-
-
