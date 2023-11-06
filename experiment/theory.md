@@ -88,9 +88,45 @@ What does the above report indicate?
 
 **Device Utilization report**
 
-A loop device is a virtual or pseudo-device in Unix-like operating systems that allows a computer file to be accessed as a block device. A loop device maps its data blocks to the blocks of a regular file in a filesystem or to another block device.
-
 ![Device Utilization Report](./images/device_report.png)
+
+A **loop device** is a virtual or pseudo-device in Unix-like operating systems that allows a computer file to be accessed as a block device. A loop device maps its data blocks to the blocks of a regular file in a filesystem or to another block device.
+
+<table>
+  <tr>
+    <td>Device</td>
+    <td>This column gives the device (or partition) name as listed in the `/dev` directory.</td>
+  </tr>
+  <tr>
+    <td>tps</td>
+    <td>It indicate the number of transfers per second that were issued to the device. A transfer is an I/O request to the device.</td>
+  </tr>
+  <tr>
+    <td>kB_read/s</td>
+    <td>Indicate the amount of data read from the device expressed in a number of kilobytes per second.</td>
+  </tr>
+  <tr>
+    <td>kB_wrtn/s</td>
+    <td>Indicate the amount of data written to the device expressed in a number of kilobytes per second.</td>
+  </tr>
+  <tr>
+    <td>kB_dscd/s</td>
+    <td>Indicate the amount of data discarded for the device expressed in a number of kilobytes per second.</td>
+  </tr>
+  <tr>
+    <td>kB_read</td>
+    <td>The total number of kilobytes read.</td>
+  </tr>
+  <tr>
+    <td>kB_wrtn</td>
+    <td>The total number of kilobytes written.</td>
+  </tr>
+  <tr>
+    <td>kB_dscd</td>
+    <td>The total number of kilobytes discarded.</td>
+  </tr>
+  
+</table>
 
 ### Step-by-step flow of scheduling mechanism
 Some processes demand immediate attention by the OS (Example: Interrupts). The currently running process on the CPU, no matter whether it is a user process or a kernel process, will be replaced by the interrupt handler to deal with the interrupt. 
