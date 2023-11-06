@@ -45,6 +45,8 @@ There is also a ready state where the process is ready to use the CPU resources 
 
 ![CPU I/O Burst cycle](./images/CPU_IO_cycle.png)
 
+In general, the I/O burst time is much higher than that of the CPU burst time. Which means that the CPU is idle for most of it's time. Instead of making CPU wait for the I/O request to be fulfilled, it would be more efficient if we use these clock cycles for other waiting processes. Scheduling does a pretty good job in utilising the CPU cycles efficiently. There are few other methods like caching, and parallelization to reduce the wastage of clock cycles and decrease the I/O wait time but scheduling is 
+
 Let us have a deeper look at this CPU-I/O burst cycles. Use the below command and run it on your linux machine to get a deeper view of how processes utilize I/O systems and CPU.
 ```
 iostat
