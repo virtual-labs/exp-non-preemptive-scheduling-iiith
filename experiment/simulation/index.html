@@ -6,7 +6,7 @@
     <meta charset="utf-8">
     <title>Home</title>
     <link rel="stylesheet" href="styles.css">
-    <script src="./main.js"></script>
+    <script src="./js/main.js"></script>
 </head>
 
 <body>
@@ -39,7 +39,7 @@
                                     <td class="ts_cell" id="rQ"></td>
                                 </tr>
                                 <tr>
-                                    <td class="ts_cell">Waiting:</td>
+                                    <td class="ts_cell">Waiting for I/O:</td>
                                     <td class="ts_cell" id="wQ"></td>
                                 </tr>
                                 <tr>
@@ -109,23 +109,23 @@
                         
 
                         <div class="tab-panels1">
-                            <section id="k_A" class="tab-panel1">
-                                <input type="number" placeholder="Burst Time"><button>Create process</button>
-                                <table id="kStackA">
+                            <section id="ready_pool" class="tab-panel1">
+                                <input type="number" placeholder="Burst Time" class="bt_input" id="Burst_time_value"><button class="pool-btns" onClick="CreateProcess()">Create process</button>
+                                <table id="ready_process">
 
                                 </table>
                             </section>
-                            <section id="k_B" class="tab-panel1">
+                            <section id="waiting_pool" class="tab-panel1">
                                 <p style="color: grey">
                                     <b>Note:</b>Select a process and click on the "I/O completed" button to move the process to the ready queue.
                                 </p>
-                                <button>I/O completed</button>
-                                <table id="kStackB">
+                                <input type="number" placeholder="Selected process" class="bt_input" disabled="true"><button class="pool-btns">I/O completed</button>
+                                <table id="waiting_process">
 
                                 </table>
                             </section>
-                            <section id="p_A" class="tab-panel1">
-                                <table id="pcbA">
+                            <section id="terminated_pool" class="tab-panel1">
+                                <table id="terminated_process">
 
                                 </table>
                             </section>  
@@ -145,10 +145,13 @@
             <hr>
             <table id="dialog">
                 <tr>
-                    <td class="msg">&#128203 Click the "Start" button in the 'Controls' section.</td>
+                    <td class="msg">&#128203 You can start the simulation by creating a new process in the ready pool.</td>
                 </tr>
             </table>
         </div>
+    </div>
+    <div>
+        <button class="schd-btn">Schedule</button>
     </div>
     <div class="container3">
         <h2>Know what's happening</h2>
@@ -218,72 +221,7 @@
                     process management within the operating system.</p>
             </div>
         </section>
-        <section class="accordion">
-            <input type="checkbox" name="collapse2" id="handle3">
-            <h2 class="handle">
-                <label for="handle3">Programs used</label>
-            </h2>
-            <div class="content">
-                <p><strong>Program A: Simple addition program</strong>
-                <pre>
-<code>
-#include <stdio.h>
-int main()
-{
-    int a, b, c;
-    a = 5;
-    b = 10;
-    c = a + b;
-    return c;
-}
-</code>
-</pre>
-                </p>
-                <p><strong>Program B: Read and add program</strong>
-                <pre>
-<code>
-#include <stdio.h>
-int main()
-{
-    int a, b, c;
-    a = 15;
-    scanf("%d", &b); 
-    c = a + b;
-    return c;
-}
-</code>
-</pre>
-                </p>
-            </div>
-        </section>
-
-        <section class="accordion">
-            <input type="checkbox" name="collapse2" id="handle4">
-            <h2 class="handle">
-                <label for="handle4">Scheduling in linux</label>
-            </h2>
-            <div class="content">
-                <p>
-                    Here are few commands that will help you understand the context switching in linux OS.
-                <pre>
-<code>
-$ grep ctxt /proc/$pid/status
-</code>
-</pre>
-                The above command will give you the number of context switches that have happened for the process with
-                the given pid. You can get the pid of a process using the following command.
-                <pre>
-<code>
-$ htop
-</code></pre>
-                Another good way to inspect a process on your system is using the <code>vmstat</code> command. This will
-                give you a detailed overview of the number of context switches, number of interrupts, and further
-                information like the cache used etc.
-
-                </p>
-            </div>
-        </section>
-
+        
 
         <section class="accordion">
             <input type="checkbox" name="collapse2" id="handle5">
