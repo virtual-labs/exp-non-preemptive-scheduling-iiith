@@ -10,10 +10,10 @@
         "d": "Waiting time is more in preemptive scheduling and less in non-preemptive"
       },
       "explanations": {
-        "a": "Incorrect",
+        "a": "Explanation 1",
         "b": "Preemptive scheduling - Processor can be preempted to execute a different process in the middle of execution of any current process.Non-preemptive scheduling - Once a Processor starts to execute a process it must finish it before executing the other. It cannot be paused in the middle.",
-        "c": "Incorrect",
-        "d": "Incorrect"
+        "c": "Explanation 2",
+        "d": "Explanation 2"
       },
       "correctAnswer": "b",
       "difficulty": "beginner"
@@ -27,10 +27,10 @@
         "d": "None of the above"
       },
       "explanations": {
-        "a": "Correct",
-        "b": "Incorrect",
-        "c": "Incorrect",
-        "d": "Incorrect"
+        "a": "Explanation 1  <a href='www.google.com'>here</a>",
+        "b": "Explanation 2",
+        "c": "Explanation 2",
+        "d": "Explanation 2"
       },
       "correctAnswer": "a",
       "difficulty": "beginner"
@@ -45,10 +45,10 @@
         "d": "None of the above"
       },
       "explanations": {
-        "a": "Incorrect",
-        "b": "Incorrect",
-        "c": "Correct",
-        "d": "Incorrect"
+        "a": "Explanation 1  <a href='www.google.com'>here</a>",
+        "b": "Explanation 2",
+        "c": "Explanation 2",
+        "d": "Explanation 2"
       },
       "correctAnswer": "c",
       "difficulty": "beginner"
@@ -63,10 +63,10 @@
         "d": "None of the above"
       },
       "explanations": {
-        "a": "Incorrect",
-        "b": "Correct ",
-        "c": "Incorrect",
-        "d": "Incorrect"
+        "a": "Explanation 1  <a href='www.google.com'>here</a>",
+        "b": "Explanation 2",
+        "c": "Explanation 2",
+        "d": "Explanation 2"
       },
       "correctAnswer": "b",
       "difficulty": "beginner"
