@@ -1,0 +1,75 @@
+{
+  "version": 2.0,
+  "questions": [
+    {
+      "question": "What is the difference between preemption and non-preemption?",
+      "answers": {
+        "a": "Whether or not a ready process can be involuntarily terminated",
+        "b": "Whether or not a process in the middle of execution can be  interrupted",
+        "c": "Whether or not a blocked process can have its resources involuntarily taken away from it",
+        "d": "Waiting time is more in preemptive scheduling and less in non-preemptive"
+      },
+      "explanations": {
+        "a": "Explanation 1",
+        "b": "Preemptive scheduling - Processor can be preempted to execute a different process in the middle of execution of any current process.Non-preemptive scheduling - Once a Processor starts to execute a process it must finish it before executing the other. It cannot be paused in the middle.",
+        "c": "Explanation 2",
+        "d": "Explanation 2"
+      },
+      "correctAnswer": "b",
+      "difficulty": "beginner"
+    },
+    {
+      "question": "In which of the following Algorithms does the first process get allocated to the CPU first?",
+      "answers": {
+        "a": "FCFS",
+        "b": "SJF",
+        "c": "Round Robin",
+        "d": "None of the above"
+      },
+      "explanations": {
+        "a": "Explanation 1  <a href='www.google.com'>here</a>",
+        "b": "Explanation 2",
+        "c": "Explanation 2",
+        "d": "Explanation 2"
+      },
+      "correctAnswer": "a",
+      "difficulty": "beginner"
+    }
+    ,
+    {
+      "question": "The SJF algorithm is :",
+      "answers": {
+        "a": "nonpreemptive only",
+        "b": "preemptive only",
+        "c": "can be preeptive or non preemptive",
+        "d": "None of the above"
+      },
+      "explanations": {
+        "a": "Explanation 1  <a href='www.google.com'>here</a>",
+        "b": "Explanation 2",
+        "c": "Explanation 2",
+        "d": "Explanation 2"
+      },
+      "correctAnswer": "c",
+      "difficulty": "beginner"
+    }
+    ,
+    {
+      "question": "In RR algorithm the new process will go to the :",
+      "answers": {
+        "a": "top of the ready queue",
+        "b": "tail of the ready queue",
+        "c": "anywhere in the ready queue",
+        "d": "None of the above"
+      },
+      "explanations": {
+        "a": "Explanation 1  <a href='www.google.com'>here</a>",
+        "b": "Explanation 2",
+        "c": "Explanation 2",
+        "d": "Explanation 2"
+      },
+      "correctAnswer": "b",
+      "difficulty": "beginner"
+    }
+  ]
+}
