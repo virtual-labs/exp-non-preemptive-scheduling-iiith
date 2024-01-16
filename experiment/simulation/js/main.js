@@ -6,6 +6,7 @@ let State = {
     "Waiting":[],
     "Terminated":[],
     "Map":{"id":null,"run_time":null,"burst_time":null},
+    "Timer":null,
     "Policy":"FCFS"
 };
 
@@ -103,33 +104,54 @@ function Tick(){
     if(State["Running"]==null){
         SchedulePolicy();
     }
+    else{
+        State["Running"].mapping["run_time"]++;
+        State["Timer"]--;
+        UpdateState();
+        UpdateTable();
+        if(State["Running"].mapping["burst_time"] == State["Running"].mapping["run_time"]){
+            State["Terminated"].push(State["Running"]);
+            alert("Process "+State["Running"].id+" Terminated");
+            State["Running"] = null;
+            State["Timer"] = null;
+            UpdateState();
+            UpdateTable();
+            SchedulePolicy();
+        }
+        else if(State["Timer"] == 0){
+            State["Ready"].push(State["Running"]);
+            State["Running"] = null;
+            State["Timer"] = null;
+            alert("Timer Interrupt Occured");
+            SchedulePolicy();
+        }
+        
+    }
+    
+}
+
+function SchedulePolicy(){
+    if(State["Policy"]=="FCFS"){
+        FCFS();
+    }
+    else if(State["Policy"]=="SJF"){
+        SJF();
+    }
+    else if(State["Policy"]=="Priority"){
+        Priority();
+    }
+    else if(State["Policy"]=="Round Robin"){
+        RoundRobin();
+    }
 }
 
 function FCFS(){
-    if(State["Running"]==null){
-        if(State["Ready"].length==0){
-            return;
-        }
-        State["Running"] = State["Ready"][0];
-        console.log(State["Running"]);
-        State["Ready"].shift();
-        time_counter++;
-        State["Running"].mapping["run_time"]++;
-        UpdateState();
-        UpdateTable();
+    if(State["Ready"].length == 0){
+        return;
     }
-    else{
-        if(State["Running"].mapping["run_time"] == State["Running"].mapping["burst_time"]){
-            State["Terminated"].push(State["Running"]);
-            State["Running"] = null;
-            UpdateState();
-            UpdateTable();
-        }
-        else{
-            time_counter++;
-            State["Running"].mapping["run_time"]++;
-            UpdateState();
-            UpdateTable();
-        }
-}
+    alert("Scheduling First Come First Serve(FCFS) Policy");
+    State["Running"] = State["Ready"].shift();
+    State["Timer"] = null;
+    UpdateState();
+    UpdateTable();
 }
