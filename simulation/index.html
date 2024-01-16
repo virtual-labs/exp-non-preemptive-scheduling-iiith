@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Home</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> -->
+    <script src="./js/main.js"></script>
+</head>
+
+<body>
+    
+    <div class="Instructions">
+        <p style="font-weight: bolder; color: dodgerBlue; text-align: center;">Instructions</p>
+        <hr>
+        <p style="padding-left: 10px;">
+            1. Please read the theory before starting the experiment.<br>
+            2. Follow the instructions in the dialog box to walk through the simulation.<br>
+            3. Student can control the simulation using the controls provided in 'Controls' section.<br>
+            4. Click on the "Start" button to start the simulation.<br>
+        </p>
+    </div>
+    <div class="container">
+        <div class="ts_states">
+            <p style="text-align: center; font-weight: bold">Transition states of the system</p> <hr>
+            <div class="states">
+
+                <div class="tabset">
+                    <!-- Tab 1 -->
+                    <input type="radio" name="tabset" id="tab1" aria-controls="marzen" checked>
+                    <label id="current_state" for="tab1">Current System<br>State</label>
+                    <!-- Tab 2 -->
+                    <input type="radio" name="tabset" id="tab2" aria-controls="marzen">
+                    <label id="previous_states" for="tab2">Previous system<br>States</label>
+                    
+                    <div class="tab-panels">
+                        <section id="marzen" class="tab-panel">
+                            <table id="current_ts">
+                                <tr>
+                                    <td class="ts_cell">Ready:</td>
+                                    <td class="ts_cell" id="rQ"></td>
+                                </tr>
+                                <tr>
+                                    <td class="ts_cell">Waiting for I/O:</td>
+                                    <td class="ts_cell" id="wQ"></td>
+                                </tr>
+                                <tr>
+                                    <td class="ts_cell">Terminated:</td>
+                                    <td class="ts_cell" id="tQ"></td>
+                                </tr>
+                                <tr>
+                                    <td class="ts_cell">cpu:</td>
+                                    <td class="ts_cell" id="cpu_p"></td>
+                                </tr>
+                                <tr>
+                                    <td class="ts_cell">Map:</td>
+                                    <td class="ts_cell" id="map"></td>
+                                </tr>
+                                <tr>
+                                    <td class="ts_cell">Timer:</td>
+                                    <td class="ts_cell" id="timer"></td>
+                                </tr>
+                                <tr>
+                                    <td class="ts_cell">Scheduling policy:</td>
+                                    <td class="ts_cell" id="schd_p"></td>
+                                </tr>
+                            </table>
+                        </section>
+                        <section id="rauchbier" class="tab-panel">
+                            <table id="previous_ts">
+                                <tr>
+                                    <td class="ts_cell">Ready:</td>
+                                    <td class="ts_cell" id="rQ"></td>
+                                </tr>
+                                <tr>
+                                    <td class="ts_cell">Waiting for I/O:</td>
+                                    <td class="ts_cell" id="wQ"></td>
+                                </tr>
+                                <tr>
+                                    <td class="ts_cell">Terminated:</td>
+                                    <td class="ts_cell" id="tQ"></td>
+                                </tr>
+                                <tr>
+                                    <td class="ts_cell">cpu:</td>
+                                    <td class="ts_cell" id="cpu_p"></td>
+                                </tr>
+                                <tr>
+                                    <td class="ts_cell">Map:</td>
+                                    <td class="ts_cell" id="map"></td>
+                                </tr>
+                                <tr>
+                                    <td class="ts_cell">Timer:</td>
+                                    <td class="ts_cell" id="timer"></td>
+                                </tr>
+                                <tr>
+                                    <td class="ts_cell">Scheduling policy:</td>
+                                    <td class="ts_cell" id="schd_p"></td>
+                                </tr>
+                            </table>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+            <p style="text-align: center; font-weight: bold">Previous states of the system</p> <hr>
+            <div style="overflow-y: scroll;">
+                <table id="previous_states">
+
+                </table>
+            </div>
+            <div class="controls">
+                <button id="tick-btn" onClick="Tick()">Tick</button>
+            </div>
+        </div>
+        <div class="displays">
+            <p style="text-align: center; font-weight: bold">Displays</p>
+            <hr>
+            <div>
+
+                <div class="CPU">
+                    <p style="text-align: center; font-weight: bold;">CPU <button class="wrapper" id="info_btn">&#8505
+                        <span class="tooltip">CPU is the hardware component that carries out the essential computational
+                            tasks required by the OS and software applications. The OS manages and coordinates the CPU's
+                            activities, ensuring that processes run efficiently, securely, and in accordance with system
+                            priorities.</span></button></p>
+                    <hr>
+                    <table id="CPU">
+
+                    </table>
+                </div>
+                <div class="Memory">
+                    <div class="tabset1">
+                        <!-- Tab 1 -->
+                        <input type="radio" name="tabset1" id="tab_kstackA" aria-controls="k_A" checked>
+                        <label for="tab_kstackA">Ready <button class="wrapper" id="info_btn">&#8505
+                            <span class="tooltip">Maintains all the process ready to be executed on the CPU.</span></button></label>
+                        <!-- Tab 2 -->
+                        <input type="radio" name="tabset1" id="tab_kstackB" aria-controls="k_B">
+                        <label for="tab_kstackB">Waiting <button class="wrapper" id="info_btn">&#8505
+                            <span class="tooltip">Maintains all the process waiting for I/O requests to be fulfilled.</span></button></label>
+                        <!-- Tab 3 -->
+                        <input type="radio" name="tabset1" id="tab_pcbA" aria-controls="p_A">
+                        <label for="tab_pcbA">Terminated <button class="wrapper" id="info_btn">&#8505
+                            <span class="tooltip">Maintains all the aborted processes or those whose execution has been completed.</span></button></label>
+                        
+
+                        <div class="tab-panels1">
+                            <section id="ready_pool" class="tab-panel1">
+                                <input type="number" placeholder="Burst Time" class="bt_input" id="Burst_time_value"><button class="pool-btns" onClick="CreateProcess()">Create process</button>
+                                <table id="ready_process">
+
+                                </table>
+                            </section>
+                            <section id="waiting_pool" class="tab-panel1">
+                                <p style="color: grey">
+                                    <b>Note:</b>Select a process and click on the "I/O completed" button to move the process to the ready queue.
+                                </p>
+                                <input type="number" placeholder="Selected process" class="bt_input" disabled="true"><button class="pool-btns">I/O completed</button>
+                                <table id="waiting_process">
+
+                                </table>
+                            </section>
+                            <section id="terminated_pool" class="tab-panel1">
+                                <table id="terminated_process">
+
+                                </table>
+                            </section>  
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="graph" style="float: left;">
+                <p style="text-align: center; font-weight: bold;">Graph</p>
+                <hr>
+                <div id="chartContainer" style="height: 370px; width: 100%;"></div>
+            </div>
+        </div>
+        <div class="dialog-box">
+            <p style="text-align: center; font-weight: bold;">Dialog</p>
+            <hr>
+            <table id="dialog">
+                <tr>
+                    <td class="msg">&#128203 You can start the simulation by creating a new process in the ready pool.</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div>
+        <button class="schd-btn">Schedule</button>
+    </div>
+    <div class="container3">
+        <h2>Know what's happening</h2>
+        <section class="accordion">
+            <input type="checkbox" name="collapse2" id="handle1">
+            <h2 class="handle">
+                <label for="handle1">Introduction</label>
+            </h2>
+            <div class="content">
+                <p><strong>Objective:</strong> <br>
+                    Our objective in this experiment is to understand the mechanism of context switching used by
+                    the OS for multi processing.
+                    In this simulation, we approach the context switching technique at a three level abstraction (User,
+                    Hardware and Kernel).
+
+                </p>
+                <p>
+                <p><strong>Intuition:</strong><br>Consider we have only two programs in the system. You are to observe the instruction given in the dialog box and respond
+                    with the corresponding
+                    action in the simulation above.</p>
+                <p>Observe the control flow between the user state, hardware and the kernel mode and how the CPU
+                    and other resources get's updated accordingly.</p>
+                </p>
+                
+                <p><strong>Apparatus:</strong> <br>
+                    1. User<br>
+                    2. Hardware<br>
+                    3. Kernel<br>
+                    4. CPU<br>
+                    5. Kernel Stack (k-stack)<br>
+                    6. Process Control Block (PCB)<br>
+                    7. Interrupt Handlers<br>
+                </p>
+            </div>
+        </section>
+        <section class="accordion">
+            <input type="checkbox" name="collapse2" id="handle6">
+            <h2 class="handle">
+                <label for="handle6">Procedure</label>
+            </h2>
+            <div class="content">
+                <p>1. Read the primary instructions provided at the top of the page. <br>
+                2. Follow the instructions provided in the dialogue box to go through the mechanism.<br>
+                3. Click on the 'Start' button and then bootstrap the OS.<br>
+                4. Once the program is loaded in User, use the next and previous buttons to tranverse through the process.<br>
+                5. Follow the prompts given in the dialogue box at every step to handle the traps and interrupts during the execution of the process.</p>
+            </div>
+        </section>
+        <section class="accordion">
+            <input type="checkbox" name="collapse2" id="handle2">
+            <h2 class="handle">
+                <label for="handle2">Theory</label>
+            </h2>
+            <div class="content">
+                <p><strong>What is context?</strong><br> The term "context" refers to the state
+                    and information associated with a process or thread at a specific point in time. It
+                    encompasses various aspects of the process's execution environment, including its program
+                    counter, register values, memory allocation, and other relevant data. It provides
+                    all the necessary information for the operating system to save and later restore the
+                    process's execution when it is preempted or needs to be resumed.</p>
+                <p><strong>How is context different from PCB?:</strong> <br>
+                    While context and PCB both deal with process management and are closely related, they serve
+                    different purposes and exist at different levels of abstraction.
+                    Context is about saving and restoring the immediate execution state of a process or thread
+                    during context switches, while the PCB is a data structure used to maintain comprehensive
+                    information about a process or thread over its entire lifetime and is used for higher-level
+                    process management within the operating system.</p>
+            </div>
+        </section>
+        
+
+        <section class="accordion">
+            <input type="checkbox" name="collapse2" id="handle5">
+            <h2 class="handle">
+                <label for="handle5">References</label>
+            </h2>
+            <div class="content">
+                <a href="https://docs.kernel.org/" target="_blank">Linux documentation</a><br>
+                <a href="https://en.wikipedia.org/wiki/Context_switch" target="_blank">Wikipedia</a><br>
+                <a href="https://pages.cs.wisc.edu/~remzi/OSTEP/" target="_blank">Remzi-threeEasyPieces</a><br>
+                <a href="https://drive.uqu.edu.sa/_/mskhayat/files/MySubjects/2017SS%20Operating%20Systems/Abraham%20Silberschatz-Operating%20System%20Concepts%20(9th,2012_12).pdf"
+                    target="_blank">OS
+                    by Silberschatz</a><br>
+                <a href="https://github.com/torvalds/linux" target="_blank">Linux github Repo</a>
+            </div>
+        </section>
+
+
+    </div>
+
+<script src="../assets/js/iframeResize.js"></script></body>
+
+</html>
