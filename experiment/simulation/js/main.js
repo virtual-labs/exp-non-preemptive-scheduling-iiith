@@ -42,8 +42,6 @@ function CreateProcess(){
     State["Ready"].push(process);
     UpdateState();
     UpdateTable();
-    console.clear();
-    console.log(Previous_States);
 }
 
 function UpdateTable(){
@@ -67,6 +65,7 @@ function UpdateState(){
     let running = document.getElementById("cpu_p");
     let policy=document.getElementById("schd_p");
     let map=document.getElementById("map");
+    let timer = document.getElementById("timer");
     readyQueue.innerHTML = "";
     temp = [];
     State["Ready"].forEach((process)=>{
@@ -96,12 +95,13 @@ function UpdateState(){
         
     }
     policy.innerHTML = State["Policy"];
+    timer
     
 }
 
 function Tick(){
-    if(State["Policy"]=="FCFS"){
-        FCFS();
+    if(State["Running"]==null){
+        SchedulePolicy();
     }
 }
 
@@ -117,15 +117,19 @@ function FCFS(){
         State["Running"].mapping["run_time"]++;
         UpdateState();
         UpdateTable();
-
     }
+    else{
+        if(State["Running"].mapping["run_time"] == State["Running"].mapping["burst_time"]){
+            State["Terminated"].push(State["Running"]);
+            State["Running"] = null;
+            UpdateState();
+            UpdateTable();
+        }
+        else{
+            time_counter++;
+            State["Running"].mapping["run_time"]++;
+            UpdateState();
+            UpdateTable();
+        }
 }
-
-function ContextSwitch(){
-    if(State["Running"]!=null){
-        State["Waiting"].push(State["Running"]);
-        State["Running"] = null;
-        UpdateState();
-        UpdateTable();
-    }
 }
