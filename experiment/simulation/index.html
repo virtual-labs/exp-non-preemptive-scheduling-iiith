@@ -107,9 +107,15 @@
                 </div>
             </div>
             <div class="controls">
-                <button class="btn" id="tick-btn" onClick="Tick()"><i class="fa fa-clock-o" aria-hidden="true"></i> Tick</button>
-                <button class="btn" id="schd-btn" onClick="Schedule()">Schedule</button>
-                <button class="btn" onClick="CreateProcess()"> <i class="fa fa-plus"></i> New process</button>
+                <button class="btn" id="tick-btn" onclick="Tick()"><i class="fa fa-clock-o" aria-hidden="true"></i> Tick</button>
+                <button class="btn" id="schd-btn" onclick="Schedule()">Schedule</button>
+                <div class="dropdown">
+                    <button class="btn" onclick="newProcess()"> <i class="fa fa-plus"></i> New process</button>
+                    <div id="myDropdown" class="dropdown-content">
+                        <input type="number" placeholder="Enter Burst Time (1 - 30)" id="burstTime"> 
+                        <button class="btn" onclick="CreateProcess()">Create</button>
+                      </div>
+                </div>
             </div>
         </div>
         <div class="displays">
@@ -132,7 +138,7 @@
                         
                         <table id="processes">
                         <table>
-                            <thead>
+                            <!-- <thead>
                                 <tr>
                                   <th>pid</th>
                                   <th>Burst Time</th>
@@ -140,7 +146,7 @@
                                   <th>Remaining Time</th>
                                   <th>Status</th>
                                 </tr>
-                              </thead>
+                              </thead> -->
                             </table>
 
                         </table>

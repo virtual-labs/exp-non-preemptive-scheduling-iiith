@@ -22,9 +22,13 @@ class Process{
     }
 }
 
+function newProcess() {
+    document.getElementById("myDropdown").classList.toggle("show");
+}
+
 function CreateProcess(){
-    let create_process_input = document.getElementById("Burst_time_value").value;
-    document.getElementById("Burst_time_value").value = "";
+    let create_process_input = document.getElementById("burstTime").value;
+    document.getElementById("burstTime").value = "";
     if(create_process_input == ""){
         alert("Please enter a valid number");
         return;
@@ -46,7 +50,7 @@ function CreateProcess(){
 }
 
 function UpdateTable(){
-    let table = document.getElementById("ready_process")
+    let table = document.getElementById("processes")
     table.innerHTML = "<th>Process ID</th><th>Burst Time</th>";
     // console.log(table);
     State["Ready"].forEach((process) => {
