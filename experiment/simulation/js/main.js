@@ -133,7 +133,7 @@ function UpdateState(){
         map.innerHTML = State["Running"].id + "->" + State["Running"].mapping["run_time"] + ":" + State["Running"].mapping["burst_time"];
         
     }
-    timer.innerHTML = time_counter;
+    timer.innerHTML = State["Timer"];
     policy.innerHTML = State["Policy"];
     
 }
@@ -227,13 +227,13 @@ function Tick() {
     if(State["Running"]!=null){
         time_counter++;
         State["Running"].mapping["run_time"]++;
-        State["Running"].mapping["burst_time"]--;
+        State["Running"].mapping["burst_time"];
         let cpuTable = document.getElementById("CPU")
         // Update the second and third cells of the second row of cpuTable
         cpuTable.rows[1].cells[1].innerHTML = State["Running"].mapping["burst_time"];
         cpuTable.rows[1].cells[2].innerHTML = State["Running"].mapping["run_time"];
         
-        if(State["Running"].mapping["burst_time"]==0){
+        if(State["Running"].mapping["burst_time"]==State["Running"].mapping["run_time"]){
             Terminate();
         }
         UpdateState();

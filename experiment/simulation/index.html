@@ -104,14 +104,11 @@
                     
                 </div>
             </div>
-            <p style="text-align: center; font-weight: bold">Previous states of the system</p> <hr>
-            <div style="overflow-y: scroll;">
-                <table id="previous_states">
-
-                </table>
-            </div>
+            <p style="text-align: center; font-weight: bold">Controls</p> <hr>
             <div class="controls">
-                <button id="tick-btn" onClick="Tick()">Tick</button>
+                <button class="btn" id="tick-btn" onClick="Tick()">Tick</button>
+                <button class="btn" id="schd-btn" onClick="Schedule()">Schedule</button>
+                <button class="btn" onClick="CreateProcess()">Create process</button>
             </div>
         </div>
         <div class="displays">
@@ -148,7 +145,6 @@
 
                         <div class="tab-panels1">
                             <section id="ready_pool" class="tab-panel1">
-                                <input type="number" placeholder="Burst Time" class="bt_input" id="Burst_time_value"><button class="pool-btns" onClick="CreateProcess()">Create process</button>
                                 <table id="ready_process">
 
                                 </table>
@@ -187,9 +183,6 @@
                 </tr>
             </table>
         </div>
-    </div>
-    <div>
-        <button class="schd-btn" onClick="Schedule()">Schedule</button>
     </div>
     <div class="container3">
         <h2>Know what's happening</h2>
