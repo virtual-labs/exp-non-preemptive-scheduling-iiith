@@ -14,8 +14,9 @@ let id_counter = 1;
 let time_counter = 0;
 
 class Process{
-    constructor(burst_time){
+    constructor(burst_time, status){
         this.burst_time = burst_time;
+        this.status = status;
         this.mapping = {"run_time":0,"burst_time":burst_time}
         this.id = id_counter;
         id_counter++;
@@ -42,7 +43,7 @@ function CreateProcess(){
         alert("Please enter the burst time less than or equal to 30")
         return
     }
-    let process = new Process(create_process_input_int);
+    let process = new Process(create_process_input_int, "Ready");
     Previous_States.push(State);
     State["Ready"].push(process);
     UpdateState();
@@ -51,7 +52,7 @@ function CreateProcess(){
 
 function UpdateTable(){
     let table = document.getElementById("processes")
-    table.innerHTML = "<th>Process ID</th><th>Burst Time</th>";
+    table.innerHTML = "<th>Process ID</th><th>Burst Time</th><th>Remaining time</th><th>Status</th>";
     // console.log(table);
     State["Ready"].forEach((process) => {
         let row = table.insertRow(-1);
@@ -59,6 +60,10 @@ function UpdateTable(){
         cell1.innerHTML = process.id;
         let cell2 = row.insertCell(1);
         cell2.innerHTML = process.burst_time;
+        let cell3 = row.insertCell(2);
+        cell3.innerHTML = process.mapping["run_time"];
+        let cell4 = row.insertCell(3);
+        cell4.innerHTML = process.status;
     }
     );
 }

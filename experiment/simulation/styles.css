@@ -3,6 +3,18 @@ body {
     padding-bottom: 20px;
 }
 
+th {
+  margin: 10px;
+  color: #566573;
+  padding: 10px;
+}
+
+td {
+  margin: 10px;
+  padding: 10px;
+  text-align: center;
+}
+
 
 .bt_input {
   padding: 10px;
@@ -80,7 +92,7 @@ body {
 .displays {
   float: left;
   width: 57%;
-  background-color: #F2F3F4 ;
+  background-color: whitesmoke ;
   border-radius: 10px;
   height: 820px;
   margin-right: 10px;
@@ -324,11 +336,13 @@ input:focus-visible + label {
   border-radius: 10px;
   border: solid;
   border-color: darkgray;
+  overflow:auto;
+  overflow-x: hidden;
   padding: 5px;
   margin: 10px;
-  width: 40%;
   height: 300px;
   float: left;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 .Memory {
@@ -439,7 +453,6 @@ input:focus-visible + label {
 
 #burstTime {
   box-sizing: border-box;
-  background-image: url('searchicon.png');
   background-position: 14px 12px;
   background-repeat: no-repeat;
   font-size: 16px;
@@ -802,6 +815,7 @@ cursor: help;
 cursor: help;
 -webkit-transform: translateZ(0); /* webkit flicker fix */
 /* -webkit-font-smoothing: antialiased; webkit text rendering fix */
+z-index: 100;
 }
 
 .wrapper .tooltip {
@@ -809,6 +823,7 @@ background: #566573;
 bottom: 100%;
 color: #fff;
 display: block;
+z-index: 100;
 left: -100%;
 margin-bottom: 20px;
 opacity: 0;
@@ -839,6 +854,7 @@ font-weight: normal;
 .wrapper .tooltip:before {
 bottom: -20px;
 content: " ";
+z-index: 100;
 display: block;
 height: 20px;
 left: 0;
@@ -852,6 +868,7 @@ border-left: solid transparent 10px;
 border-right: solid transparent 10px;
 border-top: solid #566573 10px;
 bottom: -10px;
+z-index: 100;
 content: " ";
 height: 0;
 left: 10%;
@@ -862,6 +879,7 @@ width: 0;
 
 .wrapper:hover .tooltip {
 opacity: 0.9;
+z-index: 100;
 pointer-events: auto;
 -webkit-transform: translateY(0px);
   -moz-transform: translateY(0px);

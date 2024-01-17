@@ -113,17 +113,17 @@
                     <button class="btn" onclick="newProcess()"> <i class="fa fa-plus"></i> New process</button>
                     <div id="myDropdown" class="dropdown-content">
                         <input type="number" placeholder="Enter Burst Time (1 - 30)" id="burstTime"> 
-                        <button class="btn" onclick="CreateProcess()">Create</button>
+                        <button class="btn" style="width: 100%; border-radius: 0%;" onclick="CreateProcess()">Create</button>
                       </div>
                 </div>
             </div>
         </div>
         <div class="displays">
-            <p style="text-align: center; font-weight: bold">Displays</p>
-            <hr>
+            <!-- <p style="text-align: center; font-weight: bold">Displays</p>
+            <hr> -->
             <div>
 
-                <div class="display-block">
+                <div class="display-block" style="width: 30%;">
                     <p style="text-align: center; font-weight: bold;">CPU <button class="wrapper" id="info_btn"> ?
                         <span class="tooltip">CPU is the hardware component that carries out the essential computational
                             tasks required by the OS and software applications. The OS manages and coordinates the CPU's
@@ -131,24 +131,13 @@
                             priorities.</span></button></p>
                     <hr>
                 </div>
-                <div class="display-block" style="width: 50%;">
+                <div class="display-block" style="width: 60%;">
                     <p style="text-align: center; font-weight: bold;">Processes <button class="wrapper" id="info_btn"> ?
                         <span class="tooltip">This block contains information about all the process in the simulation.</span></button></p>
                         <hr>
                         
                         <table id="processes">
-                        <table>
-                            <!-- <thead>
-                                <tr>
-                                  <th>pid</th>
-                                  <th>Burst Time</th>
-                                  <th>Execution Time</th>
-                                  <th>Remaining Time</th>
-                                  <th>Status</th>
-                                </tr>
-                              </thead> -->
-                            </table>
-
+                        
                         </table>
                     </div>
                 </div>
