@@ -183,8 +183,9 @@ function Terminate(){
 }
 
 function Tick() {
-    time_counter++;
+    
     if(State["Running"]!=null){
+        time_counter++;
         State["Running"].mapping["run_time"]++;
         State["Running"].mapping["burst_time"]--;
         let cpuTable = document.getElementById("CPU")
