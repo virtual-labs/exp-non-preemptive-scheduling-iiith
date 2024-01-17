@@ -5,8 +5,11 @@ let State = {
     "Running":null,
     "Waiting":[],
     "Terminated":[],
+<<<<<<< HEAD
     "Map":{"id":null,"run_time":null,"burst_time":null},
     "Timer":null,
+=======
+>>>>>>> 9ee49ac71e05a89afacbf21abc7db28cc489694c
     "Policy":"FCFS"
 };
 
@@ -16,7 +19,11 @@ let time_counter = 0;
 class Process{
     constructor(burst_time){
         this.burst_time = burst_time;
+<<<<<<< HEAD
         this.mapping = {"run_time":0,"burst_time":burst_time}
+=======
+        this.map = [0,burst_time]
+>>>>>>> 9ee49ac71e05a89afacbf21abc7db28cc489694c
         this.id = id_counter;
         id_counter++;
     }
@@ -43,6 +50,11 @@ function CreateProcess(){
     State["Ready"].push(process);
     UpdateState();
     UpdateTable();
+<<<<<<< HEAD
+=======
+    console.clear();
+    console.log(Previous_States);
+>>>>>>> 9ee49ac71e05a89afacbf21abc7db28cc489694c
 }
 
 function UpdateTable(){
@@ -65,8 +77,11 @@ function UpdateState(){
     let TerminatedQueue = document.getElementById("tQ");
     let running = document.getElementById("cpu_p");
     let policy=document.getElementById("schd_p");
+<<<<<<< HEAD
     let map=document.getElementById("map");
     let timer = document.getElementById("timer");
+=======
+>>>>>>> 9ee49ac71e05a89afacbf21abc7db28cc489694c
     readyQueue.innerHTML = "";
     temp = [];
     State["Ready"].forEach((process)=>{
@@ -88,6 +103,7 @@ function UpdateState(){
     running.innerHTML = "";
     if(State["Running"] == null){
         running.innerHTML = "None";
+<<<<<<< HEAD
         map.innerHTML = "";
     }
     else{
@@ -155,3 +171,23 @@ function FCFS(){
     UpdateState();
     UpdateTable();
 }
+=======
+    }
+    else{
+        running.innerHTML = State["Running"].id;
+    }
+    policy.innerHTML = State["Policy"];
+}
+
+function Tick(){
+    if(State["Policy"]=="FCFS"){
+        FCFS();
+    }
+}
+
+function FCFS(){
+    if(State["Running"]==null){
+        
+    }
+}
+>>>>>>> 9ee49ac71e05a89afacbf21abc7db28cc489694c
