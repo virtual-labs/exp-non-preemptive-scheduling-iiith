@@ -30,7 +30,10 @@
                 <div class="tabset">
                     <!-- Tab 1 -->
                     <input type="radio" name="tabset" id="tab1" aria-controls="marzen" checked>
-                    <label for="tab1">Current system state</label>
+                    <label id="current_state" for="tab1">Current System<br>State</label>
+                    <!-- Tab 2 -->
+                    <input type="radio" name="tabset" id="tab2" aria-controls="marzen">
+                    <label id="previous_states" for="tab2">Previous system<br>States</label>
                     
                     <div class="tab-panels">
                         <section id="marzen" class="tab-panel">
@@ -65,6 +68,38 @@
                                 </tr>
                             </table>
                         </section>
+                        <section id="rauchbier" class="tab-panel">
+                            <table id="previous_ts">
+                                <tr>
+                                    <td class="ts_cell">Ready:</td>
+                                    <td class="ts_cell" id="rQ"></td>
+                                </tr>
+                                <tr>
+                                    <td class="ts_cell">Waiting for I/O:</td>
+                                    <td class="ts_cell" id="wQ"></td>
+                                </tr>
+                                <tr>
+                                    <td class="ts_cell">Terminated:</td>
+                                    <td class="ts_cell" id="tQ"></td>
+                                </tr>
+                                <tr>
+                                    <td class="ts_cell">cpu:</td>
+                                    <td class="ts_cell" id="cpu_p"></td>
+                                </tr>
+                                <tr>
+                                    <td class="ts_cell">Map:</td>
+                                    <td class="ts_cell" id="map"></td>
+                                </tr>
+                                <tr>
+                                    <td class="ts_cell">Timer:</td>
+                                    <td class="ts_cell" id="timer"></td>
+                                </tr>
+                                <tr>
+                                    <td class="ts_cell">Scheduling policy:</td>
+                                    <td class="ts_cell" id="schd_p"></td>
+                                </tr>
+                            </table>
+                        
                     </div>
                     
                 </div>

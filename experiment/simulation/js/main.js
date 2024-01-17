@@ -6,6 +6,7 @@ let State = {
     "Waiting":[],
     "Terminated":[],
     "Map":{"id":null,"run_time":null,"burst_time":null},
+    "Timer":null,
     "Policy":"FCFS"
 };
 
@@ -140,6 +141,45 @@ function UpdateState(){
 function Schedule(){
     if(State["Policy"]=="FCFS"){
         FCFS();
+    }
+    else{
+        State["Running"].mapping["run_time"]++;
+        State["Timer"]--;
+        UpdateState();
+        UpdateTable();
+        if(State["Running"].mapping["burst_time"] == State["Running"].mapping["run_time"]){
+            State["Terminated"].push(State["Running"]);
+            alert("Process "+State["Running"].id+" Terminated");
+            State["Running"] = null;
+            State["Timer"] = null;
+            UpdateState();
+            UpdateTable();
+            SchedulePolicy();
+        }
+        else if(State["Timer"] == 0){
+            State["Ready"].push(State["Running"]);
+            State["Running"] = null;
+            State["Timer"] = null;
+            alert("Timer Interrupt Occured");
+            SchedulePolicy();
+        }
+        
+    }
+    
+}
+
+function SchedulePolicy(){
+    if(State["Policy"]=="FCFS"){
+        FCFS();
+    }
+    else if(State["Policy"]=="SJF"){
+        SJF();
+    }
+    else if(State["Policy"]=="Priority"){
+        Priority();
+    }
+    else if(State["Policy"]=="Round Robin"){
+        RoundRobin();
     }
 }
 
