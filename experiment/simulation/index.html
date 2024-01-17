@@ -6,7 +6,9 @@
     <meta charset="utf-8">
     <title>Home</title>
     <link rel="stylesheet" href="styles.css">
-    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    
     <script src="./js/main.js"></script>
 </head>
 
@@ -104,75 +106,52 @@
                     
                 </div>
             </div>
-            <p style="text-align: center; font-weight: bold">Controls</p> <hr>
-            <div class="controls">
-                <button class="btn" id="tick-btn" onClick="Tick()">Tick</button>
-                <button class="btn" id="schd-btn" onClick="Schedule()">Schedule</button>
-                <button class="btn" onClick="CreateProcess()">Create process</button>
-            </div>
         </div>
         <div class="displays">
             <p style="text-align: center; font-weight: bold">Displays</p>
             <hr>
             <div>
 
-                <div class="CPU">
-                    <p style="text-align: center; font-weight: bold;">CPU <button class="wrapper" id="info_btn">&#8505
+                <div class="display-block">
+                    <p style="text-align: center; font-weight: bold;">CPU <button class="wrapper" id="info_btn"> ?
                         <span class="tooltip">CPU is the hardware component that carries out the essential computational
                             tasks required by the OS and software applications. The OS manages and coordinates the CPU's
                             activities, ensuring that processes run efficiently, securely, and in accordance with system
                             priorities.</span></button></p>
                     <hr>
-                    <table id="CPU">
-
-                    </table>
                 </div>
-                <div class="Memory">
-                    <div class="tabset1">
-                        <!-- Tab 1 -->
-                        <input type="radio" name="tabset1" id="tab_kstackA" aria-controls="k_A" checked>
-                        <label for="tab_kstackA">Ready <button class="wrapper" id="info_btn">&#8505
-                            <span class="tooltip">Maintains all the process ready to be executed on the CPU.</span></button></label>
-                        <!-- Tab 2 -->
-                        <input type="radio" name="tabset1" id="tab_kstackB" aria-controls="k_B">
-                        <label for="tab_kstackB">Waiting <button class="wrapper" id="info_btn">&#8505
-                            <span class="tooltip">Maintains all the process waiting for I/O requests to be fulfilled.</span></button></label>
-                        <!-- Tab 3 -->
-                        <input type="radio" name="tabset1" id="tab_pcbA" aria-controls="p_A">
-                        <label for="tab_pcbA">Terminated <button class="wrapper" id="info_btn">&#8505
-                            <span class="tooltip">Maintains all the aborted processes or those whose execution has been completed.</span></button></label>
+                <div class="display-block" style="width: 50%;">
+                    <p style="text-align: center; font-weight: bold;">Processes <button class="wrapper" id="info_btn"> ?
+                        <span class="tooltip">This block contains information about all the process in the simulation.</span></button></p>
+                        <hr>
                         
+                        <table id="processes">
+                        <table>
+                            <thead>
+                                <tr>
+                                  <th>pid</th>
+                                  <th>Burst Time</th>
+                                  <th>Execution Time</th>
+                                  <th>Remaining Time</th>
+                                  <th>Status</th>
+                                </tr>
+                              </thead>
+                            </table>
 
-                        <div class="tab-panels1">
-                            <section id="ready_pool" class="tab-panel1">
-                                <table id="ready_process">
-
-                                </table>
-                            </section>
-                            <section id="waiting_pool" class="tab-panel1">
-                                <p style="color: grey">
-                                    <b>Note:</b>Select a process and click on the "I/O completed" button to move the process to the ready queue.
-                                </p>
-                                <input type="number" placeholder="Selected process" class="bt_input" disabled="true"><button class="pool-btns">I/O completed</button>
-                                <table id="waiting_process">
-
-                                </table>
-                            </section>
-                            <section id="terminated_pool" class="tab-panel1">
-                                <table id="terminated_process">
-
-                                </table>
-                            </section>  
-                        </div>
-
+                        </table>
                     </div>
                 </div>
-            </div>
-            <!-- <div class="graph" style="float: left;">
-                <p style="text-align: center; font-weight: bold;">Graph</p>
-                <hr>
-                <div id="chartContainer" style="height: 370px; width: 100%;"></div>
-            </div> -->
+                
+                <div class="controls">
+                    <button class="btn" id="tick-btn" onClick="Tick()"><i class="fa fa-clock-o" aria-hidden="true"></i> Tick</button>
+                    <button class="btn" id="schd-btn" onClick="Schedule()">Schedule</button>
+                    <button class="btn" onClick="CreateProcess()"> <i class="fa fa-plus"></i> New process</button>
+                </div>
+                <!-- <div class="graph" style="float: left;">
+                    <p style="text-align: center; font-weight: bold;">Graph</p>
+                    <hr>
+                    <div id="chartContainer" style="height: 370px; width: 100%;"></div>
+                </div> -->
         </div>
         <div class="dialog-box">
             <p style="text-align: center; font-weight: bold;">Dialog</p>

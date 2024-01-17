@@ -46,6 +46,7 @@ body {
   background-color: green;
   border: solid 2px green;
   cursor: pointer;
+  font-size: larger;
   font-weight: bolder;
 }
 
@@ -318,7 +319,7 @@ input:focus-visible + label {
   color: darkgrey;
 }
 
-.CPU {
+.display-block {
   background-color: white;
   border-radius: 10px;
   border: solid;
@@ -739,8 +740,8 @@ margin-bottom: 0;
 border-radius: 100%; 
 width: fit-content;
 color: white;
-font-weight: lighter;
-background-color: dodgerblue;
+font-weight: bolder;
+background-color: grey;
 border: none;
 cursor: help;
 }
