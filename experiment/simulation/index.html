@@ -27,13 +27,11 @@
     <div class="container">
         <div class="ts_states">
             <p style="text-align: center; font-weight: bold">Transition states of the system</p> <hr>
-            <div class="states">
 
+            <!-- <div class="states">
                 <div class="tabset">
-                    <!-- Tab 1 -->
                     <input type="radio" name="tabset" id="tab1" aria-controls="marzen" checked>
                     <label id="current_state" for="tab1">Current System<br>State</label>
-                    <!-- Tab 2 -->
                     <input type="radio" name="tabset" id="tab2" aria-controls="marzen">
                     <label id="previous_states" for="tab2">Previous system<br>States</label>
                     
@@ -104,7 +102,7 @@
                         
                     </div>
                     
-                </div>
+                </div> -->
             </div>
             <div class="controls">
                 <button class="btn" id="tick-btn" onclick="Tick()"><i class="fa fa-clock-o" aria-hidden="true"></i> Tick</button>
@@ -130,6 +128,9 @@
                             activities, ensuring that processes run efficiently, securely, and in accordance with system
                             priorities.</span></button></p>
                     <hr>
+                    <table id="CPU">
+
+                    </table>
                 </div>
                 <div class="display-block" style="width: 60%;">
                     <p style="text-align: center; font-weight: bold;">Processes <button class="wrapper" id="info_btn"> ?
@@ -141,7 +142,14 @@
                         </table>
                     </div>
                 </div>
-                
+                <div class="tickDisplay">
+                    <table id="tick" class="tickTable">
+                        <tr>
+                            <td class="tickCell">Number of Ticks:</td>
+                            <td class="tickCell" id="ticker"></td>
+                        </tr>
+                    </table>
+                </div>
                 <!-- <div class="graph" style="float: left;">
                     <p style="text-align: center; font-weight: bold;">Graph</p>
                     <hr>

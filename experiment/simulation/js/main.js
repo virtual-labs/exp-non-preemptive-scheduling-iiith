@@ -46,7 +46,7 @@ function CreateProcess(){
     let process = new Process(create_process_input_int, "Ready");
     Previous_States.push(State);
     State["Ready"].push(process);
-    UpdateState();
+    // UpdateState();
     UpdateTable();
 }
 
@@ -54,6 +54,17 @@ function UpdateTable(){
     let table = document.getElementById("processes")
     table.innerHTML = "<th>Process ID</th><th>Burst Time</th><th>Remaining time</th><th>Status</th>";
     // console.log(table);
+    if(State["Running"] != null) {
+        let row = table.insertRow(-1);
+        let cell1 = row.insertCell(0);
+        cell1.innerHTML = State["Running"].id;
+        let cell2 = row.insertCell(1);
+        cell2.innerHTML = State["Running"].mapping["burst_time"];
+        let cell3 = row.insertCell(2);
+        cell3.innerHTML = State["Running"].mapping["burst_time"] - State["Running"].mapping["run_time"];
+        let cell4 = row.insertCell(3);
+        cell4.innerHTML = State["Running"].status;
+    }
     State["Ready"].forEach((process) => {
         let row = table.insertRow(-1);
         let cell1 = row.insertCell(0);
@@ -61,7 +72,19 @@ function UpdateTable(){
         let cell2 = row.insertCell(1);
         cell2.innerHTML = process.burst_time;
         let cell3 = row.insertCell(2);
-        cell3.innerHTML = process.mapping["run_time"];
+        cell3.innerHTML = process.burst_time;
+        let cell4 = row.insertCell(3);
+        cell4.innerHTML = process.status;
+    }
+    );
+    State["Terminated"].forEach((process) => {
+        let row = table.insertRow(-1);
+        let cell1 = row.insertCell(0);
+        cell1.innerHTML = process.id;
+        let cell2 = row.insertCell(1);
+        cell2.innerHTML = process.burst_time;
+        let cell3 = row.insertCell(2);
+        cell3.innerHTML = 0;
         let cell4 = row.insertCell(3);
         cell4.innerHTML = process.status;
     }
@@ -71,7 +94,7 @@ function UpdateTable(){
 function schedule(){
     if(State["Running"] == null) {
         let cpuTable = document.getElementById("CPU")
-        let readyTable = document.getElementById("ready_process")
+        let readyTable = document.getElementById("processes")
         if(State["Ready"].length!=0){
             cpuTable.innerHTML = "<th>Process ID</th><th>Burst Time</th><th>Run Time</th>";
             // Add State["Ready"][0] to cpuTable
@@ -92,15 +115,8 @@ function schedule(){
             State["Running"] = tmp;
             
             State["Ready"].shift();
-
-            // Delete first two rows of readyTable
-            readyTable.deleteRow(0);
-            readyTable.deleteRow(0);
-            if(State["Ready"].length!=0){
-                let readyRow = readyTable.insertRow(0);
-                readyRow.innerHTML  = "<th>Process ID</th><th>Burst Time</th>";
-            }
-            UpdateState();
+            State["Running"].status = "Running";
+            // UpdateState();
         }
     }
     
@@ -154,14 +170,14 @@ function Schedule(){
     else{
         State["Running"].mapping["run_time"]++;
         State["Timer"]--;
-        UpdateState();
+        // UpdateState();
         UpdateTable();
         if(State["Running"].mapping["burst_time"] == State["Running"].mapping["run_time"]){
             State["Terminated"].push(State["Running"]);
             alert("Process "+State["Running"].id+" Terminated");
             State["Running"] = null;
             State["Timer"] = null;
-            UpdateState();
+            // UpdateState();
             UpdateTable();
             SchedulePolicy();
         }
@@ -205,7 +221,7 @@ function ContextSwitch(){
     if(State["Running"]!=null){
         State["Waiting"].push(State["Running"]);
         State["Running"] = null;
-        UpdateState();
+        // UpdateState();
         UpdateTable();
     }
 }
@@ -213,18 +229,9 @@ function ContextSwitch(){
 function Terminate(){
     if(State["Running"] != null) {
         let cpuTable = document.getElementById("CPU")
-        let table = document.getElementById("terminated_process")
-        table.innerHTML = "<th>Process ID</th><th>Burst Time</th>";
         tmp = State["Running"];
+        tmp.status = "Completed";
         State["Terminated"].push(tmp)
-        State["Terminated"].forEach((process) => {
-            let row = table.insertRow(-1);
-            let cell1 = row.insertCell(0);
-            cell1.innerHTML = process.id;
-            let cell2 = row.insertCell(1);
-            cell2.innerHTML = process.burst_time;
-        }
-        );   
         State["Running"] = null;
         cpuTable.deleteRow(0);
         cpuTable.deleteRow(0);            
@@ -235,6 +242,8 @@ function Tick() {
     
     if(State["Running"]!=null){
         time_counter++;
+        let ticker = document.getElementById("ticker");
+        ticker.innerHTML = time_counter;
         State["Running"].mapping["run_time"]++;
         State["Running"].mapping["burst_time"];
         let cpuTable = document.getElementById("CPU")
@@ -245,9 +254,9 @@ function Tick() {
         if(State["Running"].mapping["burst_time"]==State["Running"].mapping["run_time"]){
             Terminate();
         }
-        UpdateState();
+        UpdateTable();
     }
     
-    UpdateState();
+    // UpdateState();
 }
 

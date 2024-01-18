@@ -887,3 +887,8 @@ pointer-events: auto;
    -o-transform: translateY(0px);
     transform: translateY(0px);
 }
+
+.tickTable{
+  font-size: 30px;
+  font-weight: bold;
+}
