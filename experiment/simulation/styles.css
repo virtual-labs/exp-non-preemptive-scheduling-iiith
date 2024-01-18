@@ -15,6 +15,41 @@ td {
   text-align: center;
 }
 
+.tag-orange {
+  padding: 10px;
+  border-radius: 20px;
+  width: max-content;
+  background-color: orange;
+  color: white;
+  font-weight: bolder;
+}
+
+.tag-grey {
+  padding: 10px;
+  border-radius: 20px;
+  width: max-content;
+  background-color: darkgray;
+  color: white;
+  font-weight: bolder;
+}
+
+.tag-blue {
+  padding: 10px;
+  border-radius: 20px;
+  width: max-content;
+  background-color: dodgerblue;
+  color: white;
+  font-weight: bolder;
+}
+
+.tag-green {
+  padding: 10px;
+  border-radius: 20px;
+  width: max-content;
+  background-color: green;
+  color: white;
+  font-weight: bolder;
+}
 
 .bt_input {
   padding: 10px;
@@ -92,9 +127,9 @@ td {
 .displays {
   float: left;
   width: 57%;
-  background-color: whitesmoke ;
+  /* background-color: whitesmoke ; */
   border-radius: 10px;
-  height: 820px;
+  /* height: 820px; */
   margin-right: 10px;
   padding: 2px;
 }
@@ -303,6 +338,11 @@ input:focus-visible + label {
   border-bottom-right-radius: 0px;
   border-collapse: separate;
   border-spacing: 10px;
+}
+
+.controls {
+  margin: auto;
+  width: 50%;
 }
 
 .btns {

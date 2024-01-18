@@ -64,6 +64,7 @@ function UpdateTable(){
         cell3.innerHTML = State["Running"].mapping["burst_time"] - State["Running"].mapping["run_time"];
         let cell4 = row.insertCell(3);
         cell4.innerHTML = State["Running"].status;
+        cell4.className = "tag-green";
     }
     State["Ready"].forEach((process) => {
         let row = table.insertRow(-1);
@@ -75,6 +76,7 @@ function UpdateTable(){
         cell3.innerHTML = process.burst_time;
         let cell4 = row.insertCell(3);
         cell4.innerHTML = process.status;
+        cell4.className = "tag-orange";
     }
     );
     State["Terminated"].forEach((process) => {
@@ -87,6 +89,7 @@ function UpdateTable(){
         cell3.innerHTML = 0;
         let cell4 = row.insertCell(3);
         cell4.innerHTML = process.status;
+        cell4.className = "tag-grey";
     }
     );
 }

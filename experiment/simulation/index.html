@@ -8,12 +8,12 @@
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-    
+
     <script src="./js/main.js"></script>
 </head>
 
 <body>
-    
+
     <div class="Instructions">
         <p style="font-weight: bolder; color: dodgerBlue; text-align: center;">Instructions</p>
         <hr>
@@ -26,7 +26,8 @@
     </div>
     <div class="container">
         <div class="ts_states">
-            <p style="text-align: center; font-weight: bold">Transition states of the system</p> <hr>
+            <p style="text-align: center; font-weight: bold">Transition states of the system</p>
+            <hr>
 
             <!-- <div class="states">
                 <div class="tabset">
@@ -103,68 +104,66 @@
                     </div>
                     
                 </div> -->
-            </div>
-            <div class="controls">
-                <button class="btn" id="tick-btn" onclick="Tick()"><i class="fa fa-clock-o" aria-hidden="true"></i> Tick</button>
-                <button class="btn" id="schd-btn" onclick="Schedule()">Schedule</button>
-                <div class="dropdown">
-                    <button class="btn" onclick="newProcess()"> <i class="fa fa-plus"></i> New process</button>
-                    <div id="myDropdown" class="dropdown-content">
-                        <input type="number" placeholder="Enter Burst Time (1 - 30)" id="burstTime"> 
-                        <button class="btn" style="width: 100%; border-radius: 0%;" onclick="CreateProcess()">Create</button>
-                      </div>
-                </div>
-            </div>
         </div>
-        <div class="displays">
-            <!-- <p style="text-align: center; font-weight: bold">Displays</p>
-            <hr> -->
-            <div>
+    </div>
+    <div class="displays">
+        
+        <div>
 
-                <div class="display-block" style="width: 30%;">
-                    <p style="text-align: center; font-weight: bold;">CPU <button class="wrapper" id="info_btn"> ?
+            <div class="display-block" style="width: 30%;">
+                <p style="text-align: center; font-weight: bold;">CPU <button class="wrapper" id="info_btn"> ?
                         <span class="tooltip">CPU is the hardware component that carries out the essential computational
                             tasks required by the OS and software applications. The OS manages and coordinates the CPU's
                             activities, ensuring that processes run efficiently, securely, and in accordance with system
                             priorities.</span></button></p>
-                    <hr>
-                    <table id="CPU">
+                <hr>
+                <table id="CPU">
 
-                    </table>
-                </div>
-                <div class="display-block" style="width: 60%;">
-                    <p style="text-align: center; font-weight: bold;">Processes <button class="wrapper" id="info_btn"> ?
-                        <span class="tooltip">This block contains information about all the process in the simulation.</span></button></p>
-                        <hr>
-                        
-                        <table id="processes">
-                        
-                        </table>
-                    </div>
-                </div>
-                <div class="tickDisplay">
-                    <table id="tick" class="tickTable">
-                        <tr>
-                            <td class="tickCell">Number of Ticks:</td>
-                            <td class="tickCell" id="ticker"></td>
-                        </tr>
-                    </table>
-                </div>
-                <!-- <div class="graph" style="float: left;">
-                    <p style="text-align: center; font-weight: bold;">Graph</p>
-                    <hr>
-                    <div id="chartContainer" style="height: 370px; width: 100%;"></div>
-                </div> -->
+                </table>
+            </div>
+            <div class="display-block" style="width: 60%;">
+                <p style="text-align: center; font-weight: bold;">Processes <button class="wrapper" id="info_btn"> ?
+                        <span class="tooltip">This block contains information about all the process in the
+                            simulation.</span></button></p>
+                <hr>
+
+                <table id="processes">
+
+                </table>
+            </div>
         </div>
-        <div class="dialog-box">
-            <p style="text-align: center; font-weight: bold;">Dialog</p>
-            <hr>
-            <table id="dialog">
+
+        <div class="controls">
+            <button class="btn" id="tick-btn" onclick="Tick()"><i class="fa fa-clock-o" aria-hidden="true"></i>
+                Tick</button>
+            <button class="btn" id="schd-btn" onclick="Schedule()">Schedule</button>
+            <div class="dropdown">
+                <button class="btn" onclick="newProcess()"> <i class="fa fa-plus"></i> New process</button>
+                <div id="myDropdown" class="dropdown-content">
+                    <input type="number" placeholder="Enter Burst Time (1 - 30)" id="burstTime">
+                    <button class="btn" style="width: 100%; border-radius: 0%;"
+                        onclick="CreateProcess()">Create</button>
+                </div>
+            </div>
+        </div>
+        <div class="tickDisplay">
+            <table id="tick" class="tickTable">
                 <tr>
-                    <td class="msg">&#128203 You can start the simulation by creating a new process in the ready pool.</td>
+                    <td class="tickCell">Number of Ticks:</td>
+                    <td class="tickCell" id="ticker"></td>
                 </tr>
             </table>
         </div>
+    </div>
+    <div class="dialog-box">
+        <p style="text-align: center; font-weight: bold;">Dialog</p>
+        <hr>
+        <table id="dialog">
+            <tr>
+                <td class="msg">&#128203 You can start the simulation by creating a new process in the ready pool.</td>
+            </tr>
+        </table>
+    </div>
     </div>
     <div class="container3">
         <h2>Know what's happening</h2>
@@ -182,13 +181,14 @@
 
                 </p>
                 <p>
-                <p><strong>Intuition:</strong><br>Consider we have only two programs in the system. You are to observe the instruction given in the dialog box and respond
+                <p><strong>Intuition:</strong><br>Consider we have only two programs in the system. You are to observe
+                    the instruction given in the dialog box and respond
                     with the corresponding
                     action in the simulation above.</p>
                 <p>Observe the control flow between the user state, hardware and the kernel mode and how the CPU
                     and other resources get's updated accordingly.</p>
                 </p>
-                
+
                 <p><strong>Apparatus:</strong> <br>
                     1. User<br>
                     2. Hardware<br>
@@ -207,10 +207,12 @@
             </h2>
             <div class="content">
                 <p>1. Read the primary instructions provided at the top of the page. <br>
-                2. Follow the instructions provided in the dialogue box to go through the mechanism.<br>
-                3. Click on the 'Start' button and then bootstrap the OS.<br>
-                4. Once the program is loaded in User, use the next and previous buttons to tranverse through the process.<br>
-                5. Follow the prompts given in the dialogue box at every step to handle the traps and interrupts during the execution of the process.</p>
+                    2. Follow the instructions provided in the dialogue box to go through the mechanism.<br>
+                    3. Click on the 'Start' button and then bootstrap the OS.<br>
+                    4. Once the program is loaded in User, use the next and previous buttons to tranverse through the
+                    process.<br>
+                    5. Follow the prompts given in the dialogue box at every step to handle the traps and interrupts
+                    during the execution of the process.</p>
             </div>
         </section>
         <section class="accordion">
@@ -234,7 +236,7 @@
                     process management within the operating system.</p>
             </div>
         </section>
-        
+
 
         <section class="accordion">
             <input type="checkbox" name="collapse2" id="handle5">
