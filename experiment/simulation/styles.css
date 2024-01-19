@@ -753,6 +753,14 @@ position: sticky;
 top: 0;
 }
 
+.tickDisplay {
+  font-size: large;
+  font-weight: bolder;
+  color: olive;
+  padding: 10px;
+  margin: 10px;
+}
+
 .inst_button {
 background-color: moccasin;
 color: black;
@@ -873,8 +881,8 @@ cursor: help;
 .wrapper {  
 cursor: help;
 -webkit-transform: translateZ(0); /* webkit flicker fix */
-/* -webkit-font-smoothing: antialiased; webkit text rendering fix */
-z-index: 100;
+-webkit-font-smoothing: antialiased; 
+z-index: 10;
 }
 
 .wrapper .tooltip {
@@ -882,7 +890,7 @@ background: #566573;
 bottom: 100%;
 color: #fff;
 display: block;
-z-index: 100;
+z-index: 10;
 left: -100%;
 margin-bottom: 20px;
 opacity: 0;
@@ -913,7 +921,7 @@ font-weight: normal;
 .wrapper .tooltip:before {
 bottom: -20px;
 content: " ";
-z-index: 100;
+z-index: 10;
 display: block;
 height: 20px;
 left: 0;
@@ -927,7 +935,7 @@ border-left: solid transparent 10px;
 border-right: solid transparent 10px;
 border-top: solid #566573 10px;
 bottom: -10px;
-z-index: 100;
+z-index: 10;
 content: " ";
 height: 0;
 left: 10%;
@@ -938,7 +946,7 @@ width: 0;
 
 .wrapper:hover .tooltip {
 opacity: 0.9;
-z-index: 100;
+z-index: 10;
 pointer-events: auto;
 -webkit-transform: translateY(0px);
   -moz-transform: translateY(0px);

@@ -22,10 +22,10 @@
             <p>
             <h1 style="color: red;">Error!</h1>
             <p>
-                <p id="alert-msg">
-                </p>
-                <span class="boot"
-                    style="width: fit-content; padding: 10px; background-color: red; color: white; border-radius:10px;">OK</span>
+            <p id="alert-msg">
+            </p>
+            <span class="boot"
+                style="width: fit-content; padding: 10px; background-color: red; color: white; border-radius:10px;">OK</span>
             </p>
             </p>
         </div>
@@ -154,23 +154,29 @@
             <div>
 
                 <div class="display-block" style="width: 30%;">
-                    <p style="text-align: center; font-weight: bold;">CPU <button class="wrapper" id="info_btn"> ?
+                    <p style="text-align: center; font-weight: bold;">CPU
+                        <!-- <button class="wrapper" id="info_btn"> ?
                             <span class="tooltip">CPU is the hardware component that carries out the essential
                                 computational
                                 tasks required by the OS and software applications. The OS manages and coordinates the
                                 CPU's
                                 activities, ensuring that processes run efficiently, securely, and in accordance with
                                 system
-                                priorities.</span></button></p>
+                                priorities.</span>
+                        </button> -->
+                    </p>
                     <hr>
                     <table id="CPU">
 
                     </table>
                 </div>
                 <div class="display-block" style="width: 60%;">
-                    <p style="text-align: center; font-weight: bold;">Processes <button class="wrapper" id="info_btn"> ?
+                    <p style="text-align: center; font-weight: bold;">Processes
+                        <!-- <button class="wrapper" id="info_btn"> ?
                             <span class="tooltip">This block contains information about all the process in the
-                                simulation.</span></button></p>
+                                simulation.</span>
+                        </button> -->
+                    </p>
                     <hr>
 
                     <table id="processes">
@@ -179,15 +185,17 @@
                 </div>
             </div>
 
-
             <div class="tickDisplay">
+                <p>Number of Ticks: <span id="ticker"></span></p>
+            </div>
+            <!-- <div class="tickDisplay">
                 <table id="tick" class="tickTable">
                     <tr>
                         <td class="tickCell">Number of Ticks:</td>
                         <td class="tickCell" id="ticker"></td>
                     </tr>
                 </table>
-            </div>
+            </div> -->
         </div>
         <div class="dialog-box">
             <p style="text-align: center; font-weight: bold;">Dialog</p>

@@ -49,7 +49,7 @@ function assemble_msg(FEEDBACK, color) {
 
     if (msgElements.length > 0) {
         var prev_msg = msgElements[msgElements.length - 1];
-        prev_msg.style.backgroundColor = " #716866 ";
+        prev_msg.style.backgroundColor = " #cbc4c2 ";
     }
     td.style.backgroundColor = color;
     row.appendChild(td);
