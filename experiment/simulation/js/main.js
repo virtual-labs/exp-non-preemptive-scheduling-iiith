@@ -5,6 +5,7 @@ let State = {
     "Running":null,
     "Waiting":[],
     "Terminated":[],
+    "Completed": [],
     "Map":{"id":null,"run_time":null,"burst_time":null},
     "Timer":null,
     "Policy":"FCFS"
@@ -79,6 +80,19 @@ function UpdateTable(){
         cell4.className = "tag-orange";
     }
     );
+    State["Completed"].forEach((process) => {
+        let row = table.insertRow(-1);
+        let cell1 = row.insertCell(0);
+        cell1.innerHTML = process.id;
+        let cell2 = row.insertCell(1);
+        cell2.innerHTML = process.burst_time;
+        let cell3 = row.insertCell(2);
+        cell3.innerHTML = 0;
+        let cell4 = row.insertCell(3);
+        cell4.innerHTML = process.status;
+        cell4.className = "tag-blue";
+    }
+    );
     State["Terminated"].forEach((process) => {
         let row = table.insertRow(-1);
         let cell1 = row.insertCell(0);
@@ -121,6 +135,7 @@ function schedule(){
             State["Running"].status = "Running";
             // UpdateState();
         }
+        UpdateTable();
     }
     
 }
@@ -176,8 +191,8 @@ function Schedule(){
         // UpdateState();
         UpdateTable();
         if(State["Running"].mapping["burst_time"] == State["Running"].mapping["run_time"]){
-            State["Terminated"].push(State["Running"]);
-            alert("Process "+State["Running"].id+" Terminated");
+            State["Completed"].push(State["Running"]);
+            alert("Process "+State["Running"].id+" Completed");
             State["Running"] = null;
             State["Timer"] = null;
             // UpdateState();
@@ -229,16 +244,23 @@ function ContextSwitch(){
     }
 }
 
-function Terminate(){
+function Terminate( n = 1 ){
     if(State["Running"] != null) {
         let cpuTable = document.getElementById("CPU")
         tmp = State["Running"];
-        tmp.status = "Completed";
-        State["Terminated"].push(tmp)
+        if(n==1){
+            tmp.status = "Terminated";
+            State["Terminated"].push(tmp)
+        }
+        else {
+            tmp.status = "Completed";
+            State["Completed"].push(tmp)
+        }
         State["Running"] = null;
         cpuTable.deleteRow(0);
         cpuTable.deleteRow(0);            
     }
+    UpdateTable();
 }
 
 function Tick() {
@@ -254,7 +276,7 @@ function Tick() {
         cpuTable.rows[1].cells[2].innerHTML = State["Running"].mapping["run_time"];
         
         if(State["Running"].mapping["burst_time"]==State["Running"].mapping["run_time"]){
-            Terminate();
+            Terminate(0);
         }
         UpdateTable();
     }
