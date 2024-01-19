@@ -57,6 +57,20 @@ function assemble_msg(FEEDBACK, color) {
     dialogue.appendChild(tb);
 }
 
+function sendalert(message) {
+
+    alertMsg = message;
+
+    document.getElementById("alert-msg").innerHTML = alertMsg;
+    var modal = document.getElementById("myModal");
+    modal.style.display = "block";
+    var span = document.getElementsByClassName("boot")[0];
+    span.onclick = function () {
+        modal.style.display = "none";
+    }
+}
+
+
 function loadUnloadCommand(cmd){
     if(cmd=="schedule"){
         if(State["clickedState"] == "schedule"){
@@ -70,7 +84,7 @@ function loadUnloadCommand(cmd){
             // console.log(schd_btn.classList)
         }
         else {
-            alert("Please complete the previous command first or unselect it")
+            sendalertalert("Please complete the previous command first or unselect it")
         }
     }
     if(cmd=="newProcess"){
@@ -84,7 +98,7 @@ function loadUnloadCommand(cmd){
         UpdateState();
         }
         else {
-            alert("Please complete the previous command first or unselect it")
+            sendalert("Please complete the previous command first or unselect it")
         }
     }
 }
@@ -97,16 +111,16 @@ function CreateProcess(){
     let create_process_input = document.getElementById("burstTime").value;
     document.getElementById("burstTime").value = "";
     if(create_process_input == ""){
-        alert("Please enter a valid number");
+        sendalert("Please enter a number between 1 to 30");
         return;
     }
     let create_process_input_int = parseInt(create_process_input);
     if(create_process_input_int < 1){
-        alert("Please enter a valid number");
+        sendalert("Please enter a number between 1 to 30");
         return;
     }
     if(create_process_input_int > 30){
-        alert("Please enter the burst time less than or equal to 30")
+        sendalertalert("Please enter a number between 1 to 30")
         return
     }
     let process = new Process(create_process_input_int, "Ready");
