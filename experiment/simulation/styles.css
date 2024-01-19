@@ -99,7 +99,11 @@ td {
 }
 
 
-.btn:hover {
+.btn:hover{
+  background-color: rgb(0, 165, 0);
+  color: white;
+}
+.btn:active{
   background-color: rgb(0, 165, 0);
   color: white;
 }
