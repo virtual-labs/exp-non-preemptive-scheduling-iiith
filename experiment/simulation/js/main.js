@@ -10,11 +10,11 @@ let State = {
     "Map":{"id":null,"run_time":null,"burst_time":null},
     "Timer":null,
     "Policy":"FCFS",
-    "clickedState":null
+    "clickedState":null,
+    "time_counter":0
 };
 
 let id_counter = 1;
-let time_counter = 0;
 
 for (i=0;i<Previous_States.length;i++){
     console.log(Previous_States[i]);
@@ -48,12 +48,12 @@ function loadUnloadCommand(cmd){
     }
     if(cmd=="newProcess"){
         if(State["clickedState"] == "newProcess"){
-            clickedState = null;
+            State["clickedState"] = null;
             newProcess_btn = document.getElementById("newProcess-btn");
             newProcess_btn.classList.remove("btn-loaded");
         }
         else if(State["clickedState"] == null){
-        clickedState = "newProcess";
+        State["clickedState"] = "newProcess";
         UpdateState();
         }
         else {
@@ -220,14 +220,14 @@ function UpdateState(){
     }
     timer.innerHTML = State["Timer"];
     policy.innerHTML = State["Policy"];
-    ticker.innerHTML = time_counter;
-    if(clickedState == "schedule"){
+    ticker.innerHTML = State["time_counter"];
+    if(State["clickedState"] == "schedule"){
         schd_btn.classList.add("btn-loaded");
     }
-    else if(clickedState == "newProcess"){
+    else if(State["clickedState"] == "newProcess"){
         newProcess_btn.classList.add("btn-loaded");
     }
-    else if(clickedState == null){
+    else if(State["clickedState"] == null){
         schd_btn.classList.remove("btn-loaded");
         newProcess_btn.classList.remove("btn-loaded");
     }
@@ -318,11 +318,11 @@ function Terminate( n = 1 ){
 }
 
 function Tick() {
-    if(clickedState == null){
+    if(State["clickedState"] == null){
     if(State["Running"]!=null){
-        time_counter++;
+        State["time_counter"]++;
         let ticker = document.getElementById("ticker");
-        ticker.innerHTML = time_counter;
+        ticker.innerHTML = State["time_counter"];
         State["Running"].mapping["run_time"]++;
         State["Running"].mapping["burst_time"];
         let cpuTable = document.getElementById("CPU")
@@ -337,21 +337,19 @@ function Tick() {
     
     UpdateState();
 }
-if(clickedState == "newProcess"){
+if(State["clickedState"] == "newProcess"){
     CreateProcess();
-    time_counter++;
-    let ticker = document.getElementById("ticker");
-    ticker.innerHTML = time_counter;
-    clickedState = null;
+    State["time_counter"]++;
+    State["clickedState"] = null;
+    newProcess();
     UpdateTable();
     UpdateState();
 }
-if(clickedState == "schedule"){
-    Schedule();
-    time_counter++;
-    let ticker = document.getElementById("ticker");
-    ticker.innerHTML = time_counter;
-    clickedState = null;
+if(State["clickedState"] == "schedule"){
+    schedule();
+    State["time_counter"]++;
+    State["clickedState"] = null;
+    newProcess();
     UpdateTable();
     UpdateState();
 }
