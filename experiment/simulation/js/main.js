@@ -9,9 +9,9 @@ let State = {
     "Completed": [],
     "Map":{"id":null,"run_time":null,"burst_time":null},
     "Timer":null,
-    "Policy":"FCFS"
+    "Policy":"FCFS",
+    "clickedState":null
 };
-let clickedState = null;
 
 let id_counter = 1;
 let time_counter = 0;
@@ -32,25 +32,32 @@ class Process{
 
 function loadUnloadCommand(cmd){
     if(cmd=="schedule"){
-        if(clickedState == "schedule"){
-            clickedState = null;
-            schd_btn = document.getElementById("schd-btn");
-            schd_btn.classList.remove("loaded");
-            console.log(schd_btn.classList)
+        if(State["clickedState"] == "schedule"){
+            State["clickedState"] = null;
+            UpdateState();
         }
-        else{
-            clickedState = "schedule";
+        else if(State["clickedState"] == null){
+        State["clickedState"] = "schedule";
             schd_btn = document.getElementById("schd-btn");
-            schd_btn.classList.add("loaded");
-            console.log(schd_btn.classList)
+            schd_btn.classList.add("btn-loaded");
+            // console.log(schd_btn.classList)
+        }
+        else {
+            alert("Please complete the previous command first or unselect it")
         }
     }
     if(cmd=="newProcess"){
-        if(clickedState == "newProcess"){
+        if(State["clickedState"] == "newProcess"){
             clickedState = null;
+            newProcess_btn = document.getElementById("newProcess-btn");
+            newProcess_btn.classList.remove("btn-loaded");
         }
-        else{
+        else if(State["clickedState"] == null){
         clickedState = "newProcess";
+        UpdateState();
+        }
+        else {
+            alert("Please complete the previous command first or unselect it")
         }
     }
 }
@@ -180,6 +187,9 @@ function UpdateState(){
     let policy=document.getElementById("schd_p");
     let map=document.getElementById("map");
     let timer=document.getElementById("timer");
+    let ticker = document.getElementById("ticker");
+    let schd_btn = document.getElementById("schd-btn");
+    let newProcess_btn = document.getElementById("newProcess-btn");
     readyQueue.innerHTML = "";
     temp = [];
     State["Ready"].forEach((process)=>{
@@ -210,6 +220,17 @@ function UpdateState(){
     }
     timer.innerHTML = State["Timer"];
     policy.innerHTML = State["Policy"];
+    ticker.innerHTML = time_counter;
+    if(clickedState == "schedule"){
+        schd_btn.classList.add("btn-loaded");
+    }
+    else if(clickedState == "newProcess"){
+        newProcess_btn.classList.add("btn-loaded");
+    }
+    else if(clickedState == null){
+        schd_btn.classList.remove("btn-loaded");
+        newProcess_btn.classList.remove("btn-loaded");
+    }
     
 }
 
@@ -318,6 +339,9 @@ function Tick() {
 }
 if(clickedState == "newProcess"){
     CreateProcess();
+    time_counter++;
+    let ticker = document.getElementById("ticker");
+    ticker.innerHTML = time_counter;
     clickedState = null;
     UpdateTable();
     UpdateState();

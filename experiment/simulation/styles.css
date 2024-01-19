@@ -103,9 +103,14 @@ td {
   background-color: rgb(0, 165, 0);
   color: white;
 }
-.btn:active{
-  background-color: rgb(0, 165, 0);
-  color: white;
+.btn-loaded{
+  background-color: white;
+  color: black;
+}
+
+.btn-loaded:hover{
+  background-color: white;
+  color: black;
 }
 
 .Instructions {

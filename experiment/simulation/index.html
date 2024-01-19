@@ -113,11 +113,12 @@
             <p style="text-align:center; font-weight: bold;">Controls</p>
             <hr>
             <div class="controls">
-                <button class="btn" id="tick-btn" onclick="Tick()"><i class="fa fa-clock-o" aria-hidden="true"></i>
-                    Tick</button>
+                <button class="btn" id="tick-btn" onclick="Tick()" style="width: 100%;"><i class="fa fa-clock-o" aria-hidden="true"></i>
+                Execute</button>
+                    <p style="text-align: center; font-weight: bold;">Load Commands</p>
                 <button class="btn" id="schd-btn" onclick="loadUnloadCommand('schedule')">Schedule</button>
                 <div class="dropdown">
-                    <button class="btn" onclick="newProcess()"> <i class="fa fa-plus"></i> New process</button>
+                    <button class="btn" id="newProcess-btn" onclick="newProcess()"> <i class="fa fa-plus"></i> New process</button>
                     <div id="myDropdown" class="dropdown-content">
                         <input type="number" placeholder="Enter Burst Time (1 - 30)" id="burstTime">
                         <button class="btn" style="width: 100%; border-radius: 0%;"
