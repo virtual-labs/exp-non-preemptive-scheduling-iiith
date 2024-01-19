@@ -29,7 +29,7 @@
             <p style="text-align: center; font-weight: bold">Transition states of the system</p>
             <hr>
 
-            <!-- <div class="states">
+            <div class="states">
                 <div class="tabset">
                     <input type="radio" name="tabset" id="tab1" aria-controls="marzen" checked>
                     <label id="current_state" for="tab1">Current System<br>State</label>
@@ -103,7 +103,22 @@
                         
                     </div>
                     
-                </div> -->
+                </div>
+        </div>
+        <p style="text-align:center; font-weight: bold;">Controls</p>
+        <hr>
+        <div class="controls">
+            <button class="btn" id="tick-btn" onclick="Tick()"><i class="fa fa-clock-o" aria-hidden="true"></i>
+                Tick</button>
+            <button class="btn" id="schd-btn" onclick="Schedule()">Schedule</button>
+            <div class="dropdown">
+                <button class="btn" onclick="newProcess()"> <i class="fa fa-plus"></i> New process</button>
+                <div id="myDropdown" class="dropdown-content">
+                    <input type="number" placeholder="Enter Burst Time (1 - 30)" id="burstTime">
+                    <button class="btn" style="width: 100%; border-radius: 0%;"
+                        onclick="CreateProcess()">Create</button>
+                </div>
+            </div>
         </div>
     </div>
     <div class="displays">
@@ -133,19 +148,7 @@
             </div>
         </div>
 
-        <div class="controls">
-            <button class="btn" id="tick-btn" onclick="Tick()"><i class="fa fa-clock-o" aria-hidden="true"></i>
-                Tick</button>
-            <button class="btn" id="schd-btn" onclick="Schedule()">Schedule</button>
-            <div class="dropdown">
-                <button class="btn" onclick="newProcess()"> <i class="fa fa-plus"></i> New process</button>
-                <div id="myDropdown" class="dropdown-content">
-                    <input type="number" placeholder="Enter Burst Time (1 - 30)" id="burstTime">
-                    <button class="btn" style="width: 100%; border-radius: 0%;"
-                        onclick="CreateProcess()">Create</button>
-                </div>
-            </div>
-        </div>
+        
         <div class="tickDisplay">
             <table id="tick" class="tickTable">
                 <tr>

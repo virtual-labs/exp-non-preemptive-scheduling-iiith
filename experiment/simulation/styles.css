@@ -89,11 +89,11 @@ td {
 .btn{
   padding: 10px;
   border-radius: 10px;
+  margin: 1px;
   color: white;
   background-color: green;
   border: solid 2px green;
   cursor: pointer;
-  font-size: larger;
   font-weight: bolder;
 }
 
@@ -341,7 +341,7 @@ input:focus-visible + label {
 }
 
 .controls {
-  margin: auto;
+  margin: 10px;
   width: 50%;
 }
 

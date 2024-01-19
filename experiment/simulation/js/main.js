@@ -46,8 +46,9 @@ function CreateProcess(){
     let process = new Process(create_process_input_int, "Ready");
     Previous_States.push(State);
     State["Ready"].push(process);
-    // UpdateState();
+    UpdateState();
     UpdateTable();
+    newProcess();
 }
 
 function UpdateTable(){
@@ -173,14 +174,14 @@ function Schedule(){
     else{
         State["Running"].mapping["run_time"]++;
         State["Timer"]--;
-        // UpdateState();
+        UpdateState();
         UpdateTable();
         if(State["Running"].mapping["burst_time"] == State["Running"].mapping["run_time"]){
             State["Terminated"].push(State["Running"]);
             alert("Process "+State["Running"].id+" Terminated");
             State["Running"] = null;
             State["Timer"] = null;
-            // UpdateState();
+            UpdateState();
             UpdateTable();
             SchedulePolicy();
         }
@@ -217,6 +218,7 @@ function FCFS(){
             return;
         }
         schedule();
+        UpdateState();
     }
 }
 
@@ -224,7 +226,7 @@ function ContextSwitch(){
     if(State["Running"]!=null){
         State["Waiting"].push(State["Running"]);
         State["Running"] = null;
-        // UpdateState();
+        UpdateState();
         UpdateTable();
     }
 }
@@ -260,6 +262,8 @@ function Tick() {
         UpdateTable();
     }
     
-    // UpdateState();
+    UpdateState();
 }
+
+
 
