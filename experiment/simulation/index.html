@@ -35,7 +35,7 @@
                     <label id="current_state" for="tab1">Current System<br>State</label>
                     <input type="radio" name="tabset" id="tab2" aria-controls="marzen">
                     <label id="previous_states" for="tab2">Previous system<br>States</label>
-                    
+
                     <div class="tab-panels">
                         <section id="marzen" class="tab-panel">
                             <table id="current_ts">
@@ -70,103 +70,112 @@
                             </table>
                         </section>
                         <section id="rauchbier" class="tab-panel">
-                            <table id="previous_ts">
-                                <tr>
-                                    <td class="ts_cell">Ready:</td>
-                                    <td class="ts_cell" id="rQ"></td>
-                                </tr>
-                                <tr>
-                                    <td class="ts_cell">Waiting for I/O:</td>
-                                    <td class="ts_cell" id="wQ"></td>
-                                </tr>
-                                <tr>
-                                    <td class="ts_cell">Terminated:</td>
-                                    <td class="ts_cell" id="tQ"></td>
-                                </tr>
-                                <tr>
-                                    <td class="ts_cell">cpu:</td>
-                                    <td class="ts_cell" id="cpu_p"></td>
-                                </tr>
-                                <tr>
-                                    <td class="ts_cell">Map:</td>
-                                    <td class="ts_cell" id="map"></td>
-                                </tr>
-                                <tr>
-                                    <td class="ts_cell">Timer:</td>
-                                    <td class="ts_cell" id="timer"></td>
-                                </tr>
-                                <tr>
-                                    <td class="ts_cell">Scheduling policy:</td>
-                                    <td class="ts_cell" id="schd_p"></td>
-                                </tr>
-                            </table>
-                        
+
+                            <div id="prev_state">
+                                <button type="button" class="collapsible">Open Collapsible</button>
+                                <table id="previous_ts">
+                                    <tr>
+                                        <td class="ts_cell">Ready:</td>
+                                        <td class="ts_cell" id="rQ"></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="ts_cell">Waiting for I/O:</td>
+                                        <td class="ts_cell" id="wQ"></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="ts_cell">Terminated:</td>
+                                        <td class="ts_cell" id="tQ"></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="ts_cell">cpu:</td>
+                                        <td class="ts_cell" id="cpu_p"></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="ts_cell">Map:</td>
+                                        <td class="ts_cell" id="map"></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="ts_cell">Timer:</td>
+                                        <td class="ts_cell" id="timer"></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="ts_cell">Scheduling policy:</td>
+                                        <td class="ts_cell" id="schd_p"></td>
+                                    </tr>
+                                </table>
+
+                            </div>
+
                     </div>
-                    
-                </div>
-        </div>
-        <p style="text-align:center; font-weight: bold;">Controls</p>
-        <hr>
-        <div class="controls">
-            <button class="btn" id="tick-btn" onclick="Tick()"><i class="fa fa-clock-o" aria-hidden="true"></i>
-                Tick</button>
-            <button class="btn" id="schd-btn" onclick="Schedule()">Schedule</button>
-            <div class="dropdown">
-                <button class="btn" onclick="newProcess()"> <i class="fa fa-plus"></i> New process</button>
-                <div id="myDropdown" class="dropdown-content">
-                    <input type="number" placeholder="Enter Burst Time (1 - 30)" id="burstTime">
-                    <button class="btn" style="width: 100%; border-radius: 0%;"
-                        onclick="CreateProcess()">Create</button>
+
                 </div>
             </div>
-        </div>
-    </div>
-    <div class="displays">
-        
-        <div>
-
-            <div class="display-block" style="width: 30%;">
-                <p style="text-align: center; font-weight: bold;">CPU <button class="wrapper" id="info_btn"> ?
-                        <span class="tooltip">CPU is the hardware component that carries out the essential computational
-                            tasks required by the OS and software applications. The OS manages and coordinates the CPU's
-                            activities, ensuring that processes run efficiently, securely, and in accordance with system
-                            priorities.</span></button></p>
-                <hr>
-                <table id="CPU">
-
-                </table>
-            </div>
-            <div class="display-block" style="width: 60%;">
-                <p style="text-align: center; font-weight: bold;">Processes <button class="wrapper" id="info_btn"> ?
-                        <span class="tooltip">This block contains information about all the process in the
-                            simulation.</span></button></p>
-                <hr>
-
-                <table id="processes">
-
-                </table>
+            <p style="text-align:center; font-weight: bold;">Controls</p>
+            <hr>
+            <div class="controls">
+                <button class="btn" id="tick-btn" onclick="Tick()"><i class="fa fa-clock-o" aria-hidden="true"></i>
+                    Tick</button>
+                <button class="btn" id="schd-btn" onclick="scheduleState()">Schedule</button>
+                <div class="dropdown">
+                    <button class="btn" onclick="newProcess()"> <i class="fa fa-plus"></i> New process</button>
+                    <div id="myDropdown" class="dropdown-content">
+                        <input type="number" placeholder="Enter Burst Time (1 - 30)" id="burstTime">
+                        <button class="btn" style="width: 100%; border-radius: 0%;"
+                            onclick="CreateProcess()">Create</button>
+                    </div>
+                </div>
             </div>
         </div>
+        <div class="displays">
 
-        
-        <div class="tickDisplay">
-            <table id="tick" class="tickTable">
+            <div>
+
+                <div class="display-block" style="width: 30%;">
+                    <p style="text-align: center; font-weight: bold;">CPU <button class="wrapper" id="info_btn"> ?
+                            <span class="tooltip">CPU is the hardware component that carries out the essential
+                                computational
+                                tasks required by the OS and software applications. The OS manages and coordinates the
+                                CPU's
+                                activities, ensuring that processes run efficiently, securely, and in accordance with
+                                system
+                                priorities.</span></button></p>
+                    <hr>
+                    <table id="CPU">
+
+                    </table>
+                </div>
+                <div class="display-block" style="width: 60%;">
+                    <p style="text-align: center; font-weight: bold;">Processes <button class="wrapper" id="info_btn"> ?
+                            <span class="tooltip">This block contains information about all the process in the
+                                simulation.</span></button></p>
+                    <hr>
+
+                    <table id="processes">
+
+                    </table>
+                </div>
+            </div>
+
+
+            <div class="tickDisplay">
+                <table id="tick" class="tickTable">
+                    <tr>
+                        <td class="tickCell">Number of Ticks:</td>
+                        <td class="tickCell" id="ticker"></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="dialog-box">
+            <p style="text-align: center; font-weight: bold;">Dialog</p>
+            <hr>
+            <table id="dialog">
                 <tr>
-                    <td class="tickCell">Number of Ticks:</td>
-                    <td class="tickCell" id="ticker"></td>
+                    <td class="msg">&#128203 You can start the simulation by creating a new process in the ready pool.
+                    </td>
                 </tr>
             </table>
         </div>
-    </div>
-    <div class="dialog-box">
-        <p style="text-align: center; font-weight: bold;">Dialog</p>
-        <hr>
-        <table id="dialog">
-            <tr>
-                <td class="msg">&#128203 You can start the simulation by creating a new process in the ready pool.</td>
-            </tr>
-        </table>
-    </div>
     </div>
     <div class="container3">
         <h2>Know what's happening</h2>

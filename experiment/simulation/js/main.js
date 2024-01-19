@@ -9,9 +9,14 @@ let State = {
     "Timer":null,
     "Policy":"FCFS"
 };
+let clickedState = null;
 
 let id_counter = 1;
 let time_counter = 0;
+
+for (i=0;i<Previous_States.length;i++){
+    console.log(Previous_States[i]);
+}
 
 class Process{
     constructor(burst_time, status){
@@ -21,6 +26,10 @@ class Process{
         this.id = id_counter;
         id_counter++;
     }
+}
+
+function scheduleState(){
+    clickedState = "schedule";
 }
 
 function newProcess() {
@@ -244,7 +253,7 @@ function Terminate(){
 }
 
 function Tick() {
-    
+    if(clickedState == null){
     if(State["Running"]!=null){
         time_counter++;
         let ticker = document.getElementById("ticker");
@@ -264,6 +273,20 @@ function Tick() {
     
     UpdateState();
 }
+if(clickedState == "newProcess"){
+    CreateProcess();
+    clickedState = null;
+    UpdateTable();
+    UpdateState();
+}
+if(clickedState == "schedule"){
+    Schedule();
+    time_counter++;
+    let ticker = document.getElementById("ticker");
+    ticker.innerHTML = time_counter;
+    clickedState = null;
+    UpdateTable();
+    UpdateState();
+}
 
-
-
+}
