@@ -30,6 +30,33 @@ class Process{
     }
 }
 
+function assemble_msg(FEEDBACK, color) {
+    var dialogue = document.getElementById("dialog");
+    var tb = dialogue.getElementsByTagName("tbody")[0];
+    var row = document.createElement("tr");
+    var td = document.createElement("td");
+    // Assign class to td
+    td.className = "msg";
+
+    var text = "";
+
+    text += FEEDBACK;
+    
+
+    td.innerHTML = text;
+
+    var msgElements = document.getElementsByClassName("msg");
+
+    if (msgElements.length > 0) {
+        var prev_msg = msgElements[msgElements.length - 1];
+        prev_msg.style.backgroundColor = " #716866 ";
+    }
+    td.style.backgroundColor = color;
+    row.appendChild(td);
+    tb.appendChild(row);
+    dialogue.appendChild(tb);
+}
+
 function loadUnloadCommand(cmd){
     if(cmd=="schedule"){
         if(State["clickedState"] == "schedule"){
@@ -88,6 +115,7 @@ function CreateProcess(){
     UpdateState();
     UpdateTable();
     newProcess();
+    assemble_msg("New process created successfully!", "green");
 }
 
 function UpdateTable(){
@@ -129,7 +157,7 @@ function UpdateTable(){
         cell3.innerHTML = 0;
         let cell4 = row.insertCell(3);
         cell4.innerHTML = process.status;
-        cell4.className = "tag-blue";
+        cell4.className = "tag-grey";
     }
     );
     State["Terminated"].forEach((process) => {
@@ -142,7 +170,7 @@ function UpdateTable(){
         cell3.innerHTML = 0;
         let cell4 = row.insertCell(3);
         cell4.innerHTML = process.status;
-        cell4.className = "tag-grey";
+        cell4.className = "tag-red";
     }
     );
 }
@@ -167,6 +195,7 @@ function schedule(){
         
         
             // Remove State["Ready"][0] from State["Ready"] and add to State["Running"]
+            assemble_msg("Process with pid " + State["Ready"][0].id + " now running on the CPU!");
             tmp = State["Ready"][0];
             State["Running"] = tmp;
             
@@ -174,7 +203,13 @@ function schedule(){
             State["Running"].status = "Running";
             // UpdateState();
         }
+        else {
+            assemble_msg("No ready processes to be run on the CPU. Please create a new process.", "red");
+        }
         UpdateTable();
+    }
+    else {
+        assemble_msg("A process is currently running on the CPU. Either wait for it to complete or terminate that process.", "red");
     }
     
 }
@@ -310,9 +345,13 @@ function Terminate( n = 1 ){
             tmp.status = "Completed";
             State["Completed"].push(tmp)
         }
+        assemble_msg("Currently running process terminated succesfully", "green");
         State["Running"] = null;
         cpuTable.deleteRow(0);
         cpuTable.deleteRow(0);            
+    }
+    else {
+        assemble_msg("No running process to terminate. Please schedule a process.", "red");
     }
     UpdateTable();
 }

@@ -33,6 +33,15 @@ td {
   font-weight: bolder;
 }
 
+.tag-red {
+  padding: 10px;
+  border-radius: 20px;
+  width: max-content;
+  background-color: red;
+  color: white;
+  font-weight: bolder;
+}
+
 .tag-blue {
   padding: 10px;
   border-radius: 20px;
@@ -148,8 +157,9 @@ td {
   float: left;
   width: 21%;
   background-color: #F2F3F4 ;
+  margin-top: 10px;
   border-radius: 10px;
-  height: 820px;
+  height: 310px;
   padding: 2px;
   overflow-y: scroll;
 }
