@@ -72,9 +72,17 @@ function sendalert(message) {
 
 function openTheory() {
     if (document.getElementById("toc").style.display == "none") {
-        document.getElementById("toc").style.display == "block";
+        document.getElementById("toc").style.display = "block";
     } else {
-        document.getElementById("study-material").style.display == "none";
+        document.getElementById("toc").style.display = "none";
+    }
+}
+
+function openContent(toc_id) {
+    if (document.getElementById(toc_id).style.display == "none") {
+        document.getElementById(toc_id).style.display = "block";
+    } else {
+        document.getElementById(toc_id).style.display = "none";
     }
 }
 
