@@ -138,7 +138,7 @@ td {
   width: 20%;
   background-color: #F2F3F4 ;
   border-radius: 10px;
-  height: 820px;
+  /* height: 820px; */
   padding: 2px;
   margin-right: 10px;
 }
@@ -402,6 +402,30 @@ input:focus-visible + label {
   height: 300px;
   float: left;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+#toc {
+  display: none;
+  border: none;
+  border-radius: 20px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+#study-material {
+  position: absolute;
+  bottom: 30px;
+  right: 30px;
+  border-radius: 100px;
+  background-color: dodgerblue;
+  color: white;
+  font-size: xx-large;
+  padding: 20px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+#study-material:hover {
+  cursor: pointer;
+  transform: scale(1.1);
 }
 
 .Memory {

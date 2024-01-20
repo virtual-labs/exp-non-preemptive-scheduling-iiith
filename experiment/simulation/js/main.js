@@ -70,6 +70,14 @@ function sendalert(message) {
     }
 }
 
+function openTheory() {
+    if (document.getElementById("toc").style.display == "none") {
+        document.getElementById("toc").style.display == "block";
+    } else {
+        document.getElementById("study-material").style.display == "none";
+    }
+}
+
 
 function loadUnloadCommand(cmd){
     if(cmd=="schedule"){
