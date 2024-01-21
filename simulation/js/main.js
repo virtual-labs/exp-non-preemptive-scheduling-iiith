@@ -1,3 +1,4 @@
+
 //Your JavaScript goes in here
 let Previous_States = [];
 let State = {
@@ -5,13 +6,15 @@ let State = {
     "Running":null,
     "Waiting":[],
     "Terminated":[],
+    "Completed": [],
     "Map":{"id":null,"run_time":null,"burst_time":null},
     "Timer":null,
-    "Policy":"FCFS"
+    "Policy":"FCFS",
+    "clickedState":null,
+    "time_counter":0
 };
 
 let id_counter = 1;
-let time_counter = 0;
 
 class Process{
     constructor(burst_time, status){
@@ -23,24 +26,139 @@ class Process{
     }
 }
 
+function assemble_msg(FEEDBACK, color) {
+    var dialogue = document.getElementById("dialog");
+    var tb = dialogue.getElementsByTagName("tbody")[0];
+    var row = document.createElement("tr");
+    var td = document.createElement("td");
+    // Assign class to td
+    td.className = "msg";
+
+    var text = "";
+
+    text += FEEDBACK;
+    
+
+    td.innerHTML = text;
+
+    var msgElements = document.getElementsByClassName("msg");
+
+    if (msgElements.length > 0) {
+        var prev_msg = msgElements[msgElements.length - 1];
+        prev_msg.style.backgroundColor = " #cbc4c2 ";
+    }
+    td.style.backgroundColor = color;
+    row.appendChild(td);
+    tb.appendChild(row);
+    dialogue.appendChild(tb);
+}
+
+function sendalert(message) {
+
+    alertMsg = message;
+
+    document.getElementById("alert-msg").innerHTML = alertMsg;
+    var modal = document.getElementById("myModal");
+    modal.style.display = "block";
+    var span = document.getElementsByClassName("boot")[0];
+    span.onclick = function () {
+        modal.style.display = "none";
+    }
+}
+
+function openTheory() {
+    if (document.getElementById("toc").style.display == "none") {
+        document.getElementById("toc").style.display = "block";
+    } else {
+        document.getElementById("toc").style.display = "none";
+    }
+}
+
+function openContent(toc_id) {
+    if (document.getElementById(toc_id).style.display == "none") {
+        document.getElementById(toc_id).style.display = "block";
+    } else {
+        document.getElementById(toc_id).style.display = "none";
+    }
+}
+
+
+function loadUnloadCommand(cmd){
+    if(cmd=="schedule"){
+        if(State["clickedState"] == "schedule"){
+            State["clickedState"] = null;
+            UpdateState();
+        }
+        else if(State["clickedState"] == null){
+        State["clickedState"] = "schedule";
+            schd_btn = document.getElementById("schd-btn");
+            schd_btn.classList.add("btn-loaded");
+            // console.log(schd_btn.classList)
+        }
+        else {
+            sendalertalert("Please complete the previous command first or unselect it")
+        }
+    }
+    if(cmd=="newProcess"){
+        if(State["clickedState"] == "newProcess"){
+            State["clickedState"] = null;
+            newProcess_btn = document.getElementById("newProcess-btn");
+            newProcess_btn.classList.remove("btn-loaded");
+        }
+        else if(State["clickedState"] == null){
+        State["clickedState"] = "newProcess";
+        UpdateState();
+        newProcess();
+        }
+        else {
+            sendalert("Please complete the previous command first or unselect it")
+        }
+    }
+    if(cmd=="terminate"){
+        if(State["clickedState"] == "terminate"){
+            State["clickedState"] = null;
+            UpdateState();
+        }
+        else if(State["clickedState"] == null){
+        State["clickedState"] = "terminate";
+        UpdateState();
+        }
+        else {
+            sendalert("Please complete the previous command first or unselect it")
+        }
+    }
+}
+
+function ToggleCreateProcess(){
+    if(State["clickedState"] == "newProcess"){
+        State["clickedState"] = null;
+        UpdateState();
+        UpdateTable();
+    }
+    else if(State["clickedState"] == null){
+        document.getElementById("myDropdown").classList.toggle("show");
+    }
+}
+
 function newProcess() {
     document.getElementById("myDropdown").classList.toggle("show");
+    
 }
 
 function CreateProcess(){
     let create_process_input = document.getElementById("burstTime").value;
     document.getElementById("burstTime").value = "";
     if(create_process_input == ""){
-        alert("Please enter a valid number");
+        sendalert("Please enter a number between 1 to 30");
         return;
     }
     let create_process_input_int = parseInt(create_process_input);
     if(create_process_input_int < 1){
-        alert("Please enter a valid number");
+        sendalert("Please enter a number between 1 to 30");
         return;
     }
     if(create_process_input_int > 30){
-        alert("Please enter the burst time less than or equal to 30")
+        sendalertalert("Please enter a number between 1 to 30")
         return
     }
     let process = new Process(create_process_input_int, "Ready");
@@ -48,7 +166,7 @@ function CreateProcess(){
     State["Ready"].push(process);
     UpdateState();
     UpdateTable();
-    newProcess();
+    assemble_msg("New process created successfully!", "green");
 }
 
 function UpdateTable(){
@@ -80,7 +198,7 @@ function UpdateTable(){
         cell4.className = "tag-orange";
     }
     );
-    State["Terminated"].forEach((process) => {
+    State["Completed"].forEach((process) => {
         let row = table.insertRow(-1);
         let cell1 = row.insertCell(0);
         cell1.innerHTML = process.id;
@@ -91,6 +209,19 @@ function UpdateTable(){
         let cell4 = row.insertCell(3);
         cell4.innerHTML = process.status;
         cell4.className = "tag-grey";
+    }
+    );
+    State["Terminated"].forEach((process) => {
+        let row = table.insertRow(-1);
+        let cell1 = row.insertCell(0);
+        cell1.innerHTML = process.id;
+        let cell2 = row.insertCell(1);
+        cell2.innerHTML = process.burst_time;
+        let cell3 = row.insertCell(2);
+        cell3.innerHTML = 0;
+        let cell4 = row.insertCell(3);
+        cell4.innerHTML = process.status;
+        cell4.className = "tag-red";
     }
     );
 }
@@ -115,6 +246,7 @@ function schedule(){
         
         
             // Remove State["Ready"][0] from State["Ready"] and add to State["Running"]
+            assemble_msg("Process with pid " + State["Ready"][0].id + " now running on the CPU!");
             tmp = State["Ready"][0];
             State["Running"] = tmp;
             
@@ -122,6 +254,13 @@ function schedule(){
             State["Running"].status = "Running";
             // UpdateState();
         }
+        else {
+            assemble_msg("No ready processes to be run on the CPU. Please create a new process.", "red");
+        }
+        UpdateTable();
+    }
+    else {
+        assemble_msg("A process is currently running on the CPU. Either wait for it to complete or terminate that process.", "red");
     }
     
 }
@@ -134,6 +273,10 @@ function UpdateState(){
     let policy=document.getElementById("schd_p");
     let map=document.getElementById("map");
     let timer=document.getElementById("timer");
+    let ticker = document.getElementById("ticker");
+    let schd_btn = document.getElementById("schd-btn");
+    let newProcess_btn = document.getElementById("newProcess-btn");
+    let end_btn = document.getElementById("end-btn");
     readyQueue.innerHTML = "";
     temp = [];
     State["Ready"].forEach((process)=>{
@@ -164,6 +307,21 @@ function UpdateState(){
     }
     timer.innerHTML = State["Timer"];
     policy.innerHTML = State["Policy"];
+    ticker.innerHTML = State["time_counter"];
+    if(State["clickedState"] == "schedule"){
+        schd_btn.classList.add("btn-loaded");
+    }
+    else if(State["clickedState"] == "newProcess"){
+        newProcess_btn.classList.add("btn-loaded");
+    }
+    else if(State["clickedState"] == "terminate"){
+        end_btn.classList.add("btn-loaded");
+    }
+    else if(State["clickedState"] == null){
+        schd_btn.classList.remove("btn-loaded");
+        newProcess_btn.classList.remove("btn-loaded");
+        end_btn.classList.remove("btn-loaded");
+    }
     
 }
 
@@ -177,8 +335,8 @@ function Schedule(){
         UpdateState();
         UpdateTable();
         if(State["Running"].mapping["burst_time"] == State["Running"].mapping["run_time"]){
-            State["Terminated"].push(State["Running"]);
-            alert("Process "+State["Running"].id+" Terminated");
+            State["Completed"].push(State["Running"]);
+            alert("Process "+State["Running"].id+" Completed");
             State["Running"] = null;
             State["Timer"] = null;
             UpdateState();
@@ -231,39 +389,69 @@ function ContextSwitch(){
     }
 }
 
-function Terminate(){
+function Terminate( n = 1 ){
     if(State["Running"] != null) {
         let cpuTable = document.getElementById("CPU")
         tmp = State["Running"];
-        tmp.status = "Completed";
-        State["Terminated"].push(tmp)
+        if(n==1){
+            tmp.status = "Terminated";
+            State["Terminated"].push(tmp)
+        }
+        else {
+            tmp.status = "Completed";
+            State["Completed"].push(tmp)
+        }
+        assemble_msg("Currently running process terminated succesfully", "green");
         State["Running"] = null;
         cpuTable.deleteRow(0);
         cpuTable.deleteRow(0);            
     }
+    else {
+        assemble_msg("No running process to terminate. Please schedule a process.", "red");
+    }
+    UpdateTable();
 }
 
 function Tick() {
-    
+    if(State["clickedState"] == null){
     if(State["Running"]!=null){
-        time_counter++;
+        State["time_counter"]++;
         let ticker = document.getElementById("ticker");
-        ticker.innerHTML = time_counter;
+        ticker.innerHTML = State["time_counter"];
         State["Running"].mapping["run_time"]++;
         State["Running"].mapping["burst_time"];
         let cpuTable = document.getElementById("CPU")
-        // Update the second and third cells of the second row of cpuTable
         cpuTable.rows[1].cells[1].innerHTML = State["Running"].mapping["burst_time"];
         cpuTable.rows[1].cells[2].innerHTML = State["Running"].mapping["run_time"];
         
         if(State["Running"].mapping["burst_time"]==State["Running"].mapping["run_time"]){
-            Terminate();
+            Terminate(0);
         }
         UpdateTable();
     }
     
     UpdateState();
 }
+if(State["clickedState"] == "newProcess"){
+    CreateProcess();
+    State["time_counter"]++;
+    State["clickedState"] = null;
+    UpdateTable();
+    UpdateState();
+}
+if(State["clickedState"] == "schedule"){
+    schedule();
+    State["time_counter"]++;
+    State["clickedState"] = null;
+    UpdateTable();
+    UpdateState();
+}
+if(State["clickedState"] == "terminate"){
+    Terminate();
+    State["time_counter"]++;
+    State["clickedState"] = null;
+    UpdateTable();
+    UpdateState();
+}
 
-
-
+}
