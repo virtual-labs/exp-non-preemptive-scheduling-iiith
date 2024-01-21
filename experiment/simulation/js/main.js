@@ -16,10 +16,6 @@ let State = {
 
 let id_counter = 1;
 
-for (i=0;i<Previous_States.length;i++){
-    console.log(Previous_States[i]);
-}
-
 class Process{
     constructor(burst_time, status){
         this.burst_time = burst_time;
@@ -112,6 +108,20 @@ function loadUnloadCommand(cmd){
         else if(State["clickedState"] == null){
         State["clickedState"] = "newProcess";
         UpdateState();
+        newProcess();
+        }
+        else {
+            sendalert("Please complete the previous command first or unselect it")
+        }
+    }
+    if(cmd=="terminate"){
+        if(State["clickedState"] == "terminate"){
+            State["clickedState"] = null;
+            UpdateState();
+        }
+        else if(State["clickedState"] == null){
+        State["clickedState"] = "terminate";
+        UpdateState();
         }
         else {
             sendalert("Please complete the previous command first or unselect it")
@@ -119,8 +129,20 @@ function loadUnloadCommand(cmd){
     }
 }
 
+function ToggleCreateProcess(){
+    if(State["clickedState"] == "newProcess"){
+        State["clickedState"] = null;
+        UpdateState();
+        UpdateTable();
+    }
+    else if(State["clickedState"] == null){
+        document.getElementById("myDropdown").classList.toggle("show");
+    }
+}
+
 function newProcess() {
     document.getElementById("myDropdown").classList.toggle("show");
+    
 }
 
 function CreateProcess(){
@@ -144,7 +166,6 @@ function CreateProcess(){
     State["Ready"].push(process);
     UpdateState();
     UpdateTable();
-    newProcess();
     assemble_msg("New process created successfully!", "green");
 }
 
@@ -255,6 +276,7 @@ function UpdateState(){
     let ticker = document.getElementById("ticker");
     let schd_btn = document.getElementById("schd-btn");
     let newProcess_btn = document.getElementById("newProcess-btn");
+    let end_btn = document.getElementById("end-btn");
     readyQueue.innerHTML = "";
     temp = [];
     State["Ready"].forEach((process)=>{
@@ -292,9 +314,13 @@ function UpdateState(){
     else if(State["clickedState"] == "newProcess"){
         newProcess_btn.classList.add("btn-loaded");
     }
+    else if(State["clickedState"] == "terminate"){
+        end_btn.classList.add("btn-loaded");
+    }
     else if(State["clickedState"] == null){
         schd_btn.classList.remove("btn-loaded");
         newProcess_btn.classList.remove("btn-loaded");
+        end_btn.classList.remove("btn-loaded");
     }
     
 }
@@ -410,7 +436,6 @@ if(State["clickedState"] == "newProcess"){
     CreateProcess();
     State["time_counter"]++;
     State["clickedState"] = null;
-    newProcess();
     UpdateTable();
     UpdateState();
 }
@@ -418,7 +443,13 @@ if(State["clickedState"] == "schedule"){
     schedule();
     State["time_counter"]++;
     State["clickedState"] = null;
-    newProcess();
+    UpdateTable();
+    UpdateState();
+}
+if(State["clickedState"] == "terminate"){
+    Terminate();
+    State["time_counter"]++;
+    State["clickedState"] = null;
     UpdateTable();
     UpdateState();
 }

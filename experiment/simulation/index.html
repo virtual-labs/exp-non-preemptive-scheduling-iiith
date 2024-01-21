@@ -137,7 +137,7 @@
                 <p style="text-align: center; font-weight: bold;">Load Commands</p>
                 <button class="btn" id="schd-btn" onclick="loadUnloadCommand('schedule')">Schedule</button>
                 <div class="dropdown">
-                    <button class="btn" id="newProcess-btn" onclick="newProcess()"> <i class="fa fa-plus"></i> New
+                    <button class="btn" id="newProcess-btn" onclick="ToggleCreateProcess()"> <i class="fa fa-plus"></i> New
                         process</button>
                     <div id="myDropdown" class="dropdown-content">
                         <input type="number" placeholder="Enter Burst Time (1 - 30)" id="burstTime">
@@ -145,7 +145,7 @@
                             onclick="loadUnloadCommand('newProcess')">Create</button>
                     </div>
                 </div>
-                <button class="btn" id="end-btn" onclick="Terminate()">Terminate</button>
+                <button class="btn" id="end-btn" onclick="loadUnloadCommand('terminate')">Terminate</button>
             </div>
 
         </div>
