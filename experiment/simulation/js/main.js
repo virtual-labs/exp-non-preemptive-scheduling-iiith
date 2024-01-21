@@ -136,7 +136,10 @@ function ToggleCreateProcess(){
         UpdateTable();
     }
     else if(State["clickedState"] == null){
+        let burst_input = document.getElementById("burstTime");
         document.getElementById("myDropdown").classList.toggle("show");
+        burst_input.placeholder = "Enter Burst Time (1-30) to create a process with Pid:"+id_counter;
+        
     }
 }
 

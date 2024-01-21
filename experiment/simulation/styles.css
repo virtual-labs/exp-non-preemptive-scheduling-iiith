@@ -550,6 +550,7 @@ input:focus-visible + label {
   padding: 14px 20px 12px 45px;
   border: none;
   border-bottom: 1px solid #ddd;
+  height: 70px;
 }
 
 #burstTime:focus {outline: 3px solid #ddd;}
