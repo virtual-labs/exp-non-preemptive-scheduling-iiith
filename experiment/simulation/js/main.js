@@ -201,32 +201,32 @@ function UpdateTable(){
         cell4.className = "tag-orange";
     }
     );
-    State["Completed"].forEach((process) => {
-        let row = table.insertRow(-1);
-        let cell1 = row.insertCell(0);
-        cell1.innerHTML = process.id;
-        let cell2 = row.insertCell(1);
-        cell2.innerHTML = process.burst_time;
-        let cell3 = row.insertCell(2);
-        cell3.innerHTML = 0;
-        let cell4 = row.insertCell(3);
-        cell4.innerHTML = process.status;
-        cell4.className = "tag-grey";
-    }
-    );
-    State["Terminated"].forEach((process) => {
-        let row = table.insertRow(-1);
-        let cell1 = row.insertCell(0);
-        cell1.innerHTML = process.id;
-        let cell2 = row.insertCell(1);
-        cell2.innerHTML = process.burst_time;
-        let cell3 = row.insertCell(2);
-        cell3.innerHTML = 0;
-        let cell4 = row.insertCell(3);
-        cell4.innerHTML = process.status;
-        cell4.className = "tag-red";
-    }
-    );
+    // State["Completed"].forEach((process) => {
+    //     let row = table.insertRow(-1);
+    //     let cell1 = row.insertCell(0);
+    //     cell1.innerHTML = process.id;
+    //     let cell2 = row.insertCell(1);
+    //     cell2.innerHTML = process.burst_time;
+    //     let cell3 = row.insertCell(2);
+    //     cell3.innerHTML = 0;
+    //     let cell4 = row.insertCell(3);
+    //     cell4.innerHTML = process.status;
+    //     cell4.className = "tag-grey";
+    // }
+    // );
+    // State["Terminated"].forEach((process) => {
+    //     let row = table.insertRow(-1);
+    //     let cell1 = row.insertCell(0);
+    //     cell1.innerHTML = process.id;
+    //     let cell2 = row.insertCell(1);
+    //     cell2.innerHTML = process.burst_time;
+    //     let cell3 = row.insertCell(2);
+    //     cell3.innerHTML = 0;
+    //     let cell4 = row.insertCell(3);
+    //     cell4.innerHTML = process.status;
+    //     cell4.className = "tag-red";
+    // }
+    // );
 }
 
 function schedule(){
@@ -417,44 +417,42 @@ function Terminate( n = 1 ){
 
 function Tick() {
     if(State["clickedState"] == null){
-    if(State["Running"]!=null){
-        State["time_counter"]++;
-        let ticker = document.getElementById("ticker");
-        ticker.innerHTML = State["time_counter"];
-        State["Running"].mapping["run_time"]++;
-        State["Running"].mapping["burst_time"];
-        let cpuTable = document.getElementById("CPU")
-        cpuTable.rows[1].cells[1].innerHTML = State["Running"].mapping["burst_time"];
-        cpuTable.rows[1].cells[2].innerHTML = State["Running"].mapping["run_time"];
-        
-        if(State["Running"].mapping["burst_time"]==State["Running"].mapping["run_time"]){
-            Terminate(0);
+        if(State["Running"]!=null){
+            State["time_counter"]++;
+            let ticker = document.getElementById("ticker");
+            ticker.innerHTML = State["time_counter"];
+            State["Running"].mapping["run_time"]++;
+            State["Running"].mapping["burst_time"];
+            let cpuTable = document.getElementById("CPU")
+            cpuTable.rows[1].cells[1].innerHTML = State["Running"].mapping["burst_time"];
+            cpuTable.rows[1].cells[2].innerHTML = State["Running"].mapping["run_time"];
+            
+            if(State["Running"].mapping["burst_time"]==State["Running"].mapping["run_time"]){
+                Terminate(0);
+            }
+            UpdateTable();
         }
-        UpdateTable();
+    UpdateState();
     }
-    
-    UpdateState();
-}
-if(State["clickedState"] == "newProcess"){
-    CreateProcess();
-    State["time_counter"]++;
-    State["clickedState"] = null;
-    UpdateTable();
-    UpdateState();
-}
-if(State["clickedState"] == "schedule"){
-    schedule();
-    State["time_counter"]++;
-    State["clickedState"] = null;
-    UpdateTable();
-    UpdateState();
-}
-if(State["clickedState"] == "terminate"){
-    Terminate();
-    State["time_counter"]++;
-    State["clickedState"] = null;
-    UpdateTable();
-    UpdateState();
-}
-
+    if(State["clickedState"] == "newProcess"){
+        CreateProcess();
+        State["time_counter"]++;
+        State["clickedState"] = null;
+        UpdateTable();
+        UpdateState();
+    }
+    if(State["clickedState"] == "schedule"){
+        schedule();
+        State["time_counter"]++;
+        State["clickedState"] = null;
+        UpdateTable();
+        UpdateState();
+    }
+    if(State["clickedState"] == "terminate"){
+        Terminate();
+        State["time_counter"]++;
+        State["clickedState"] = null;
+        UpdateTable();
+        UpdateState();
+    }
 }
