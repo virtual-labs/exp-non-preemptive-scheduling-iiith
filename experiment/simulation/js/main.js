@@ -200,32 +200,32 @@ function UpdateTable() {
         cell4.className = "tag-orange";
     }
     );
-    // State["Completed"].forEach((process) => {
-    //     let row = table.insertRow(-1);
-    //     let cell1 = row.insertCell(0);
-    //     cell1.innerHTML = process.id;
-    //     let cell2 = row.insertCell(1);
-    //     cell2.innerHTML = process.burst_time;
-    //     let cell3 = row.insertCell(2);
-    //     cell3.innerHTML = 0;
-    //     let cell4 = row.insertCell(3);
-    //     cell4.innerHTML = process.status;
-    //     cell4.className = "tag-grey";
-    // }
-    // );
-    // State["Terminated"].forEach((process) => {
-    //     let row = table.insertRow(-1);
-    //     let cell1 = row.insertCell(0);
-    //     cell1.innerHTML = process.id;
-    //     let cell2 = row.insertCell(1);
-    //     cell2.innerHTML = process.burst_time;
-    //     let cell3 = row.insertCell(2);
-    //     cell3.innerHTML = 0;
-    //     let cell4 = row.insertCell(3);
-    //     cell4.innerHTML = process.status;
-    //     cell4.className = "tag-red";
-    // }
-    // );
+    State["Completed"].forEach((process) => {
+        let row = table.insertRow(-1);
+        let cell1 = row.insertCell(0);
+        cell1.innerHTML = process.id;
+        let cell2 = row.insertCell(1);
+        cell2.innerHTML = process.burst_time;
+        let cell3 = row.insertCell(2);
+        cell3.innerHTML = 0;
+        let cell4 = row.insertCell(3);
+        cell4.innerHTML = process.status;
+        cell4.className = "tag-grey";
+    }
+    );
+    State["Terminated"].forEach((process) => {
+        let row = table.insertRow(-1);
+        let cell1 = row.insertCell(0);
+        cell1.innerHTML = process.id;
+        let cell2 = row.insertCell(1);
+        cell2.innerHTML = process.burst_time;
+        let cell3 = row.insertCell(2);
+        cell3.innerHTML = 0;
+        let cell4 = row.insertCell(3);
+        cell4.innerHTML = process.status;
+        cell4.className = "tag-red";
+    }
+    );
 }
 
 function schedule() {
@@ -279,7 +279,6 @@ function UpdateState() {
     let schd_btn = document.getElementById("schd-btn");
     let newProcess_btn = document.getElementById("newProcess-btn");
     let end_btn = document.getElementById("end-btn");
-    let container = document.getElementById("prev_state");
     readyQueue.innerHTML = "";
     temp = [];
     State["Ready"].forEach((process) => {
@@ -431,40 +430,40 @@ function Tick() {
                 Terminate(0);
             }
             UpdateTable();
-            Previous_States.push(State);
         }
 
         UpdateState();
+        Previous_States.push(JSON.parse(JSON.stringify(State)));
         UpdatePreviousState();
     }
-    if (State["clickedState"] == "newProcess") {
+    else if (State["clickedState"] == "newProcess") {
         CreateProcess();
         State["time_counter"]++;
         State["clickedState"] = null;
-        Previous_States.push(State);
         UpdateTable();
         UpdateState();
+        Previous_States.push(JSON.parse(JSON.stringify(State)));
         UpdatePreviousState();
     }
-    if (State["clickedState"] == "schedule") {
+    else if (State["clickedState"] == "schedule") {
         schedule();
         State["time_counter"]++;
         State["clickedState"] = null;
-        Previous_States.push(State);
         UpdateTable();
         UpdateState();
+        Previous_States.push(JSON.parse(JSON.stringify(State)));
         UpdatePreviousState();
     }
-    if (State["clickedState"] == "terminate") {
+    else if (State["clickedState"] == "terminate") {
         Terminate();
         State["time_counter"]++;
         State["clickedState"] = null;
-        Previous_States.push(State);
         UpdateTable();
         UpdateState();
+        Previous_States.push(JSON.parse(JSON.stringify(State)));
         UpdatePreviousState();
     }
-
+    console.log(Previous_States);
 }
 
 function UpdatePreviousState(){
@@ -472,15 +471,38 @@ function UpdatePreviousState(){
     container.innerHTML = "";
     for(let i=Previous_States.length-1;i>=0;i--){
         let state = Previous_States[i];
+        let temp = []
+        state["Ready"].forEach((process) => {
+           temp.push(process.id) 
+        });
+        ready = "[ " + temp.join(",") + " ]";
+        let running = state["Running"] == null ? "None" : state["Running"].id;
+        temp = []
+        state["Waiting"].forEach((process) => {
+           temp.push(process.id) 
+        });
+        let waiting = "[ " + temp.join(",") + " ]";
+        temp = []
+        state["Terminated"].forEach((process) => {
+           temp.push(process.id) 
+        });
+        terminated = "[ " + temp.join(",") + " ]";
+        temp=[]
+        state["Completed"].forEach((process) => {
+           temp.push(process.id) 
+        });
+        completed = "[ " + temp.join(",") + " ]";
+        map = state["Running"]!=null?state["Map"]["id"]+"->"+state["Map"]["run_time"]+":"+state["Map"]["burst_time"]:"";
+        timer = state["Timer"]!=null?state["Timer"]:"None";
         let button = document.createElement("button");
         button.className = "collapsible";
-        button.innerHTML = "State " + (i+1);
+        button.innerHTML = "Tick " + (i+1) + " State";
         button.onclick = createToggleFunction(i);
         container.appendChild(button);
         let table = document.createElement("table");
         table.className = "content";
         table.id = "state" + (i+1);
-        table.innerHTML = '<tr>    <td class="ts_cell">Ready:</td>    <td class="ts_cell" id="rQ"></td></tr><tr>    <td class="ts_cell">Waiting for I/O:</td>    <td class="ts_cell" id="wQ"></td></tr><tr>    <td class="ts_cell">Terminated:</td>    <td class="ts_cell" id="tQ"></td></tr><tr>    <td class="ts_cell">cpu:</td>    <td class="ts_cell" id="cpu_p"></td></tr><tr>    <td class="ts_cell">Map:</td>    <td class="ts_cell" id="map"></td></tr><tr>    <td class="ts_cell">Timer:</td>    <td class="ts_cell" id="timer"></td></tr><tr>    <td class="ts_cell">Scheduling policy:</td>    <td class="ts_cell" id="schd_p"></td></tr>'
+        table.innerHTML = '<tr>    <td class="ts_cell">Ready:</td>    <td class="ts_cell">'+ ready +'</td></tr><tr>    <td class="ts_cell">Waiting for I/O:</td>    <td class="ts_cell">'+waiting+'</td></tr><tr>    <td class="ts_cell">Terminated:</td>    <td class="ts_cell">'+terminated+'</td></tr><tr>    <td class="ts_cell">cpu:</td>    <td class="ts_cell">'+running+'</td></tr><tr>    <td class="ts_cell">Map:</td>    <td class="ts_cell">'+map+'</td></tr><tr>    <td class="ts_cell">Timer:</td>    <td class="ts_cell">'+timer+'</td></tr><tr>    <td class="ts_cell">Scheduling policy:</td>    <td class="ts_cell">'+state["Policy"]+'</td></tr>';
         container.appendChild(table);
     }
 }
