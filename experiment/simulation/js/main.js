@@ -9,12 +9,14 @@ let State = {
     "Completed": [],
     "Map": { "id": null, "run_time": null, "burst_time": null },
     "Timer": null,
-    "Policy": "FCFS",
+    "Policy": null,
     "clickedState": null,
     "time_counter": 0
 };
-
 let id_counter = 1;
+
+
+
 
 class Process {
     constructor(burst_time, status) {
@@ -24,6 +26,13 @@ class Process {
         this.id = id_counter;
         id_counter++;
     }
+}
+
+function UpdatePolicy(){
+    let policy = document.getElementById("policy-btn");
+    State["Policy"] = policy.value;
+    UpdateState();
+    // console.log(State["Policy"]);
 }
 
 function assemble_msg(FEEDBACK, color) {
@@ -271,6 +280,7 @@ function UpdateState() {
     let readyQueue = document.getElementById("rQ");
     let waitingQueue = document.getElementById("wQ");
     let TerminatedQueue = document.getElementById("tQ");
+    let completedQueue = document.getElementById("cQ");
     let running = document.getElementById("cpu_p");
     let policy = document.getElementById("schd_p");
     let map = document.getElementById("map");
@@ -298,17 +308,23 @@ function UpdateState() {
     })
     TerminatedQueue.innerHTML = "[ " + temp.join(",") + " ]";
     running.innerHTML = "";
+    completedQueue.innerHTML = "";
+    temp = [];
+    State["Completed"].forEach((process) => {
+        temp.push(process.id);
+    })
+    completedQueue.innerHTML = "[ " + temp.join(",") + " ]";
     if (State["Running"] == null) {
         running.innerHTML = "None";
-        map.innerHTML = "";
+        map.innerHTML = "-";
     }
     else {
         running.innerHTML = State["Running"].id;
         map.innerHTML = State["Running"].id + "->" + State["Running"].mapping["run_time"] + ":" + State["Running"].mapping["burst_time"];
-
+        State["Map"] = { "id": State["Running"].id, "run_time": State["Running"].mapping["run_time"], "burst_time": State["Running"].mapping["burst_time"] };
     }
-    timer.innerHTML = State["Timer"];
-    policy.innerHTML = State["Policy"];
+    timer.innerHTML = State["Timer"]!=null?State["Timer"]:"-";
+    policy.innerHTML = State["Policy"]!=null?State["Policy"]:"None";
     ticker.innerHTML = State["time_counter"];
     if (State["clickedState"] == "schedule") {
         schd_btn.classList.add("btn-loaded");
@@ -463,7 +479,7 @@ function Tick() {
         Previous_States.push(JSON.parse(JSON.stringify(State)));
         UpdatePreviousState();
     }
-    console.log(Previous_States);
+    // console.log(Previous_States);
 }
 
 function UpdatePreviousState(){
@@ -502,7 +518,7 @@ function UpdatePreviousState(){
         let table = document.createElement("table");
         table.className = "content";
         table.id = "state" + (i+1);
-        table.innerHTML = '<tr>    <td class="ts_cell">Ready:</td>    <td class="ts_cell">'+ ready +'</td></tr><tr>    <td class="ts_cell">Waiting for I/O:</td>    <td class="ts_cell">'+waiting+'</td></tr><tr>    <td class="ts_cell">Terminated:</td>    <td class="ts_cell">'+terminated+'</td></tr><tr>    <td class="ts_cell">cpu:</td>    <td class="ts_cell">'+running+'</td></tr><tr>    <td class="ts_cell">Map:</td>    <td class="ts_cell">'+map+'</td></tr><tr>    <td class="ts_cell">Timer:</td>    <td class="ts_cell">'+timer+'</td></tr><tr>    <td class="ts_cell">Scheduling policy:</td>    <td class="ts_cell">'+state["Policy"]+'</td></tr>';
+        table.innerHTML = '<tr>    <td class="ts_cell">Ready:</td>    <td class="ts_cell">'+ ready +'</td></tr><tr>    <td class="ts_cell">Waiting for I/O:</td>    <td class="ts_cell">'+waiting+'</td></tr><tr>    <td class="ts_cell">Terminated:</td>    <td class="ts_cell">'+terminated+'</td></tr><tr>    <td class="ts_cell">Completed:</td>    <td class="ts_cell">'+completed+'</td></tr><tr><tr>    <td class="ts_cell">cpu:</td>    <td class="ts_cell">'+running+'</td></tr><tr>    <td class="ts_cell">Map:</td>    <td class="ts_cell">'+map+'</td></tr><tr>    <td class="ts_cell">Timer:</td>    <td class="ts_cell">'+timer+'</td></tr><tr>    <td class="ts_cell">Scheduling policy:</td>    <td class="ts_cell">'+state["Policy"]+'</td></tr>';
         container.appendChild(table);
     }
 }

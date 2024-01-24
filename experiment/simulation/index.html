@@ -70,20 +70,24 @@
                                     <td class="ts_cell" id="tQ"></td>
                                 </tr>
                                 <tr>
+                                    <td class="ts_cell">Completed:</td>
+                                    <td class="ts_cell" id="cQ"></td> 
+                                </tr>
+                                <tr>
                                     <td class="ts_cell">cpu:</td>
-                                    <td class="ts_cell" id="cpu_p"></td>
+                                    <td class="ts_cell" id="cpu_p">None</td>
                                 </tr>
                                 <tr>
                                     <td class="ts_cell">Map:</td>
-                                    <td class="ts_cell" id="map"></td>
+                                    <td class="ts_cell" id="map">-</td>
                                 </tr>
                                 <tr>
                                     <td class="ts_cell">Timer:</td>
-                                    <td class="ts_cell" id="timer"></td>
+                                    <td class="ts_cell" id="timer">-</td>
                                 </tr>
                                 <tr>
                                     <td class="ts_cell">Scheduling policy:</td>
-                                    <td class="ts_cell" id="schd_p"></td>
+                                    <td class="ts_cell" id="schd_p">None</td>
                                 </tr>
                             </table>
                         </section>
@@ -131,6 +135,13 @@
             <p style="text-align:center; font-weight: bold;">Controls</p>
             <hr>
             <div class="controls">
+                <select name="things" class="btn" id="policy-btn" style="width: 100%;" onchange="UpdatePolicy()">
+                    <option value="null" selected="selected">Please Select the Scheduling Policy...</option>
+                    <option value="FCFS">First Come First Serve</option>
+                    <option value="SJF">Shorted Job First</option>
+                    <option value="RR"><button>Round-Robin</button></option>
+                </select>
+                
                 <button class="btn" id="tick-btn" onclick="Tick()" style="width: 100%;"><i class="fa fa-clock-o"
                         aria-hidden="true"></i>
                     Tick</button>
