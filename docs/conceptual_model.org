@@ -19,3 +19,7 @@ Understanding the mechanism of scheduling which includes
 *** Flow of the mechanism
 
 [[./images/Conceptual_model.png]]
+
+*** When is the scheduling mechanism triggered?
+- When a process in the CPU completes it's execution. (Software interrupt)
+- When an external entity terminates the process. (Hardware interrupt)
