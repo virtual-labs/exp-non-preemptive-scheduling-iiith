@@ -1,4 +1,20 @@
 #+TITLE: Conceptual Model for Scheduling
 
-* Aim of the experiment
+** Aim of the experiment
 This experiment aims at creating an interactive and a student friendly simulation of the Scheduling machanism.
+
+** Outcomes of the experiment
+Understanding the mechanism of scheduling which includes
+    - Understanding the process states
+    - Understanding the transitions from one process state to another and how this impacts the scheduling mechanism.
+    - Understanding how scheduler decides which process to choose (Scheduling mechanisms).
+    - Understanding when a scheduler or the scheduling mechanism is triggered.
+
+** High level overview of the mechanism
+*** What all do we have in this mechanism?
+- Processes to schedule.
+- CPU to execute the processes.
+- Scheduler to schedule the processes.
+
+*** Flow of the mechanism
+
