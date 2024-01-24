@@ -12,9 +12,10 @@ Understanding the mechanism of scheduling which includes
 
 ** High level overview of the mechanism
 *** What all do we have in this mechanism?
-- Processes to schedule.
+- Processes in different states (Ready, Running, Waiting for IO, Terminated, Completed)
 - CPU to execute the processes.
 - Scheduler to schedule the processes.
 
 *** Flow of the mechanism
 
+![./images/Conceptual_model.png][Conceptual_model]
