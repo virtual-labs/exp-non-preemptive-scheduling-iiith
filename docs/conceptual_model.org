@@ -1,4 +1,4 @@
 #+TITLE: Conceptual Model for Scheduling
 
-#+section: Aim of the experiment
+#+heading: Aim of the experiment
 This experiment aims at creating an interactive and a student friendly simulation of the Scheduling machanism.
