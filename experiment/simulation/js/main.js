@@ -99,13 +99,17 @@ function loadUnloadCommand(cmd) {
             UpdateState();
         }
         else if (State["clickedState"] == null) {
+            if(State["Policy"]==null){
+                sendalert("Please select a scheduling policy first");
+                return;
+            }
             State["clickedState"] = "schedule";
             schd_btn = document.getElementById("schd-btn");
             schd_btn.classList.add("btn-loaded");
             // console.log(schd_btn.classList)
         }
         else {
-            sendalertalert("Please complete the previous command first or unselect it")
+            sendalert("Please complete the previous command first or unselect it")
         }
     }
     if (cmd == "newProcess") {
@@ -120,7 +124,7 @@ function loadUnloadCommand(cmd) {
             newProcess();
         }
         else {
-            sendalert("Please complete the previous command first or unselect it")
+            assemble_msg("Please complete the previous command first or unselect it")
         }
     }
     if (cmd == "terminate") {
@@ -170,7 +174,7 @@ function CreateProcess() {
         return;
     }
     if (create_process_input_int > 30) {
-        sendalertalert("Please enter a number between 1 to 30")
+        sendalert("Please enter a number between 1 to 30")
         return
     }
     let process = new Process(create_process_input_int, "Ready");
@@ -446,6 +450,10 @@ function Tick() {
                 Terminate(0);
             }
             UpdateTable();
+        }
+        else {
+            assemble_msg("No running process to tick. Please schedule a process.", "red");
+            return
         }
 
         UpdateState();
