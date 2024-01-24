@@ -18,4 +18,4 @@ Understanding the mechanism of scheduling which includes
 
 *** Flow of the mechanism
 
-![./images/Conceptual_model.png][Conceptual_model]
+[[./images/Conceptual_model.png]]
