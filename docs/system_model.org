@@ -1,6 +1,25 @@
 #+TITLE: System Model for Scheduling
 
-** What are the subsystems in this mechanism
-- External environment (Create a new process, Terminate a process, change the scheduling algorithm, )
-- Scheduler (Identify the ready processes, select a process accroding to the algo and schedule it)
-- Plant (CPU and Processes where everyhing is displayed)
+** What all do we have in this system?
+- A CPU
+- A scheduler
+- And a process queue
+
+The CPU has absolutely no control over the process queue. It only has the control over the process it is currently running.
+
+The scheduler is responsible in selecting a process from the process queue with a ready status and hand it over to the CPU. The process queue gets updated as the shceduler and CPU plays their respective roles.
+One thing to note is that process queue is not a system like CPU or scheduler, but is a data structure that contains process info. 
+
+Based on the above understanding, we can divide the system into 3 sub systems:
+- Scheduler
+- Environment 
+- Plant
+
+Scheduler is where we focus on scheduling mechanism along with it's related functions like identifying the ready process, and selecting one based on the algorithm.
+
+Environment is where we have other user dependent functions like creating a process, requesting for IO, fulfilling the IO request and terminating a process.
+
+Plant is where we see the changes in the system as a result of our actions performed as an external user and a scheduler. 
+[[./images/sys_model.png]]
+
+[[./images/plant.png]]
