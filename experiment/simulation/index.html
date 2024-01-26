@@ -136,17 +136,17 @@
             <hr>
             <div class="controls">
                 <select name="things" class="btn" id="policy-btn" style="width: 100%;" onchange="UpdatePolicy()">
-                    <option value="null" selected="selected">Please Select the Scheduling Policy...</option>
+                    <option value="None" selected="selected">Please Select the Scheduling Policy...</option>
                     <option value="FCFS">First Come First Serve</option>
-                    <option value="SJF">Shortest Job First</option>
+                    <option value="SJF">Shorted Job First</option>
                     <option value="RR"><button>Round-Robin</button></option>
                 </select>
                 
-                <button class="btn" id="tick-btn" onclick="Tick()" style="width: 100%;"><i class="fa fa-clock-o"
+                <button class="btn disabled" id="tick-btn" onclick="Tick()" style="width: 100%;"><i class="fa fa-clock-o"
                         aria-hidden="true"></i>
                     Tick</button>
-                <p style="text-align: center; font-weight: bold;">Load Commands</p>
-                <button class="btn" id="schd-btn" onclick="loadUnloadCommand('schedule')">Schedule</button>
+                <p style="text-align: center; font-weight: bold;">Generate External Events</p>
+                <button class="btn disabled" id="schd-btn" onclick="loadUnloadCommand('schedule')">Schedule</button>
                 <div class="dropdown">
                     <button class="btn" id="newProcess-btn" onclick="ToggleCreateProcess()"> <i class="fa fa-plus"></i> New
                         process</button>
@@ -157,7 +157,13 @@
                             onclick="loadUnloadCommand('newProcess')">Create</button>
                     </div>
                 </div>
-                <button class="btn" id="end-btn" onclick="loadUnloadCommand('terminate')">Terminate</button>
+                <button class="btn disabled" id="end-btn" onclick="loadUnloadCommand('terminate')">Terminate</button>
+                <p style="text-align: center; font-weight: bold;">Undo & Redo</p>
+                <hr>
+                <button class="btn disabled" id="undo-btn" onclick="Undo()"><i class="fa fa-undo" aria-hidden="true"></i>
+                    Undo</button>
+                <button class="btn disabled" id="redo-btn" onclick="Redo()"><i class="fa fa-repeat" aria-hidden="true"></i>
+                    Redo</button>
             </div>
 
         </div>

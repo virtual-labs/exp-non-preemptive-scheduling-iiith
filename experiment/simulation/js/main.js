@@ -13,10 +13,17 @@ let State = {
     "clickedState": null,
     "time_counter": 0
 };
+
+let Button_State = {
+    "tick": false,
+    "schedule": false,
+    "newProcess": true,
+    "terminate": false,
+    "undo": false,
+    "redo": false
+}
+
 let id_counter = 1;
-
-
-
 
 class Process {
     constructor(burst_time, status) {
@@ -28,10 +35,10 @@ class Process {
     }
 }
 
-function UpdatePolicy(){
+function UpdatePolicy() {
     let policy = document.getElementById("policy-btn");
-    State["Policy"] = policy.value;
-    UpdateState();
+    State["Policy"] = policy.value=="None"?null:policy.value;
+    UpdateUI();
     // console.log(State["Policy"]);
 }
 
@@ -96,16 +103,19 @@ function loadUnloadCommand(cmd) {
     if (cmd == "schedule") {
         if (State["clickedState"] == "schedule") {
             State["clickedState"] = null;
-            UpdateState();
+            Button_State["tick"] = false;
+            UpdateUI();
         }
         else if (State["clickedState"] == null) {
-            if(State["Policy"]==null){
+            if (State["Policy"] == null) {
                 sendalert("Please select a scheduling policy first");
                 return;
             }
             State["clickedState"] = "schedule";
+            Button_State["tick"] = true;
             schd_btn = document.getElementById("schd-btn");
             schd_btn.classList.add("btn-loaded");
+            UpdateUI();
             // console.log(schd_btn.classList)
         }
         else {
@@ -120,7 +130,7 @@ function loadUnloadCommand(cmd) {
         }
         else if (State["clickedState"] == null) {
             State["clickedState"] = "newProcess";
-            UpdateState();
+            UpdateUI();
             newProcess();
         }
         else {
@@ -130,11 +140,11 @@ function loadUnloadCommand(cmd) {
     if (cmd == "terminate") {
         if (State["clickedState"] == "terminate") {
             State["clickedState"] = null;
-            UpdateState();
+            UpdateUI();
         }
         else if (State["clickedState"] == null) {
             State["clickedState"] = "terminate";
-            UpdateState();
+            UpdateUI();
         }
         else {
             sendalert("Please complete the previous command first or unselect it")
@@ -327,8 +337,8 @@ function UpdateState() {
         map.innerHTML = State["Running"].id + "->" + State["Running"].mapping["run_time"] + ":" + State["Running"].mapping["burst_time"];
         State["Map"] = { "id": State["Running"].id, "run_time": State["Running"].mapping["run_time"], "burst_time": State["Running"].mapping["burst_time"] };
     }
-    timer.innerHTML = State["Timer"]!=null?State["Timer"]:"-";
-    policy.innerHTML = State["Policy"]!=null?State["Policy"]:"None";
+    timer.innerHTML = State["Timer"] != null ? State["Timer"] : "-";
+    policy.innerHTML = State["Policy"] ? State["Policy"] : "None";
     ticker.innerHTML = State["time_counter"];
     if (State["clickedState"] == "schedule") {
         schd_btn.classList.add("btn-loaded");
@@ -449,14 +459,13 @@ function Tick() {
             if (State["Running"].mapping["burst_time"] == State["Running"].mapping["run_time"]) {
                 Terminate(0);
             }
-            UpdateTable();
         }
         else {
             assemble_msg("No running process to tick. Please schedule a process.", "red");
             return
         }
 
-        UpdateState();
+        UpdateUI();
         Previous_States.push(JSON.parse(JSON.stringify(State)));
         UpdatePreviousState();
     }
@@ -464,8 +473,7 @@ function Tick() {
         CreateProcess();
         State["time_counter"]++;
         State["clickedState"] = null;
-        UpdateTable();
-        UpdateState();
+        UpdateUI();
         Previous_States.push(JSON.parse(JSON.stringify(State)));
         UpdatePreviousState();
     }
@@ -473,8 +481,7 @@ function Tick() {
         schedule();
         State["time_counter"]++;
         State["clickedState"] = null;
-        UpdateTable();
-        UpdateState();
+        UpdateUI();
         Previous_States.push(JSON.parse(JSON.stringify(State)));
         UpdatePreviousState();
     }
@@ -482,58 +489,184 @@ function Tick() {
         Terminate();
         State["time_counter"]++;
         State["clickedState"] = null;
-        UpdateTable();
-        UpdateState();
+        UpdateUI();
         Previous_States.push(JSON.parse(JSON.stringify(State)));
         UpdatePreviousState();
     }
     // console.log(Previous_States);
 }
 
-function UpdatePreviousState(){
-    let container=document.getElementById("prev_state");
+function UpdatePreviousState() {
+    let container = document.getElementById("prev_state");
     container.innerHTML = "";
-    for(let i=Previous_States.length-1;i>=0;i--){
+    for (let i = Previous_States.length - 1; i >= 0; i--) {
         let state = Previous_States[i];
         let temp = []
         state["Ready"].forEach((process) => {
-           temp.push(process.id) 
+            temp.push(process.id)
         });
         ready = "[ " + temp.join(",") + " ]";
         let running = state["Running"] == null ? "None" : state["Running"].id;
         temp = []
         state["Waiting"].forEach((process) => {
-           temp.push(process.id) 
+            temp.push(process.id)
         });
         let waiting = "[ " + temp.join(",") + " ]";
         temp = []
         state["Terminated"].forEach((process) => {
-           temp.push(process.id) 
+            temp.push(process.id)
         });
         terminated = "[ " + temp.join(",") + " ]";
-        temp=[]
+        temp = []
         state["Completed"].forEach((process) => {
-           temp.push(process.id) 
+            temp.push(process.id)
         });
         completed = "[ " + temp.join(",") + " ]";
-        map = state["Running"]!=null?state["Map"]["id"]+"->"+state["Map"]["run_time"]+":"+state["Map"]["burst_time"]:"";
-        timer = state["Timer"]!=null?state["Timer"]:"None";
+        map = state["Running"] != null ? state["Map"]["id"] + "->" + state["Map"]["run_time"] + ":" + state["Map"]["burst_time"] : "";
+        timer = state["Timer"] != null ? state["Timer"] : "None";
         let button = document.createElement("button");
         button.className = "collapsible";
-        button.innerHTML = "Tick " + (i+1) + " State";
+        button.innerHTML = "Tick " + (i + 1) + " State";
         button.onclick = createToggleFunction(i);
         container.appendChild(button);
         let table = document.createElement("table");
         table.className = "content";
-        table.id = "state" + (i+1);
-        table.innerHTML = '<tr>    <td class="ts_cell">Ready:</td>    <td class="ts_cell">'+ ready +'</td></tr><tr>    <td class="ts_cell">Waiting for I/O:</td>    <td class="ts_cell">'+waiting+'</td></tr><tr>    <td class="ts_cell">Terminated:</td>    <td class="ts_cell">'+terminated+'</td></tr><tr>    <td class="ts_cell">Completed:</td>    <td class="ts_cell">'+completed+'</td></tr><tr><tr>    <td class="ts_cell">cpu:</td>    <td class="ts_cell">'+running+'</td></tr><tr>    <td class="ts_cell">Map:</td>    <td class="ts_cell">'+map+'</td></tr><tr>    <td class="ts_cell">Timer:</td>    <td class="ts_cell">'+timer+'</td></tr><tr>    <td class="ts_cell">Scheduling policy:</td>    <td class="ts_cell">'+state["Policy"]+'</td></tr>';
+        table.id = "state" + (i + 1);
+        table.innerHTML = '<tr>    <td class="ts_cell">Ready:</td>    <td class="ts_cell">' + ready + '</td></tr><tr>    <td class="ts_cell">Waiting for I/O:</td>    <td class="ts_cell">' + waiting + '</td></tr><tr>    <td class="ts_cell">Terminated:</td>    <td class="ts_cell">' + terminated + '</td></tr><tr>    <td class="ts_cell">Completed:</td>    <td class="ts_cell">' + completed + '</td></tr><tr><tr>    <td class="ts_cell">cpu:</td>    <td class="ts_cell">' + running + '</td></tr><tr>    <td class="ts_cell">Map:</td>    <td class="ts_cell">' + map + '</td></tr><tr>    <td class="ts_cell">Timer:</td>    <td class="ts_cell">' + timer + '</td></tr><tr>    <td class="ts_cell">Scheduling policy:</td>    <td class="ts_cell">' + state["Policy"] + '</td></tr>';
         container.appendChild(table);
     }
 }
 
-function createToggleFunction(i){
-    return function(){
-        let content = document.getElementById("state" + (i+1));
+function createToggleFunction(i) {
+    return function () {
+        let content = document.getElementById("state" + (i + 1));
         content.classList.toggle("content");
     }
+}
+
+
+
+function UpdateBtnState() {
+    if (State["Running"] != null) {
+        Button_State = {
+            "tick": true,
+            "schedule": false,
+            "newProcess": false,
+            "terminate": true,
+            "undo": false,
+            "redo": false
+        }
+    }
+    else if(State["Running"]==null && State["clickedState"]==null && State["Ready"].length!=0){
+        Button_State = {
+            "tick": false,
+            "schedule": true,
+            "newProcess": true,
+            "terminate": false,
+            "undo": false,
+            "redo": false
+        }
+    }
+    else {
+        if(State["clickedState"]=="schedule"){
+
+            Button_State = {
+                "tick": true,
+                "schedule": true,
+                "newProcess": false,
+                "terminate": false,
+                "undo": false,
+                "redo": false
+            }
+        }
+        else if(State["clickedState"]=="newProcess"){
+            Button_State = {
+                "tick": true,
+                "schedule": false,
+                "newProcess": true,
+                "terminate": false,
+                "undo": false,
+                "redo": false
+            }
+        }
+        else if(State["clickedState"]=="terminate"){
+            Button_State = {
+                "tick": true,
+                "schedule": false,
+                "newProcess": false,
+                "terminate": true,
+                "undo": false,
+                "redo": false
+            }
+        }
+        else{
+            Button_State = {
+                "tick": false,
+                "schedule": false,
+                "newProcess": true,
+                "terminate": false,
+                "undo": false,
+                "redo": false
+            }
+        }
+
+    }
+}
+
+function UpdateBtnUI() {
+    let tick = document.getElementById("tick-btn");
+    let schedule = document.getElementById("schd-btn");
+    let newProcess = document.getElementById("newProcess-btn");
+    let terminate = document.getElementById("end-btn");
+    let undo = document.getElementById("undo-btn");
+    let redo = document.getElementById("redo-btn");
+    if (Button_State["tick"] == false) {
+        tick.classList.add("disabled");
+    }
+    else {
+        tick.classList.remove("disabled");
+    }
+    if (State["clickedState"] != "schedule") {
+        if (Button_State["schedule"] == false) {
+            schedule.classList.add("disabled");
+        }
+        else {
+            schedule.classList.remove("disabled");
+        }
+    }
+    if (State["clickedState"] != "newProcess") {
+           if (Button_State["newProcess"] == false) {
+            newProcess.classList.add("disabled");
+        }
+        else {
+            newProcess.classList.remove("disabled");
+        }
+    }
+    if (State["clickedState"]!="terminate"){    if (Button_State["terminate"] == false) {
+            terminate.classList.add("disabled");
+        }
+        else {
+            terminate.classList.remove("disabled");
+        }
+    }
+    
+    if (Button_State["undo"] == false) {
+        undo.classList.add("disabled");
+    }
+    else {
+        undo.classList.remove("disabled");
+    }
+    if (Button_State["redo"] == false) {
+        redo.classList.add("disabled");
+    }
+    else {
+        redo.classList.remove("disabled");
+    }
+}
+
+function UpdateUI() {
+    UpdateState();
+    UpdateTable();
+    UpdateBtnState();
+    UpdateBtnUI();
 }
