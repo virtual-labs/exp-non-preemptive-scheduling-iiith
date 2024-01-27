@@ -34,10 +34,10 @@ Color codes helps in identifying the safe buttons. The "Terminate" button, color
 
 Current color codes:
 
-Red --> Terminated, caution \\
-Blue --> Waiting \\
-Orange --> Ready status \\
-Green --> Running status \\
+- Red --> Terminated, caution 
+- Blue --> Waiting 
+- Orange --> Ready status 
+- Green --> Running status 
 
 The grey color of the buttons which appear and disapper during the experiment indicate that the functionalities provided by those buttons are disabled temporarily. These functions will be restored again based on the current state of our system.
 
