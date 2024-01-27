@@ -22,6 +22,8 @@ Student is free to choose and change the shceduling algorithm during the experim
 Student is supposed to select the correct process according to the choosen scheduling algorithm. The feedback of the scheduling process will be dislayed in the dialogue box accordingly. 
 - The "Schedule" button
 This button moves the selected process in the processes table of the Plant to the CPU of Plant. The status of CPU is active from idle, and the state of process changes from ready to running. 
+- The "Undo" button
+This button helps the student to undo an previous action. This functionality is designed to help the student analyse the effect of their choosen actions on the system. 
 
 ** How to guide the student about the above functionalities?
 - Color codes
