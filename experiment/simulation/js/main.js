@@ -1,6 +1,6 @@
 
 //Your JavaScript goes in here
-let Previous_States = [];
+// let Previous_States = [];
 let State = {
     "Ready": [],
     "Running": null,
@@ -11,7 +11,8 @@ let State = {
     "Timer": null,
     "Policy": null,
     "clickedState": null,
-    "time_counter": 0
+    "time_counter": 0,
+    "id_counter": 1
 };
 
 let Button_State = {
@@ -23,15 +24,24 @@ let Button_State = {
     "redo": false
 }
 
-let id_counter = 1;
+let StateAction_log = [];
+let Redo_log = [];
+
+class Action {
+    constructor(action, state) {
+        this.action = action;
+        this.state = state;
+    }
+}
+
 
 class Process {
     constructor(burst_time, status) {
         this.burst_time = burst_time;
         this.status = status;
         this.mapping = { "run_time": 0, "burst_time": burst_time }
-        this.id = id_counter;
-        id_counter++;
+        this.id = State["id_counter"];
+        State["id_counter"]++;
     }
 }
 
@@ -111,6 +121,14 @@ function loadUnloadCommand(cmd) {
                 sendalert("Please select a scheduling policy first");
                 return;
             }
+            if (State["Running"] != null) {
+                sendalert("A process is currently running on the CPU. Please wait for it to complete or terminate it.");
+                return;
+            }
+            if(State["Ready"].length===0){
+                sendalert("No ready processes to be run on the CPU. Please create a new process.");
+                return;
+            }
             State["clickedState"] = "schedule";
             Button_State["tick"] = true;
             schd_btn = document.getElementById("schd-btn");
@@ -129,12 +147,16 @@ function loadUnloadCommand(cmd) {
             newProcess_btn.classList.remove("btn-loaded");
         }
         else if (State["clickedState"] == null) {
+            if (State["Running"] != null) {
+                sendalert("A process is currently running on the CPU. Please wait for it to complete or terminate it.");
+                return;
+            }
             State["clickedState"] = "newProcess";
             UpdateUI();
             newProcess();
         }
         else {
-            assemble_msg("Please complete the previous command first or unselect it")
+            sendalert("Please complete the previous command first or unselect it")
         }
     }
     if (cmd == "terminate") {
@@ -143,6 +165,10 @@ function loadUnloadCommand(cmd) {
             UpdateUI();
         }
         else if (State["clickedState"] == null) {
+            if (State["Running"] == null) {
+                sendalert("No process is currently running on the CPU. Please schedule a process.");
+                return;
+            }
             State["clickedState"] = "terminate";
             UpdateUI();
         }
@@ -161,7 +187,7 @@ function ToggleCreateProcess() {
     else if (State["clickedState"] == null) {
         let burst_input = document.getElementById("burstTime");
         document.getElementById("myDropdown").classList.toggle("show");
-        burst_input.placeholder = "Enter Burst Time (1-30) to create a process with Pid:" + id_counter;
+        burst_input.placeholder = "Enter Burst Time (1-30) to create a process with Pid:" + State["id_counter"];
 
     }
 }
@@ -281,11 +307,13 @@ function schedule() {
         }
         else {
             assemble_msg("No ready processes to be run on the CPU. Please create a new process.", "red");
+            return null;
         }
         UpdateTable();
     }
     else {
         assemble_msg("A process is currently running on the CPU. Either wait for it to complete or terminate that process.", "red");
+        return null;
     }
 
 }
@@ -440,6 +468,7 @@ function Terminate(n = 1) {
     }
     else {
         assemble_msg("No running process to terminate. Please schedule a process.", "red");
+        // return null;
     }
     UpdateTable();
 }
@@ -461,37 +490,49 @@ function Tick() {
             }
         }
         else {
-            assemble_msg("No running process to tick. Please schedule a process.", "red");
-            return
+            sendalert("No running process to tick. Please schedule a process.", "red");
+            return null;
         }
 
+        
+        StateAction_log.push(new Action("tick",JSON.parse(JSON.stringify(State))));
         UpdateUI();
-        Previous_States.push(JSON.parse(JSON.stringify(State)));
-        UpdatePreviousState();
+        // UpdatePreviousState();
     }
     else if (State["clickedState"] == "newProcess") {
         CreateProcess();
         State["time_counter"]++;
         State["clickedState"] = null;
+        StateAction_log.push(new Action("newProcess",JSON.parse(JSON.stringify(State))));
+        // Previous_States.push(JSON.parse(JSON.stringify(State)));
+        // Action_log.push(new Action("newProcess",State));
         UpdateUI();
-        Previous_States.push(JSON.parse(JSON.stringify(State)));
-        UpdatePreviousState();
+        // UpdatePreviousState();
     }
     else if (State["clickedState"] == "schedule") {
-        schedule();
+        
+        if(schedule()!== null){
         State["time_counter"]++;
         State["clickedState"] = null;
+        StateAction_log.push(new Action("schedule",JSON.parse(JSON.stringify(State))));
+        // Previous_States.push(JSON.parse(JSON.stringify(State)));
+        // Action_log.push(new Action("schedule",JSON.parse(JSON.stringify(State))));
+        }
+        State["clickedState"] = null;
         UpdateUI();
-        Previous_States.push(JSON.parse(JSON.stringify(State)));
-        UpdatePreviousState();
+        // UpdatePreviousState();
     }
     else if (State["clickedState"] == "terminate") {
-        Terminate();
+        if(Terminate()!==null){
         State["time_counter"]++;
+        StateAction_log.push(new Action("terminate",JSON.parse(JSON.stringify(State))));
+        // Previous_States.push(JSON.parse(JSON.stringify(State)));
+        // Action_log.push(new Action("terminate",JSON.parse(JSON.stringify(State))));
+       
+        }
         State["clickedState"] = null;
         UpdateUI();
-        Previous_States.push(JSON.parse(JSON.stringify(State)));
-        UpdatePreviousState();
+        // UpdatePreviousState();
     }
     // console.log(Previous_States);
 }
@@ -499,8 +540,11 @@ function Tick() {
 function UpdatePreviousState() {
     let container = document.getElementById("prev_state");
     container.innerHTML = "";
-    for (let i = Previous_States.length - 1; i >= 0; i--) {
-        let state = Previous_States[i];
+    console.clear();
+    for (let i = StateAction_log.length - 1; i >= 0; i--) {
+        let state = JSON.parse(JSON.stringify(StateAction_log[i].state));
+
+        console.log(state)
         let temp = []
         state["Ready"].forEach((process) => {
             temp.push(process.id)
@@ -535,6 +579,7 @@ function UpdatePreviousState() {
         table.innerHTML = '<tr>    <td class="ts_cell">Ready:</td>    <td class="ts_cell">' + ready + '</td></tr><tr>    <td class="ts_cell">Waiting for I/O:</td>    <td class="ts_cell">' + waiting + '</td></tr><tr>    <td class="ts_cell">Terminated:</td>    <td class="ts_cell">' + terminated + '</td></tr><tr>    <td class="ts_cell">Completed:</td>    <td class="ts_cell">' + completed + '</td></tr><tr><tr>    <td class="ts_cell">cpu:</td>    <td class="ts_cell">' + running + '</td></tr><tr>    <td class="ts_cell">Map:</td>    <td class="ts_cell">' + map + '</td></tr><tr>    <td class="ts_cell">Timer:</td>    <td class="ts_cell">' + timer + '</td></tr><tr>    <td class="ts_cell">Scheduling policy:</td>    <td class="ts_cell">' + state["Policy"] + '</td></tr>';
         container.appendChild(table);
     }
+    
 }
 
 function createToggleFunction(i) {
@@ -611,6 +656,12 @@ function UpdateBtnState() {
         }
 
     }
+    if(StateAction_log.length>0){
+        Button_State["undo"] = true;
+    }
+    else{
+        Button_State["undo"] = false;
+    }
 }
 
 function UpdateBtnUI() {
@@ -666,7 +717,31 @@ function UpdateBtnUI() {
 
 function UpdateUI() {
     UpdateState();
+    
     UpdateTable();
     UpdateBtnState();
     UpdateBtnUI();
+    UpdatePreviousState();
+}
+
+function Undo(){
+    if(StateAction_log.length<1){
+        return;
+    }
+    Button_State["redo"] = true;
+    UpdateUI();
+    StateAction_log.pop();
+    // Action_log.push(new Action("Undo",State));
+    UpdateActionLog();
+
+}
+
+function Redo(){
+    if(Action_log.length==0){
+        return;
+    }
+    State = Action_log.pop().state;
+    StateAction_log.push(new Action("Redo",State));
+    UpdateUI();
+    UpdateActionLog();
 }
