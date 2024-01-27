@@ -495,7 +495,9 @@ function Tick() {
         }
 
         UpdateUI();
+        if(State["Running"]!=null){
         StateAction_log.push(new Action("tick",JSON.parse(JSON.stringify(State))));
+        }
         UpdateUI();
         // UpdatePreviousState();
     }
