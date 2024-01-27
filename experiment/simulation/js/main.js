@@ -303,13 +303,13 @@ function schedule() {
 
             State["Ready"].shift();
             State["Running"].status = "Running";
-            // UpdateState();
+            UpdateUI();
         }
         else {
             assemble_msg("No ready processes to be run on the CPU. Please create a new process.", "red");
             return null;
         }
-        UpdateTable();
+        UpdateUI();
     }
     else {
         assemble_msg("A process is currently running on the CPU. Either wait for it to complete or terminate that process.", "red");
@@ -491,10 +491,10 @@ function Tick() {
         }
         else {
             sendalert("No running process to tick. Please schedule a process.", "red");
-            return null;
+            // return null;
         }
 
-        
+        UpdateUI();
         StateAction_log.push(new Action("tick",JSON.parse(JSON.stringify(State))));
         UpdateUI();
         // UpdatePreviousState();
@@ -511,14 +511,13 @@ function Tick() {
     }
     else if (State["clickedState"] == "schedule") {
         
-        if(schedule()!== null){
+        schedule()
         State["time_counter"]++;
         State["clickedState"] = null;
         StateAction_log.push(new Action("schedule",JSON.parse(JSON.stringify(State))));
         // Previous_States.push(JSON.parse(JSON.stringify(State)));
         // Action_log.push(new Action("schedule",JSON.parse(JSON.stringify(State))));
-        }
-        State["clickedState"] = null;
+        // State["clickedState"] = null;
         UpdateUI();
         // UpdatePreviousState();
     }
