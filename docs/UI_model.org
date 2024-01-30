@@ -53,3 +53,4 @@ These hoverable icons gives a brief understanding of what functionality a partic
 ** Animated arrows
 These arrows guide the student to the appropriate buttons available at the start of the experiment. For example, the student will have to select a scheduling a scheduling policy before they can schedule a process. This arrows guides the user to first select the scheduling process at the start of the process. The student can then use other available option slike creating a new process, terminating a currently running process etc.
 
+>>>>>>> dc01fb7f83671675c988f980d6ac615641164fcc
