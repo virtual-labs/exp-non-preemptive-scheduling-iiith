@@ -21,7 +21,7 @@ let Button_State = {
     "newProcess": true,
     "terminate": false,
     "undo": false,
-    "redo": false
+    "redo": false,
 }
 
 let StateAction_log = [];
@@ -222,9 +222,12 @@ function CreateProcess() {
 
 function UpdateTable() {
     let table = document.getElementById("processes")
+    // let cpu_table = document.getElementById("CPU")
     table.innerHTML = "<th>Process ID</th><th>Burst Time</th><th>Remaining time</th><th>Status</th>";
+    // cpu_table.innerHTML = "";
     // console.log(table);
     if (State["Running"] != null) {
+        // process state update
         let row = table.insertRow(-1);
         let cell1 = row.insertCell(0);
         cell1.innerHTML = State["Running"].id;
@@ -235,6 +238,7 @@ function UpdateTable() {
         let cell4 = row.insertCell(3);
         cell4.innerHTML = State["Running"].status;
         cell4.className = "tag-green";
+        // cpu state update
     }
     State["Ready"].forEach((process) => {
         let row = table.insertRow(-1);
@@ -331,6 +335,18 @@ function UpdateState() {
     let schd_btn = document.getElementById("schd-btn");
     let newProcess_btn = document.getElementById("newProcess-btn");
     let end_btn = document.getElementById("end-btn");
+    let cpuTable = document.getElementById("CPU");
+    if(State["Running"]!=null){
+        cpuTable.innerHTML = "<th>Process ID</th><th>Burst Time</th><th>Run Time</th>";
+        let row = cpuTable.insertRow(-1);
+            let cell1 = row.insertCell(0);
+            cell1.innerHTML = State["Running"].id;
+
+            let cell2 = row.insertCell(1);
+            cell2.innerHTML = State["Running"].mapping["burst_time"];
+            let cell3 = row.insertCell(2);
+            cell3.innerHTML = State["Running"].mapping["run_time"];
+    }
     readyQueue.innerHTML = "";
     temp = [];
     State["Ready"].forEach((process) => {
@@ -453,6 +469,7 @@ function Terminate(n = 1) {
     if (State["Running"] != null) {
         let cpuTable = document.getElementById("CPU")
         tmp = State["Running"];
+        StateAction_log.push(new Action("terminate",JSON.parse(JSON.stringify(State))));
         if (n == 1) {
             tmp.status = "Terminated";
             State["Terminated"].push(tmp)
@@ -476,6 +493,7 @@ function Terminate(n = 1) {
 function Tick() {
     if (State["clickedState"] == null) {
         if (State["Running"] != null) {
+            StateAction_log.push(new Action("tick",JSON.parse(JSON.stringify(State))));
             State["time_counter"]++;
             let ticker = document.getElementById("ticker");
             ticker.innerHTML = State["time_counter"];
@@ -486,7 +504,9 @@ function Tick() {
             cpuTable.rows[1].cells[2].innerHTML = State["Running"].mapping["run_time"];
 
             if (State["Running"].mapping["burst_time"] == State["Running"].mapping["run_time"]) {
+                
                 Terminate(0);
+                StateAction_log.push(new Action("terminate",JSON.parse(JSON.stringify(State))));
             }
         }
         else {
@@ -496,27 +516,27 @@ function Tick() {
 
         UpdateUI();
         if(State["Running"]!=null){
-        StateAction_log.push(new Action("tick",JSON.parse(JSON.stringify(State))));
         }
         UpdateUI();
         // UpdatePreviousState();
     }
     else if (State["clickedState"] == "newProcess") {
+        StateAction_log.push(new Action("newProcess",JSON.parse(JSON.stringify(State))));
         CreateProcess();
         State["time_counter"]++;
         State["clickedState"] = null;
-        StateAction_log.push(new Action("newProcess",JSON.parse(JSON.stringify(State))));
+        
         // Previous_States.push(JSON.parse(JSON.stringify(State)));
         // Action_log.push(new Action("newProcess",State));
         UpdateUI();
         // UpdatePreviousState();
     }
     else if (State["clickedState"] == "schedule") {
-        
+        StateAction_log.push(new Action("schedule",JSON.parse(JSON.stringify(State))));
         schedule()
         State["time_counter"]++;
         State["clickedState"] = null;
-        StateAction_log.push(new Action("schedule",JSON.parse(JSON.stringify(State))));
+        
         // Previous_States.push(JSON.parse(JSON.stringify(State)));
         // Action_log.push(new Action("schedule",JSON.parse(JSON.stringify(State))));
         // State["clickedState"] = null;
@@ -525,8 +545,9 @@ function Tick() {
     }
     else if (State["clickedState"] == "terminate") {
         if(Terminate()!==null){
+        // StateAction_log.push(new Action("terminate",JSON.parse(JSON.stringify(State))));
         State["time_counter"]++;
-        StateAction_log.push(new Action("terminate",JSON.parse(JSON.stringify(State))));
+        
         // Previous_States.push(JSON.parse(JSON.stringify(State)));
         // Action_log.push(new Action("terminate",JSON.parse(JSON.stringify(State))));
        
@@ -541,11 +562,12 @@ function Tick() {
 function UpdatePreviousState() {
     let container = document.getElementById("prev_state");
     container.innerHTML = "";
-    console.clear();
+    // console.clear();
     for (let i = StateAction_log.length - 1; i >= 0; i--) {
+        let action = JSON.parse(JSON.stringify(StateAction_log[i].action));
         let state = JSON.parse(JSON.stringify(StateAction_log[i].state));
-
-        console.log(state)
+        let policy = state["Policy"]==null?"None":state["Policy"];
+        // console.log(state)
         let temp = []
         state["Ready"].forEach((process) => {
             temp.push(process.id)
@@ -571,13 +593,13 @@ function UpdatePreviousState() {
         timer = state["Timer"] != null ? state["Timer"] : "None";
         let button = document.createElement("button");
         button.className = "collapsible";
-        button.innerHTML = "Tick " + (i + 1) + " State";
+        button.innerHTML = "Tick " + (i + 1) + "Action: \"" + action+"\"";
         button.onclick = createToggleFunction(i);
         container.appendChild(button);
         let table = document.createElement("table");
         table.className = "content";
         table.id = "state" + (i + 1);
-        table.innerHTML = '<tr>    <td class="ts_cell">Ready:</td>    <td class="ts_cell">' + ready + '</td></tr><tr>    <td class="ts_cell">Waiting for I/O:</td>    <td class="ts_cell">' + waiting + '</td></tr><tr>    <td class="ts_cell">Terminated:</td>    <td class="ts_cell">' + terminated + '</td></tr><tr>    <td class="ts_cell">Completed:</td>    <td class="ts_cell">' + completed + '</td></tr><tr><tr>    <td class="ts_cell">cpu:</td>    <td class="ts_cell">' + running + '</td></tr><tr>    <td class="ts_cell">Map:</td>    <td class="ts_cell">' + map + '</td></tr><tr>    <td class="ts_cell">Timer:</td>    <td class="ts_cell">' + timer + '</td></tr><tr>    <td class="ts_cell">Scheduling policy:</td>    <td class="ts_cell">' + state["Policy"] + '</td></tr>';
+        table.innerHTML = '<tr>    <td class="ts_cell">Ready:</td>    <td class="ts_cell">' + ready + '</td></tr><tr>    <td class="ts_cell">Waiting for I/O:</td>    <td class="ts_cell">' + waiting + '</td></tr><tr>    <td class="ts_cell">Terminated:</td>    <td class="ts_cell">' + terminated + '</td></tr><tr>    <td class="ts_cell">Completed:</td>    <td class="ts_cell">' + completed + '</td></tr><tr><tr>    <td class="ts_cell">cpu:</td>    <td class="ts_cell">' + running + '</td></tr><tr>    <td class="ts_cell">Map:</td>    <td class="ts_cell">' + map + '</td></tr><tr>    <td class="ts_cell">Timer:</td>    <td class="ts_cell">' + timer + '</td></tr><tr>    <td class="ts_cell">Scheduling policy:</td>    <td class="ts_cell">' + policy + '</td></tr>';
         container.appendChild(table);
     }
     
@@ -663,6 +685,12 @@ function UpdateBtnState() {
     else{
         Button_State["undo"] = false;
     }
+    if(Redo_log.length>0){
+        Button_State["redo"] = true;
+    }
+    else{
+        Button_State["redo"] = false;
+    }
 }
 
 function UpdateBtnUI() {
@@ -710,15 +738,16 @@ function UpdateBtnUI() {
     }
     if (Button_State["redo"] == false) {
         redo.classList.add("disabled");
+        console.log("hello")
     }
     else {
         redo.classList.remove("disabled");
+        console.log("here")
     }
 }
 
 function UpdateUI() {
     UpdateState();
-    
     UpdateTable();
     UpdateBtnState();
     UpdateBtnUI();
@@ -727,22 +756,30 @@ function UpdateUI() {
 
 function Undo(){
     if(StateAction_log.length<1){
+        Button_State["undo"] = false;
+        UpdateUI();
         return;
     }
     Button_State["redo"] = true;
-    UpdateUI();
-    StateAction_log.pop();
+    // console.log(Button_State)
+    temp = JSON.parse(JSON.stringify(StateAction_log.pop()));
+    Redo_log.push(JSON.parse(JSON.stringify(temp)));
+    State=JSON.parse(JSON.stringify(temp.state));
+    // console.log(StateAction_log.length);
+    console.log(State)
     // Action_log.push(new Action("Undo",State));
-    UpdateActionLog();
+    UpdateUI();
 
 }
 
 function Redo(){
-    if(Action_log.length==0){
+    if(Redo_log.length<1){
         return;
     }
-    State = Action_log.pop().state;
-    StateAction_log.push(new Action("Redo",State));
+    temp = JSON.parse(JSON.stringify(Redo_log.pop()));
+    State =JSON.parse(JSON.stringify(temp.state));
+    console.log(State)
+    StateAction_log.push(JSON.parse(JSON.stringify(temp)));
+    // StateAction_log.push(new Action("Redo",State));
     UpdateUI();
-    UpdateActionLog();
 }
