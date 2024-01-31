@@ -192,6 +192,9 @@ function ToggleCreateProcess() {
         burst_input.placeholder = "Enter Burst Time (1-30) to create a process with Pid:" + State["id_counter"];
 
     }
+    else {
+        sendalert("Please complete the previous command first or unselect it")
+    }
 }
 
 function newProcess() {
@@ -604,7 +607,7 @@ function UpdateBtnState() {
         Button_State = {
             "tick": true,
             "schedule": false,
-            "newProcess": false,
+            "newProcess": true,
             "terminate": true,
             "undo": false,
             "redo": false
@@ -626,7 +629,7 @@ function UpdateBtnState() {
             Button_State = {
                 "tick": true,
                 "schedule": true,
-                "newProcess": false,
+                "newProcess": true,
                 "terminate": false,
                 "undo": false,
                 "redo": false
@@ -700,14 +703,15 @@ function UpdateBtnUI() {
         }
     }
     if (State["clickedState"] != "newProcess") {
-           if (Button_State["newProcess"] == false) {
+        if (Button_State["newProcess"] == false) {
             newProcess.classList.add("disabled");
         }
         else {
             newProcess.classList.remove("disabled");
         }
     }
-    if (State["clickedState"]!="terminate"){    if (Button_State["terminate"] == false) {
+    if (State["clickedState"]!="terminate"){ 
+        if (Button_State["terminate"] == false) {
             terminate.classList.add("disabled");
         }
         else {
@@ -723,11 +727,9 @@ function UpdateBtnUI() {
     }
     if (Button_State["redo"] == false) {
         redo.classList.add("disabled");
-        console.log("hello")
     }
     else {
         redo.classList.remove("disabled");
-        console.log("here")
     }
 }
 
