@@ -77,6 +77,8 @@ function assemble_msg(FEEDBACK, color) {
     row.appendChild(td);
     tb.appendChild(row);
     dialogue.appendChild(tb);
+
+    document.getElementById("msg-sec").scrollTop = document.getElementById("msg-sec").scrollHeight
 }
 
 function sendalert(message) {
