@@ -133,6 +133,10 @@ td {
   border: solid 2px green;
 }
 
+span.a {
+  display: inline;
+}
+
 
 .Instructions {
   border-color: dodgerblue;
@@ -337,7 +341,6 @@ input:focus-visible + label {
 .ts_cell {
     padding: 4px;
     border: solid #888;
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
 
 .states {
@@ -595,7 +598,7 @@ input:focus-visible + label {
   border-radius: 10px;
   font-size: larger;
   font-weight: bold;
-  font-family: Arial, Helvetica, sans-serif;
+  /* font-family: Arial, Helvetica, sans-serif; */
 }
 
 .toc-element:hover {
@@ -819,13 +822,14 @@ position: sticky;
 top: 0;
 }
 
-.tickDisplay {
+.tick_sch_Display {
   font-size: large;
   font-weight: bolder;
   color: olive;
   padding: 10px;
   margin: 10px;
 }
+
 
 .inst_button {
 background-color: moccasin;
@@ -946,7 +950,7 @@ cursor: help;
 
 .wrapper {  
   background-color: white;
-  font-family: Arial, Helvetica, sans-serif;
+  /* font-family: Arial, Helvetica, sans-serif; */
   border: none;
   font-size: larger;
   cursor: pointer;
@@ -1062,15 +1066,17 @@ pointer-events: auto;
 }
 
 .arrow {
+  color: dodgerblue;
   position: absolute;
-  top: 50%;
-  left: 50%;
+  /* top: 50%;
+  left: 50%; */
   transform: translate(-50%, -50%);
   transform: rotate(90deg);
   cursor: pointer;
 }
 
 .arrow span {
+  color: dodgerblue;
   display: block;
   width: 1.5vw;
   height: 1.5vw;

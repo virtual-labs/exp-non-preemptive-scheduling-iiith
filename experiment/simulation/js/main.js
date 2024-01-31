@@ -117,17 +117,21 @@ function loadUnloadCommand(cmd) {
             State["clickedState"] = null;
             Button_State["tick"] = false;
             UpdateUI();
+            assemble_msg("You have choosen a new scheduling policy. Click on the 'Tick' button to succesfully execute the schedule", "dodgerblue");
         }
         else if (State["clickedState"] == null) {
             if (State["Policy"] == null) {
+                assemble_msg("Please select a scheduling policy first", "red");
                 sendalert("Please select a scheduling policy first");
                 return;
             }
             if (State["Running"] != null) {
+                assemble_msg("A process is currently running on the CPU. Please wait for it to complete or terminate it", "red");
                 sendalert("A process is currently running on the CPU. Please wait for it to complete or terminate it.");
                 return;
             }
             if(State["Ready"].length===0){
+                assemble_msg("No ready processes to be run on the CPU. Please create a new process.", "red");
                 sendalert("No ready processes to be run on the CPU. Please create a new process.");
                 return;
             }
@@ -150,6 +154,7 @@ function loadUnloadCommand(cmd) {
         }
         else if (State["clickedState"] == null) {
             if (State["Running"] != null) {
+                assemble_msg("A process is currently running on the CPU. Please wait for it to complete or terminate it.", "dodgerblue");
                 sendalert("A process is currently running on the CPU. Please wait for it to complete or terminate it.");
                 return;
             }
@@ -158,6 +163,7 @@ function loadUnloadCommand(cmd) {
             newProcess();
         }
         else {
+            assemble_msg("Please complete the previous command first or unselect it", "dodgerblue");
             sendalert("Please complete the previous command first or unselect it")
         }
     }
@@ -168,6 +174,7 @@ function loadUnloadCommand(cmd) {
         }
         else if (State["clickedState"] == null) {
             if (State["Running"] == null) {
+                assemble_msg("No process is currently running on the CPU. Please schedule a process", "dodgerblue");
                 sendalert("No process is currently running on the CPU. Please schedule a process.");
                 return;
             }
@@ -390,6 +397,7 @@ function UpdateState() {
 function Schedule() {
     if (State["Policy"] == "FCFS") {
         FCFS();
+        document.getElementById("sch_algo").innerHTML = "FCFS";
     }
     else {
         State["Running"].mapping["run_time"]++;
@@ -420,15 +428,19 @@ function Schedule() {
 function SchedulePolicy() {
     if (State["Policy"] == "FCFS") {
         FCFS();
+        document.getElementById("sch_algo").innerHTML = "FCFS";
     }
     else if (State["Policy"] == "SJF") {
         SJF();
+        document.getElementById("sch_algo").innerHTML = "SJF";
     }
     else if (State["Policy"] == "Priority") {
         Priority();
+        document.getElementById("sch_algo").innerHTML = "Priority scheduling";
     }
     else if (State["Policy"] == "Round Robin") {
         RoundRobin();
+        document.getElementById("sch_algo").innerHTML = "Round Robin";
     }
 }
 
