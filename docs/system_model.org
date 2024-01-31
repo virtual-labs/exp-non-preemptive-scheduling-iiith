@@ -23,3 +23,38 @@ Plant is where we see the changes in the system as a result of our actions perfo
 [[./images/sys_model.png]]
 
 [[./images/plant.png]]
+
+** Transitional state view of scheduling
+
+Let us look at how the system state changes as the execution of processes starts on the CPU.
+
+Let us represent each state as 
+
+$$
+X_{s} = 
+\begin{cases}
+\text{ReadyOrRunningQ:} \overrightarrow{id} & \quad \text{A vectore representing all the processes in non terminated state.}\\ 
+\text{cpu: current pid} & \quad \text{current pid represents the current process running on the CPU.}\\
+\text{Ptime Map:} \overrightarrow{id} \rightarrow \overrightarrow{executedTime}:\overrightarrow{TotalExecutionTime} & \quad \text{Maps each process to the time they have spent on the CPU and the total time they need to complete their execution}\\
+\text{timer: T} & \quad \text{The amount of time after which the CPU is prompted to take a new process}
+\end{cases}
+$$
+
+Due to space constraints, let us represent ReadyOrRunningQ with **rQ** and Ptime Map with **map**. A transition system can change it's state only when we have a function or action that triggers the state change. So let us define few basic functions that can change the state of a system.
+
+***timer_itr ():*** The hardware generates an interrupt whenever the Timer count reaches 0. This implies that the currect process running on the CPU has used up it's time quanta and need to move out so that other process can use the CPU.
+
+***syscall ():*** The currently running process encounters a trap (read, or exit) which would need it to release the CPU. A new process would likely come and use the CPU resources then.
+
+***sch():*** This schedule() function selects the next process to run on the CPU. 
+
+Cosider the Timer to be set to 2 clock_ticks and the scheduler to select whatever is next in the queue to use the CPU. Now let us look at the below transition diagram and understand how scheduling mechanism changes the system state.
+
+![transition diagram](./images/ts_states.png)
+
+*** What's happening in the above diagram?
+
+We initially had three processes with pids as 0, 1, and 2 respectively. Considering that it is also the order of their arrivals, we initially have three process in non-terminated state. The the process with pid 0 has arrived first, it will get to use the CPU first. It is shown in the diagram that the total time it needs to be use the CPU to finish it's execution is 3 clock_ticks while the Timer is set to 2 clock ticks. So after 2 clock ticks the hardware generates a timer interrupt and now it is the job of the scheduler to allocate the CPU to a new process. The next process to arrive was the process with pid 1. Hence the CPU starts executing pid 1. The Timer is set back to 2 after the new process is loaded. 
+
+Now pid 1 needs only 1 clock tick to complete it's execution. Hence it now encounters an exit syscall. The CPU will have to first deal with the trap handler to deal with this but let us just skip the kernel level code executions for now. Once this is done, the scheduler will select the next process to allocate the CPU. The timer is again set to 2 when the new process arrives. **Note that the operation of timer varies from OS to OS. This is a very simple case of timer triggering scheduling.** The now terminated process 1 is no longer placed in the rQ. 
+
