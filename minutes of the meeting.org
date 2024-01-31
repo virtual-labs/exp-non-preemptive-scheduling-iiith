@@ -1,0 +1,94 @@
+* Scheduling Experiment
+*** Discussion:
+The transition diagram view of the experiment.
+Xs = (Td, map: Id -> T, CPU: Id0, timer: t)
+Us = arr(burstTime: T) + syscall() + io-complete-int(id) + select(id) + clock tick
+Only one or two priority levels are enough for now. (MLFQ)
+Doing the scheduling yourself, instead of just seeing the output of the scheduler.
+Try FCFS first.
+Try more on the priority of the IO_completed processes.
+
+
+** Jan 17th 2024
+
+*** Attendees:
+Prof. Venkatesh Choppella
+Bhargavi
+Yashpal
+Pranav
+
+*** Discussion:
+Elements should be hoverbale
+Color coding should be added, for buttons, and info
+Termination -> Completed
+Fonts
+Add dialogues
+JS graph
+Don't mixup display and controls
+Add functions that can be done along with the tick
+Previous states display along with the tick numbers
+Change scheduling policies
+
+**Jan 20, 2024
+*** Attendees:
+-	Prof. Venkatesh Choppella
+-	Bhargavi
+-	Yashpal
+*** Discussion:
+-	Upon creating a process, the pid of process should be visible which is about to be created.
+-	Remaining time should be in the cpu itself for the currently running process.
+-	There should be color code for each buttons and dialogs differently as well as states of process
+-	Remove the Instruction box
+-	The graph pid should on the y-axis (let’s say we have number of process is 5), the x-axis should be the time itself… It should show the state of each process on the chart
+-	No need of showing completed and terminated process in the process display itself.
+-	Every tool should be standardized for further experiments as well
+
+** Jan 24, 2024
+
+*** Attendees:
+Prof. Venakatesh
+Bhargavi
+Yashpal
+Aayush
+
+*** Discussion:
+Add back buttons
+Prompt the user to schedule a policy at the start.
+Create logs for every action of the user in the dialogue box.
+Diagram should differentiate between the scheduler , the plant, and the environment(Terminate, New process)
+Select the correct process based on the algorithm to schedule.
+Create a conceptual model, system model and a UI model notes. (.md notes)
+Identify the state space, action space, event space and subsystem space.
+It should be traceable backward.
+
+** Jan 31, 2024
+*** Attendees:
+-   Prof. Venkatesh 
+-   Bhargavi
+-   Aayush 
+-   Yashpal 
+
+*** Discussion:
+-   *Conceptual Model*: the model should be explaining the role the user in the system.
+-   *System Model*: 
+        -   The environment is not a part of the system.
+        -   The user is the environment, which is not a system. The user generate actions.
+        -   There are three key players: CPU, Process Table, scheduler connected via labeled directed graph
+            -   *** 1. Process Table ***
+                >   ProcessTable    :   N->Proc
+                >   Proc    : {
+                        ArrivalTime:    N,
+                        BurstLength:    N(1-30),
+                        PId:            N,
+                        RemainingDuration:  N(1-30),
+                        State(S):       {"Running","Waiting","Ready","Completed","Terminated"},
+                        Registers:      Val^n
+                    }
+                >   
+
+            -    *** 2. Scheduler *** 
+                -   
+
+        - ** Events: ** There are four external events that can be generated from the
+        environment that can affect subsystems:- 
+            -   [ "Create", "Terminate", "I/O", "Complete" ].
