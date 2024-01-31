@@ -74,7 +74,7 @@
     - The environment is not a part of the system.
     - The user is the environment, which is not a system. The user generate actions.
     - There are three key players: CPU, Process Table, scheduler connected via labeled directed graph
-    - ** 1. Process Table **
+    - *Process Table:*
         - ProcessTable: N->Proc
         - Proc: {
             ArrivalTime: N,
