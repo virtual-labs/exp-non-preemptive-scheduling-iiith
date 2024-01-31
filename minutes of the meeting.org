@@ -75,8 +75,8 @@ It should be traceable backward.
         -   The user is the environment, which is not a system. The user generate actions.
         -   There are three key players: CPU, Process Table, scheduler connected via labeled directed graph
             -   *** 1. Process Table ***
-                >   ProcessTable    :   N->Proc
-                >   Proc    : {
+                -   ProcessTable    :   N->Proc
+                -   Proc    : {
                         ArrivalTime:    N,
                         BurstLength:    N(1-30),
                         PId:            N,
@@ -84,10 +84,6 @@ It should be traceable backward.
                         State(S):       {"Running","Waiting","Ready","Completed","Terminated"},
                         Registers:      Val^n
                     }
-                >   
-
-            -    *** 2. Scheduler *** 
-                -   
 
         - ** Events: ** There are four external events that can be generated from the
         environment that can affect subsystems:- 
