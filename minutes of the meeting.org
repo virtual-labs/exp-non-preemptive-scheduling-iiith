@@ -98,3 +98,8 @@
    - Systems diagram [loading should happen from the process table]
    - Show how the UI model can be derived from the Systems model (TODO)
    - UI needs to be documented with both narrative and code.
+   - Context-switching: Change the color and every dialogue should have prompt and feedback.
+   - The buttons should be disabled according to the mode we are in (Context switching).
+   - Add auto scroll in dialogue box.
+   - Add a simple error instead of info in dialogue box.
+   - Say kstack and PCB are empty when the processes are just loaded. (Context switching)
