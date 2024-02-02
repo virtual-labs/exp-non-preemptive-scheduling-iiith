@@ -24,6 +24,9 @@ Plant is where we see the changes in the system as a result of our actions perfo
 
 [[./images/plant.png]]
 
+
+[[]./images/sysD.png]
+
 ** Transitional state view of scheduling
 
 Let us look at how the system state changes as the execution of processes starts on the CPU.
@@ -50,7 +53,7 @@ Due to space constraints, let us represent ReadyOrRunningQ with **rQ** and Ptime
 
 Cosider the Timer to be set to 2 clock_ticks and the scheduler to select whatever is next in the queue to use the CPU. Now let us look at the below transition diagram and understand how scheduling mechanism changes the system state.
 
-![transition diagram](./images/ts_states.png)
+[[./images/ts_states.png]]
 
 *** What's happening in the above diagram?
 
