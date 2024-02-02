@@ -87,3 +87,14 @@
 
     - *Events:* There are four external events that can be generated from the environment that can affect subsystems:-
         - ["Create", "Terminate", "I/O", "Complete"].
+
+** Feb 2, 2024
+*** Attendees:
+   - Prof. Venkatesh
+   - Yashpal
+   - Bhargavi
+   - Aayush
+*** Discussion:
+   - Systems diagram [loading should happen from the process table]
+   - Show how the UI model can be derived from the Systems model (TODO)
+   - UI needs to be documented with both narrative and code.
