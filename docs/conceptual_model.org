@@ -1,15 +1,12 @@
 #+TITLE: Conceptual Model for Scheduling
 
 ** Aim of the experiment
-This experiment aims at creating an interactive and a student friendly simulation of the Scheduling mechanism.
-
+This experiment aims at bringing an in depth understanding of scheduling mechanism within the OS and to introduce the student to the ideology of viewing a system as a transitional state model with simply changes depending on the action taken by the user or any other internal actions.
 ** Outcomes of the experiment
-Understanding the mechanism of scheduling which includes
-    - Understanding the process states
-    - Understanding the transitions from one process state to another and how this impacts the scheduling mechanism.
-    - Understanding how scheduler decides which process to choose (Scheduling mechanisms).
-    - Understanding when a scheduler or the scheduling mechanism is triggered.
-
+    - Student would be able to understand how different actions changes the state of the system.
+    - An high level abstract overview on how various subsystems interact in the scheduling mechanism.
+    - Understanding how actions of states of processes and their run time is affected by scheduling.
+    
 ** High level overview of the mechanism
 *** What all do we have in this mechanism?
 - Processes in different states (Ready, Running, Waiting for IO, Terminated, Completed)
