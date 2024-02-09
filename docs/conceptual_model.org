@@ -2,6 +2,11 @@
 
 ** Aim of the experiment
 This experiment aims at bringing an in depth understanding of scheduling mechanism within the OS and to introduce the student to the ideology of viewing a system as a transitional state model with simply changes depending on the action taken by the user or any other internal actions.
+
+** Pre-requisites needed
+- Students are expected to know what a CPU is. 
+- Students should be able to differentiate between different process states (ready, running, waiting, completed)
+
 ** Outcomes of the experiment
     - Student would be able to understand how different actions changes the state of the system.
     - An high level abstract overview on how various subsystems interact in the scheduling mechanism.
