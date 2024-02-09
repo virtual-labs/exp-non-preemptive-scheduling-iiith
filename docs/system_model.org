@@ -53,7 +53,7 @@ Due to space constraints, let us represent ReadyOrRunningQ with **rQ** and Ptime
 
 Cosider the Timer to be set to 2 clock_ticks and the scheduler to select whatever is next in the queue to use the CPU. Now let us look at the below transition diagram and understand how scheduling mechanism changes the system state.
 
-[[./images/ts_states.png]]
+[[../experiment/images/ts_states.png]]
 
 *** What's happening in the above diagram?
 
