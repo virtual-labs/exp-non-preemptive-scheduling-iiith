@@ -340,7 +340,9 @@ input:focus-visible + label {
 
 .ts_cell {
     padding: 4px;
-    border: solid #888;
+    font-family: Arial, Helvetica, sans-serif;
+  
+    border: solid whitesmoke;
 }
 
 .states {
