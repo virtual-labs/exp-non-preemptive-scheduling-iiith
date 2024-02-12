@@ -10,10 +10,24 @@ The CPU has absolutely no control over the process queue. It only has the contro
 The scheduler is responsible in selecting a process from the process queue with a ready status and hand it over to the CPU. The process queue gets updated as the shceduler and CPU plays their respective roles.
 One thing to note is that process queue is not a system like CPU or scheduler, but is a data structure that contains process info. 
 
-Based on the above understanding, we can divide the system into 3 sub systems:
+** High level overview of the mechanism
+*** What all do we have in this mechanism?
+- Processes in different states (Ready, Running, Waiting for IO, Terminated, Completed)
+- CPU to execute the processes.
+- Scheduler to schedule the processes.
+
+*** Flow of the mechanism
+
+[[./images/Conceptual_model.png]]
+
+*** When is the scheduling mechanism triggered?
+- When a process in the CPU completes it's execution. (Software interrupt)
+- When an external entity terminates the process. (Hardware interrupt)
+
+Based on the above understanding, we can categorize the system into following:
 - Scheduler
 - Environment 
-- Plant
+- Plant: CPU and Processes queue
 
 Scheduler is where we focus on scheduling mechanism along with it's related functions like identifying the ready process, and selecting one based on the algorithm.
 
@@ -21,8 +35,6 @@ Environment is where we have other user dependent functions like creating a proc
 
 Plant is where we see the changes in the system as a result of our actions performed as an external user and a scheduler. 
 [[./images/sys_model.png]]
-
-[[./images/plant.png]]
 
 
 [[./images/sysD.png]]
