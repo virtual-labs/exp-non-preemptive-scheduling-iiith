@@ -151,7 +151,6 @@ function loadUnloadCommand(cmd) {
             State["clickedState"] = null;
             newProcess_btn = document.getElementById("newProcess-btn");
             newProcess_btn.classList.remove("btn-loaded");
-            assemble_msg("Please click the 'Tick' button to execute the creation of a new process");
         }
         else if (State["clickedState"] == null) {
             if (State["Running"] != null) {
@@ -160,6 +159,7 @@ function loadUnloadCommand(cmd) {
                 return;
             }
             State["clickedState"] = "newProcess";
+            assemble_msg("Please click the 'Tick' button to execute the creation of a new process");
             UpdateUI();
             newProcess();
         }
