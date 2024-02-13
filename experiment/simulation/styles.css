@@ -15,6 +15,41 @@ td {
   text-align: center;
 }
 
+.arrow
+{
+  position: relative;
+  top: -0.50rem;
+  left: 100%;
+  /* bottom: -2rem;
+  left: 50%;
+  margin-left:-20px; */
+  width: 60px;
+  height: 60px;
+
+  /**
+   * Dark Arrow Down
+   */
+  background-image: url(https://cdn-icons-png.freepik.com/512/5083/5083135.png);
+  /* transform: rotate(90deg); */
+  background-size: contain;
+}
+
+.bounce {
+  animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateX(0);
+  }
+  40% {
+    transform: translateX(-30px);
+  }
+  60% {
+    transform: translateX(-15px);
+  }
+}
+
 .tag-orange {
   padding: 10px;
   border-radius: 20px;

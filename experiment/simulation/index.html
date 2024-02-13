@@ -94,38 +94,7 @@
                         <section id="rauchbier" class="tab-panel">
 
                             <div id="prev_state">
-                                <!-- <button type="button" class="collapsible">Open Collapsible</button>
-                                <table id="previous_ts">
-                                    <tr>
-                                        <td class="ts_cell">Ready:</td>
-                                        <td class="ts_cell" id="rQ"></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="ts_cell">Waiting for I/O:</td>
-                                        <td class="ts_cell" id="wQ"></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="ts_cell">Terminated:</td>
-                                        <td class="ts_cell" id="tQ"></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="ts_cell">cpu:</td>
-                                        <td class="ts_cell" id="cpu_p"></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="ts_cell">Map:</td>
-                                        <td class="ts_cell" id="map"></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="ts_cell">Timer:</td>
-                                        <td class="ts_cell" id="timer"></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="ts_cell">Scheduling policy:</td>
-                                        <td class="ts_cell" id="schd_p"></td>
-                                    </tr>
-                                </table> -->
-
+                                
                             </div>
 
                     </div>
@@ -189,9 +158,12 @@
                             <div style="margin-left: 35%;">
 
                                 <button class="btn disabled" id="schd-btn" onclick="loadUnloadCommand('schedule')">Schedule</button>
+                                <button class="btn disabled" id="end-btn" onclick="loadUnloadCommand('terminate')">Terminate</button>
                                 <div class="dropdown">
                                     <button class="btn" id="newProcess-btn" onclick="ToggleCreateProcess()"> <i class="fa fa-plus"></i> New
-                                        process</button>
+                                        process
+                                        <div class="arrow bounce"></div>
+                                    </button>
                                     <div id="myDropdown" class="dropdown-content">
                                         <!-- <input type="number" placeholder="Enter Burst Time (1 - 30)" id="burstTime"> -->
                                         <textarea name="burstTime" id="burstTime" cols="30" rows="10"></textarea>
@@ -199,7 +171,6 @@
                                             onclick="loadUnloadCommand('newProcess')">Create</button>
                                     </div>
                                 </div>
-                                <button class="btn disabled" id="end-btn" onclick="loadUnloadCommand('terminate')">Terminate</button>
                             </div>
                             <p style="text-align: center; font-weight: bold;">Undo & Redo</p>
                             <div style="margin-left: 42%;">
