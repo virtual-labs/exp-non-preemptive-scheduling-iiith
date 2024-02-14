@@ -39,7 +39,8 @@ class Action {
 
 
 class Process {
-    constructor(burst_time, status) {
+    constructor(arrival_time, burst_time, status) {
+        this.arrival_time = arrival_time;
         this.burst_time = burst_time;
         this.status = status;
         this.mapping = { "run_time": 0, "burst_time": burst_time }
@@ -234,7 +235,7 @@ function CreateProcess() {
         sendalert("Please enter a number between 1 to 30")
         return
     }
-    let process = new Process(create_process_input_int, "Ready");
+    let process = new Process(State["time_counter"], create_process_input_int, "Ready");
     State["Ready"].push(process);
     UpdateState();
     UpdateTable();
@@ -243,55 +244,63 @@ function CreateProcess() {
 
 function UpdateTable() {
     let table = document.getElementById("processes")
-    table.innerHTML = "<th>Process ID</th><th>Burst Time</th><th>Remaining time</th><th>Status</th>";
+    table.innerHTML = "<th>Process ID</th><th>Arrival Time</th><th>Burst Time</th><th>Remaining time</th><th>Status</th>";
     // console.log(table);
     if (State["Running"] != null) {
         let row = table.insertRow(-1);
-        let cell1 = row.insertCell(0);
-        cell1.innerHTML = State["Running"].id;
-        let cell2 = row.insertCell(1);
+        let cell0 = row.insertCell(0);
+        cell0.innerHTML = State["Running"].id;
+        let cell1 = row.insertCell(1);
+        cell1.innerHTML = State["Running"].arrival_time;
+        let cell2 = row.insertCell(2);
         cell2.innerHTML = State["Running"].mapping["burst_time"];
-        let cell3 = row.insertCell(2);
+        let cell3 = row.insertCell(3);
         cell3.innerHTML = State["Running"].mapping["burst_time"] - State["Running"].mapping["run_time"];
-        let cell4 = row.insertCell(3);
+        let cell4 = row.insertCell(4);
         cell4.innerHTML = State["Running"].status;
         cell4.className = "tag-green";
     }
     State["Ready"].forEach((process) => {
         let row = table.insertRow(-1);
-        let cell1 = row.insertCell(0);
-        cell1.innerHTML = process.id;
-        let cell2 = row.insertCell(1);
+        let cell0 = row.insertCell(0);
+        cell0.innerHTML = process.id;
+        let cell1 = row.insertCell(1);
+        cell1.innerHTML = process.arrival_time;
+        let cell2 = row.insertCell(2);
         cell2.innerHTML = process.burst_time;
-        let cell3 = row.insertCell(2);
+        let cell3 = row.insertCell(3);
         cell3.innerHTML = process.burst_time;
-        let cell4 = row.insertCell(3);
+        let cell4 = row.insertCell(4);
         cell4.innerHTML = process.status;
         cell4.className = "tag-orange";
     }
     );
     State["Completed"].forEach((process) => {
         let row = table.insertRow(-1);
-        let cell1 = row.insertCell(0);
-        cell1.innerHTML = process.id;
-        let cell2 = row.insertCell(1);
+        let cell0 = row.insertCell(0);
+        cell0.innerHTML = process.id;
+        let cell1 = row.insertCell(1);
+        cell1.innerHTML = process.arrival_time;
+        let cell2 = row.insertCell(2);
         cell2.innerHTML = process.burst_time;
-        let cell3 = row.insertCell(2);
+        let cell3 = row.insertCell(3);
         cell3.innerHTML = 0;
-        let cell4 = row.insertCell(3);
+        let cell4 = row.insertCell(4);
         cell4.innerHTML = process.status;
         cell4.className = "tag-grey";
     }
     );
     State["Terminated"].forEach((process) => {
         let row = table.insertRow(-1);
-        let cell1 = row.insertCell(0);
-        cell1.innerHTML = process.id;
-        let cell2 = row.insertCell(1);
+        let cell0 = row.insertCell(0);
+        cell0.innerHTML = process.id;
+        let cell1 = row.insertCell(1);
+        cell1.innerHTML = process.arrival_time;
+        let cell2 = row.insertCell(2);
         cell2.innerHTML = process.burst_time;
-        let cell3 = row.insertCell(2);
+        let cell3 = row.insertCell(3);
         cell3.innerHTML = 0;
-        let cell4 = row.insertCell(3);
+        let cell4 = row.insertCell(4);
         cell4.innerHTML = process.status;
         cell4.className = "tag-red";
     }
