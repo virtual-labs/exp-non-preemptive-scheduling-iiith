@@ -27,6 +27,9 @@ let Button_State = {
 let StateAction_log = [];
 let Redo_log = [];
 
+let arrow_used = 0;
+
+
 class Action {
     constructor(action, state) {
         this.action = action;
@@ -147,6 +150,11 @@ function loadUnloadCommand(cmd) {
         }
     }
     if (cmd == "newProcess") {
+        if (arrow_used == 0) {
+            document.getElementById("guide-tip").style.display = "none";
+            document.getElementById("arw").style.display = "none";
+            arrow_used = 1;
+        }
         if (State["clickedState"] == "newProcess") {
             State["clickedState"] = null;
             newProcess_btn = document.getElementById("newProcess-btn");
