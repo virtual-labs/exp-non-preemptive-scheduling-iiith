@@ -307,6 +307,33 @@ function UpdateTable() {
     );
 }
 
+function updateCPU() {
+    if(State["Running"] != null) {
+
+        let cpuTable = document.getElementById("CPU")
+        // console.log(State["Running"].mapping["run_time"])
+        if (State["Running"].mapping["run_time"] == 0) {
+            cpuTable.innerHTML = "";
+            State["Running"].status = "Ready";
+            UpdateTable();
+            return;
+        }
+        cpuTable.innerHTML = "<th>Process ID</th><th>Burst Time</th><th>Run Time</th>";
+            // Add State["Ready"][0] to cpuTable
+            let row = cpuTable.insertRow(-1);
+            let cell1 = row.insertCell(0);
+            cell1.innerHTML = State["Running"].id;
+
+            let cell2 = row.insertCell(1);
+            cell2.innerHTML = State["Running"].mapping["burst_time"];
+            let cell3 = row.insertCell(2);
+            cell3.innerHTML = State["Running"].mapping["run_time"];
+
+            assemble_msg("Process with pid " + State["Running"].id + " now running on the CPU!");
+            UpdateUI();
+    }
+}
+
 function schedule() {
     if (State["Running"] == null) {
         let cpuTable = document.getElementById("CPU")
@@ -774,6 +801,7 @@ function UpdateUI() {
 function Undo(){
     if(StateAction_log.length<1){
         Button_State["undo"] = false;
+        updateCPU();
         UpdateUI();
         return;
     }
@@ -786,6 +814,7 @@ function Undo(){
 
     // Action_log.push(new Action("Undo",State));
     UpdateUI();
+    updateCPU();
 
 }
 
