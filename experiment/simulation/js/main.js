@@ -98,6 +98,30 @@ function sendalert(message) {
     }
 }
 
+let checkedRow; 
+
+function _getCheckedRow() {
+    var pTable = document.getElementById("processes");
+    var tbody = pTable.getElementsByTagName('tbody')[0];
+    var rows = tbody.rows;
+    checkedRow = null;
+
+    for (var i = 1; i < rows.length; i++) { // Start from index 1 to skip header row
+        var checkbox = rows[i].getElementsByTagName('input')[0];
+        
+        if (checkbox.checked) {
+            checkedRow = [];
+            for (var j = 1; j < rows[i].cells.length; j++) { // Start from index 1 to skip checkbox cell
+                checkedRow.push(rows[i].cells[j].innerHTML);
+            }
+            break; // Exit the loop once a checked row is found
+        }
+    }
+
+    // Output the details of the checked row (for demonstration)
+    console.log(checkedRow);
+}
+
 function openTheory() {
     if (document.getElementById("toc").style.display == "none") {
         document.getElementById("toc").style.display = "block";
@@ -144,6 +168,7 @@ function loadUnloadCommand(cmd) {
             schd_btn = document.getElementById("schd-btn");
             schd_btn.classList.add("btn-loaded");
             UpdateUI();
+            _schedule();
             // console.log(schd_btn.classList)
         }
         else {
@@ -339,11 +364,44 @@ function updateCPU() {
     }
 }
 
+function _schedule() {
+    var pTable = document.getElementById("processes");
+    var tbody = pTable.getElementsByTagName('tbody')[0];
+    var rows = tbody.rows;
+
+    for (var i = 1; i < rows.length; i++) {
+        var checkboxcell = rows[i].insertCell(0);
+        var checkbox = document.createElement("input");
+        checkbox.type = "checkbox";
+        checkbox.name = "rowCheckbox"
+        checkboxcell.appendChild(checkbox);
+        // Add event listener to handle single-choice behavior
+        checkbox.addEventListener('change', function() {
+            if (this.checked) {
+                for (var j = 1; j < rows.length; j++) {
+                    if (rows[j] !== this.parentNode.parentNode) {
+                        rows[j].getElementsByTagName('input')[0].checked = false;
+                    }
+                }
+            }
+        });
+    }
+
+
+    var headerRow = pTable.rows[0].insertCell(0);
+    headerRow.innerHTML = "<b>Select</b>";
+}
+
 function schedule() {
     if (State["Running"] == null) {
+        _getCheckedRow();
         let cpuTable = document.getElementById("CPU")
         let readyTable = document.getElementById("processes")
         if (State["Ready"].length != 0) {
+            if (checkedRow[0] != State["Ready"][0].id) {
+                assemble_msg("Please select the right process according to the scheduling policy choosen.");
+                return;
+            }
             cpuTable.innerHTML = "<th>Process ID</th><th>Burst Time</th><th>Run Time</th>";
             // Add State["Ready"][0] to cpuTable
             let row = cpuTable.insertRow(-1);
@@ -354,9 +412,6 @@ function schedule() {
             cell2.innerHTML = State["Ready"][0].mapping["burst_time"];
             let cell3 = row.insertCell(2);
             cell3.innerHTML = State["Ready"][0].mapping["run_time"];
-
-
-
 
             // Remove State["Ready"][0] from State["Ready"] and add to State["Running"]
             assemble_msg("Process with pid " + State["Ready"][0].id + " now running on the CPU!");
@@ -798,6 +853,7 @@ function UpdateBtnUI() {
 function UpdateUI() {
     UpdateState();
     UpdateTable();
+
     // UpdateCPU();
     UpdateBtnState();
     UpdateBtnUI();
