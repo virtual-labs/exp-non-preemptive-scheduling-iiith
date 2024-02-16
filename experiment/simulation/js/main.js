@@ -332,6 +332,11 @@ function updateCPU() {
             assemble_msg("Process with pid " + State["Running"].id + " now running on the CPU!");
             UpdateUI();
     }
+    else{
+        let cpuTable = document.getElementById("CPU")
+        cpuTable.innerHTML = "";
+    
+    }
 }
 
 function schedule() {
@@ -793,6 +798,7 @@ function UpdateBtnUI() {
 function UpdateUI() {
     UpdateState();
     UpdateTable();
+    // UpdateCPU();
     UpdateBtnState();
     UpdateBtnUI();
     UpdatePreviousState();
@@ -825,4 +831,5 @@ function Redo(){
     State = JSON.parse(JSON.stringify(Redo_log.pop().state));
     StateAction_log.push(new Action("Redo",State));
     UpdateUI();
+    updateCPU();
 }
