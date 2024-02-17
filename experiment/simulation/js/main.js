@@ -395,11 +395,15 @@ function _schedule() {
 function schedule() {
     if (State["Running"] == null) {
         _getCheckedRow();
+        if(checkedRow == null) {
+            assemble_msg("Please select a process before scheduling", "red");
+            return;
+        }
         let cpuTable = document.getElementById("CPU")
         let readyTable = document.getElementById("processes")
         if (State["Ready"].length != 0) {
             if (checkedRow[0] != State["Ready"][0].id) {
-                assemble_msg("Please select the right process according to the scheduling policy choosen.");
+                assemble_msg("Please select the right process according to the scheduling policy choosen.", "red");
                 return;
             }
             cpuTable.innerHTML = "<th>Process ID</th><th>Burst Time</th><th>Run Time</th>";
