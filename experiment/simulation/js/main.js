@@ -360,7 +360,6 @@ function updateCPU() {
     else{
         let cpuTable = document.getElementById("CPU")
         cpuTable.innerHTML = "";
-    
     }
 }
 
