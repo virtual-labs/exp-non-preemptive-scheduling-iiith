@@ -397,6 +397,7 @@ function schedule() {
         _getCheckedRow();
         if(checkedRow == null) {
             assemble_msg("Please select a process before scheduling", "red");
+            sendalert("Please select a process before scheduling");
             return;
         }
         let cpuTable = document.getElementById("CPU")
@@ -428,12 +429,14 @@ function schedule() {
         }
         else {
             assemble_msg("No ready processes to be run on the CPU. Please create a new process.", "red");
+            sendalert("No ready processes to be run on the CPU. Please create a new process.")
             return null;
         }
         UpdateUI();
     }
     else {
         assemble_msg("A process is currently running on the CPU. Either wait for it to complete or terminate that process.", "red");
+        sendalert("A process is currently running on the CPU. Either wait for it to complete or terminate that process.")
         return null;
     }
 
@@ -594,6 +597,7 @@ function Terminate(n = 1) {
     }
     else {
         assemble_msg("No running process to terminate. Please schedule a process.", "red");
+        sendalert("No running process to terminate. Please schedule a process.")
         // return null;
     }
     UpdateTable();
