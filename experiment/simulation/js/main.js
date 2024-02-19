@@ -402,29 +402,67 @@ function schedule() {
         let cpuTable = document.getElementById("CPU")
         let readyTable = document.getElementById("processes")
         if (State["Ready"].length != 0) {
-            if (checkedRow[0] != State["Ready"][0].id) {
-                assemble_msg("Please select the right process according to the scheduling policy choosen.", "red");
-                return;
+            if(State["Policy"] == "FCFS") {
+                if (checkedRow[0] != State["Ready"][0].id) {
+                    assemble_msg("Please select the right process according to the scheduling policy choosen.", "red");
+                    return;
+                }
+                cpuTable.innerHTML = "<th>Process ID</th><th>Burst Time</th><th>Run Time</th>";
+                // Add State["Ready"][0] to cpuTable
+                let row = cpuTable.insertRow(-1);
+                let cell1 = row.insertCell(0);
+                cell1.innerHTML = State["Ready"][0].id;
+
+                let cell2 = row.insertCell(1);
+                cell2.innerHTML = State["Ready"][0].mapping["burst_time"];
+                let cell3 = row.insertCell(2);
+                cell3.innerHTML = State["Ready"][0].mapping["run_time"];
+
+                // Remove State["Ready"][0] from State["Ready"] and add to State["Running"]
+                assemble_msg("Process with pid " + State["Ready"][0].id + " now running on the CPU!");
+                tmp = State["Ready"][0];
+                State["Running"] = tmp;
+
+                State["Ready"].shift();
+                State["Running"].status = "Running";
+                UpdateUI();
             }
-            cpuTable.innerHTML = "<th>Process ID</th><th>Burst Time</th><th>Run Time</th>";
-            // Add State["Ready"][0] to cpuTable
-            let row = cpuTable.insertRow(-1);
-            let cell1 = row.insertCell(0);
-            cell1.innerHTML = State["Ready"][0].id;
+            else if (State["Policy"] == "SJF") {
+                // Find the index of ready processes with minimum burst time
 
-            let cell2 = row.insertCell(1);
-            cell2.innerHTML = State["Ready"][0].mapping["burst_time"];
-            let cell3 = row.insertCell(2);
-            cell3.innerHTML = State["Ready"][0].mapping["run_time"];
+                let minIndex = 0;
+                let minBurstTime = State["Ready"][0].mapping["burst_time"];
+                for (let i = 1; i < State["Ready"].length; i++) {
+                    if (State["Ready"][i].mapping["burst_time"] < minBurstTime) {
+                        minBurstTime = State["Ready"][i].mapping["burst_time"];
+                        minIndex = i;
+                    }
+                }
+                if (checkedRow[0] != State["Ready"][minIndex].id) {
+                    assemble_msg("Please select the right process according to the scheduling policy choosen.", "red");
+                    return;
+                }
+                cpuTable.innerHTML = "<th>Process ID</th><th>Burst Time</th><th>Run Time</th>";
+                // Add State["Ready"][0] to cpuTable
+                let row = cpuTable.insertRow(-1);
+                let cell1 = row.insertCell(0);
+                cell1.innerHTML = State["Ready"][minIndex].id;
 
-            // Remove State["Ready"][0] from State["Ready"] and add to State["Running"]
-            assemble_msg("Process with pid " + State["Ready"][0].id + " now running on the CPU!");
-            tmp = State["Ready"][0];
-            State["Running"] = tmp;
+                let cell2 = row.insertCell(1);
+                cell2.innerHTML = State["Ready"][minIndex].mapping["burst_time"];
+                let cell3 = row.insertCell(2);
+                cell3.innerHTML = State["Ready"][minIndex].mapping["run_time"];
 
-            State["Ready"].shift();
-            State["Running"].status = "Running";
-            UpdateUI();
+                // Remove State["Ready"][minIndex] from State["Ready"] and add to State["Running"]
+                assemble_msg("Process with pid " + State["Ready"][minIndex].id + " now running on the CPU!");
+                tmp = State["Ready"][minIndex];
+                State["Running"] = tmp;
+
+                // Remove State["Ready"][minIndex]
+                State["Ready"].pop(minIndex);
+                State["Running"].status = "Running";
+                UpdateUI();
+            }
         }
         else {
             assemble_msg("No ready processes to be run on the CPU. Please create a new process.", "red");
@@ -615,8 +653,7 @@ function Tick() {
             cpuTable.rows[1].cells[1].innerHTML = State["Running"].mapping["burst_time"];
             cpuTable.rows[1].cells[2].innerHTML = State["Running"].mapping["run_time"];
 
-            if (State["Running"].mapping["burst_time"] == State["Running"].mapping["run_time"]) {
-                
+            if (State["Running"].mapping["burst_time"] <= State["Running"].mapping["run_time"]) {
                 Terminate(0);
                 StateAction_log.push(new Action("terminate",JSON.parse(JSON.stringify(State))));
             }
