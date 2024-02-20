@@ -1,6 +1,3 @@
-
-//Your JavaScript goes in here
-// let Previous_States = [];
 let State = {
     "Ready": [],
     "Running": null,
@@ -391,7 +388,7 @@ function _schedule() {
     headerRow.innerHTML = "<b>Select</b>";
 }
 
-function schedule() {
+function scheduleFCFS() {
     if (State["Running"] == null) {
         _getCheckedRow();
         if(checkedRow == null) {
@@ -465,19 +462,79 @@ function schedule() {
             }
         }
         else {
-            assemble_msg("No ready processes to be run on the CPU. Please create a new process.", "red");
+            // assemble_msg("No ready processes to be run on the CPU. Please create a new process.", "red");
             sendalert("No ready processes to be run on the CPU. Please create a new process.")
             return null;
         }
         UpdateUI();
     }
     else {
-        assemble_msg("A process is currently running on the CPU. Either wait for it to complete or terminate that process.", "red");
+        // assemble_msg("A process is currently running on the CPU. Either wait for it to complete or terminate that process.", "red");
         sendalert("A process is currently running on the CPU. Either wait for it to complete or terminate that process.")
         return null;
     }
 
 }
+
+function getShortestJob(){
+    let i=JSON.parse(JSON.stringify(State["Ready"][0].id));
+    for (let j=0; j<State["Ready"].length; j++){
+        if(State["Ready"][j].mapping["burst_time"]<State["Ready"][i].mapping["burst_time"]){
+            i=JSON.parse(JSON.stringify(State["Ready"][j]));
+        }
+    }
+    return i.id;
+}
+function scheduleSJF(){
+    if (State["Running"] == null) {
+        _getCheckedRow();
+        if(checkedRow == null) {
+            assemble_msg("Please select a process before scheduling", "red");
+            sendalert("Please select a process before scheduling");
+            return;
+        }
+        let cpuTable = document.getElementById("CPU")
+        let readyTable = document.getElementById("processes")
+        if (State["Ready"].length != 0) {
+            if (checkedRow[0] != getShortestJob()) {
+                assemble_msg("Please select the right process according to the scheduling policy choosen.", "red");
+                return;
+            }
+            cpuTable.innerHTML = "<th>Process ID</th><th>Burst Time</th><th>Run Time</th>";
+            // Add State["Ready"][0] to cpuTable
+            let row = cpuTable.insertRow(-1);
+            let cell1 = row.insertCell(0);
+            cell1.innerHTML = State["Ready"][0].id;
+
+            let cell2 = row.insertCell(1);
+            cell2.innerHTML = State["Ready"][0].mapping["burst_time"];
+            let cell3 = row.insertCell(2);
+            cell3.innerHTML = State["Ready"][0].mapping["run_time"];
+
+            // Remove State["Ready"][0] from State["Ready"] and add to State["Running"]
+            assemble_msg("Process with pid " + State["Ready"][0].id + " now running on the CPU!");
+            tmp = State["Ready"][0];
+            State["Running"] = tmp;
+
+            State["Ready"].shift();
+            State["Running"].status = "Running";
+            UpdateUI();
+        }
+        else {
+            // assemble_msg("No ready processes to be run on the CPU. Please create a new process.", "red");
+            sendalert("No ready processes to be run on the CPU. Please create a new process.")
+            return null;
+        }
+        UpdateUI();
+    }
+    else {
+        // assemble_msg("A process is currently running on the CPU. Either wait for it to complete or terminate that process.", "red");
+        sendalert("A process is currently running on the CPU. Either wait for it to complete or terminate that process.")
+        return null;
+    }
+
+}
+
 
 function UpdateState() {
     let readyQueue = document.getElementById("rQ");
@@ -586,6 +643,10 @@ function SchedulePolicy() {
         SJF();
         document.getElementById("sch_algo").innerHTML = "SJF";
     }
+    else if (State["Policy"] == "SRTF") {
+        SRTF();
+        document.getElementById("sch_algo").innerHTML = "SRTF";
+    }
     else if (State["Policy"] == "Priority") {
         Priority();
         document.getElementById("sch_algo").innerHTML = "Priority scheduling";
@@ -601,9 +662,20 @@ function FCFS() {
         if (State["Ready"].length == 0) {
             return;
         }
-        schedule();
+        scheduleFCFS();
         UpdateState();
     }
+}
+
+function SJF(){
+    if (State["Running"] == null) {
+        if (State["Ready"].length == 0) {
+            return;
+        }
+        scheduleSJF();
+        UpdateState();
+    }
+
 }
 
 function ContextSwitch() {
@@ -683,7 +755,9 @@ function Tick() {
     }
     else if (State["clickedState"] == "schedule") {
         Redo_log=[];
-        schedule()
+
+        SchedulePolicy();
+
         State["time_counter"]++;
         State["clickedState"] = null;
         StateAction_log.push(new Action("schedule",JSON.parse(JSON.stringify(State))));
@@ -897,7 +971,6 @@ function UpdateBtnUI() {
 function UpdateUI() {
     UpdateState();
     UpdateTable();
-
     // UpdateCPU();
     UpdateBtnState();
     UpdateBtnUI();

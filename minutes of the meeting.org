@@ -103,3 +103,34 @@
    - Add auto scroll in dialogue box.
    - Add a simple error instead of info in dialogue box.
    - Say kstack and PCB are empty when the processes are just loaded. (Context switching)
+
+** Feb 17, 2024
+*** Attendees:
+   - Prof. Venkatesh
+   - Yashpal
+   - Bhargavi
+
+*** Discussion:
+   - Every button and Current System State/Previous System State should be have i(instruction) button.
+   - Dialog box shouold have other colors differennt from the buttons.
+   - There is three things you're doing in dialog box:
+        - Instruction
+        - Feedback
+        - Error
+   - Choose the colors carefully for each component, which is distinguishable to even color blind people.
+   - Alert should be in dialog box, it should not be a pop-up.
+   - Before the scheduling, there should be a dialog box to choose the scheduling policy as well as what button to press to schedule the policy.
+   - The policy should be chosen at start of the experiment and should not be changed in the middle of the experiment.
+   - During scheduling, the feedback should be more carefully chosen.
+   - Undo should remove the last feedback from the dialog.
+   - Arrival time should be the arrival time of the process in the Ready Queue not the Process creation time.
+   - Colors should be less saturated and more opacity.
+   - The dialog history should not be visible to the user, if user wants he can see the history of the dialog box.
+   - New Process can be created even when the cpu is running a process.
+   - Theory:
+        -   1st Paragraph: 
+            - "By now you must have already realize that an Operating System is not monolithinc system, but instead a complex and meticulous ..."
+            - ps can be given as command in the terminal to see the processes as described in the above experiment.
+            - After the explaination of already reading of context switching, question should be asked wheather the user have seen the context switching experiment.
+   - Investigate the "Web Assembly".
+   - Write the code design document as well for the experiment.
