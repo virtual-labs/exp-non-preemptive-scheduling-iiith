@@ -1,6 +1,18 @@
 body {
     padding: 30px;
     padding-bottom: 20px;
+    font-family: sans-serif;
+}
+
+#history-d {
+  /* font-family: sans-serif; */
+  padding: 5px;
+  font-size: 20px;
+}
+
+#history-d:hover {
+  cursor: pointer;
+  transform: scale(1.2);
 }
 
 th {
@@ -75,6 +87,7 @@ td {
   background-color: orange;
   color: white;
   font-weight: bolder;
+  opacity: 0.8;
 }
 
 .tag-grey {
@@ -84,6 +97,7 @@ td {
   background-color: darkgray;
   color: white;
   font-weight: bolder;
+  opacity: 0.8
 }
 
 .tag-red {
@@ -93,6 +107,7 @@ td {
   background-color: red;
   color: white;
   font-weight: bolder;
+  opacity: 0.8;
 }
 
 .tag-blue {
@@ -102,6 +117,7 @@ td {
   background-color: dodgerblue;
   color: white;
   font-weight: bolder;
+  opacity: 0.8;
 }
 
 .tag-green {
@@ -111,6 +127,7 @@ td {
   background-color: green;
   color: white;
   font-weight: bolder;
+  opacity: 0.8;
 }
 
 .bt_input {
@@ -153,6 +170,7 @@ td {
   border-radius: 10px;
   margin: 1px;
   color: white;
+  opacity: 0.8;
   margin: 5px;
   background-color: green;
   border: solid 2px green;
@@ -176,7 +194,7 @@ td {
 }
 
 .disabled{
-  opacity: 0.6;
+  opacity: 0.4;
   cursor: not-allowed;
 }
 
@@ -184,6 +202,7 @@ td {
   background-color: white;
   color: black;
   border: solid 2px green;
+  opacity: 0.8;
 }
 
 span.a {
@@ -393,7 +412,7 @@ input:focus-visible + label {
 
 .ts_cell {
     padding: 4px;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: sans-serif;
   
     border: solid whitesmoke;
 }
@@ -423,6 +442,7 @@ input:focus-visible + label {
   padding: 15px;
   margin: 10px;
   background-color: dodgerblue;
+  opacity: 0.8;
   color: white;
   width: 100%;
   border-bottom-right-radius: 0px;
