@@ -13,7 +13,8 @@
 </head>
 
 <body>
-    <i style="font-size: 20px; color: red; text-shadow: 0 8px 16px yellow;"><b>Note: </b>Create a new process to start the simulation. Please refer to the dialog box during the experiment.</i>
+    <i style="font-size: 20px; color: red; text-shadow: 0 8px 16px yellow;"><b>Note: </b>Create a new process to start
+        the simulation. Please refer to the dialog box during the experiment.</i>
     <div id="myModal" class="modal">
 
         <!-- Modal content -->
@@ -50,11 +51,15 @@
             <div class="states">
                 <div class="tabset">
                     <input type="radio" name="tabset" id="tab1" aria-controls="marzen" checked>
-                    <label id="current_state" for="tab1">Current System<br>State&nbsp<button class="wrapper" id="info_btn"> &#8505
-                        <span class="tooltip">The informtion about the plant (CPU and process table) is displayed here.</span></button></label>
+                    <label id="current_state" for="tab1">Current System<br>State&nbsp<button class="wrapper"
+                            id="info_btn"> &#8505
+                            <span class="tooltip">The informtion about the plant (CPU and process table) is displayed
+                                here.</span></button></label>
                     <input type="radio" name="tabset" id="tab2" aria-controls="marzen">
-                    <label id="previous_states" for="tab2">Previous system<br>States&nbsp<button class="wrapper" id="info_btn"> &#8505 
-                        <span class="tooltip">All the previous states of the plant(CPU and process table) are stored here to refer later.</span></button></label>
+                    <label id="previous_states" for="tab2">Previous system<br>States&nbsp<button class="wrapper"
+                            id="info_btn"> &#8505
+                            <span class="tooltip">All the previous states of the plant(CPU and process table) are stored
+                                here to refer later.</span></button></label>
 
                     <div class="tab-panels">
                         <section id="marzen" class="tab-panel">
@@ -73,7 +78,7 @@
                                 </tr>
                                 <tr>
                                     <td class="ts_cell">Completed:</td>
-                                    <td class="ts_cell" id="cQ"></td> 
+                                    <td class="ts_cell" id="cQ"></td>
                                 </tr>
                                 <tr>
                                     <td class="ts_cell">cpu:</td>
@@ -96,7 +101,7 @@
                         <section id="rauchbier" class="tab-panel">
 
                             <div id="prev_state">
-                                
+
                             </div>
 
                     </div>
@@ -105,9 +110,9 @@
             </div>
         </div>
         <div class="displays">
-            
+
             <div>
-                
+
                 <div class="display-block" style="width: 30%;">
                     <p style="text-align: center; font-weight: bold;">CPU
                         <!-- <button class="wrapper" id="info_btn"> ?
@@ -119,84 +124,90 @@
                                 system
                                 priorities.</span>
                             </button> -->
-                        </p>
-                        <hr>
-                        <table id="CPU">
-                            
-                        </table>
-                    </div>
-                    <div class="display-block" style="width: 60%;">
-                        <p style="text-align: center; font-weight: bold;">Processes
-                            <!-- <button class="wrapper" id="info_btn"> ?
+                    </p>
+                    <hr>
+                    <table id="CPU">
+
+                    </table>
+                </div>
+                <div class="display-block" style="width: 60%;">
+                    <p style="text-align: center; font-weight: bold;">Processes
+                        <!-- <button class="wrapper" id="info_btn"> ?
                                 <span class="tooltip">This block contains information about all the process in the
                                     simulation.</span>
                                 </button> -->
-                            </p>
-                            <hr>
-                            
-                            <table id="processes">
-                                
-                            </table>
-                        </div>
-                        <div class="tick_sch_Display">
-                            <p>Number of Ticks: <span id="ticker"></span></p>
-                        </div>
-                        
-                        <p style="text-align:center; font-weight: bold;">Controls</p>
-                        
-                        <div class="controls">
-                            <b>Scheduling Policy:</b>
-                            <select name="things" class="btn" id="policy-btn" onchange="UpdatePolicy()">
-                                <option value="None" selected="selected">Please Select the Scheduling Policy...</option>
-                                <option value="FCFS">First Come First Serve</option>
-                                <option value="SJF">Shortest Job First</option>
-                                <option value="SRTF">Shorted Remaining Time First</option>
-                                <option value="RR"><button>Round-Robin</button></option>
-                            </select>
-                            
-                            <button class="btn disabled" id="tick-btn" onclick="Tick()" style="width: 50%;"><i class="fa fa-clock-o"
-                                    aria-hidden="true"></i>
-                                Tick</button>
-                            <p style="text-align: center; font-weight: bold;">Generate External Events</p>
-                            <div style="margin-left: 35%;">
+                    </p>
+                    <hr>
 
-                                <button class="btn disabled" id="schd-btn" onclick="loadUnloadCommand('schedule')">Schedule</button>
-                                <button class="btn disabled" id="end-btn" onclick="loadUnloadCommand('terminate')">Terminate</button>
-                                <div class="dropdown">
-                                    <button class="btn" id="newProcess-btn" onclick="ToggleCreateProcess()"> <i class="fa fa-plus"></i> New
-                                        process
-                                        <div class="arrow bounce" id="arw"></div>
-                                    </button>
-                                    <div id="guide-tip">Click on "New Process" button to start the simulation</div>
-                                    <div id="myDropdown" class="dropdown-content">
-                                        <!-- <input type="number" placeholder="Enter Burst Time (1 - 30)" id="burstTime"> -->
-                                        <textarea name="burstTime" id="burstTime" cols="30" rows="10"></textarea>
-                                        <button class="btn" style="width: 100%; border-radius: 0%; margin: 0;"
-                                            onclick="loadUnloadCommand('newProcess')">Create</button>
-                                    </div>
-                                </div>
-                            </div>
-                            <p style="text-align: center; font-weight: bold;">Undo & Redo</p>
-                            <div style="margin-left: 42%;">
+                    <table id="processes">
 
-                                <button class="btn disabled" id="undo-btn" onclick="Undo()"><i class="fa fa-undo" aria-hidden="true"></i>
-                                    Undo</button>
-                                <button class="btn disabled" id="redo-btn" onclick="Redo()"><i class="fa fa-repeat" aria-hidden="true"></i>
-                                    Redo</button>
+                    </table>
+                </div>
+                <div class="tick_sch_Display">
+                    <p>Number of Ticks: <span id="ticker"></span></p>
+                </div>
+
+                <p style="text-align:center; font-weight: bold;">Controls</p>
+
+                <div class="controls">
+                    <b>Scheduling Policy:</b>
+                    <select name="things" class="btn" id="policy-btn" onchange="UpdatePolicy()">
+                        <option value="None" selected="selected">Please Select the Scheduling Policy...</option>
+                        <option value="FCFS">First Come First Serve</option>
+                        <option value="SJF">Shortest Job First</option>
+                        <option value="SRTF">Shorted Remaining Time First</option>
+                        <option value="RR"><button>Round-Robin</button></option>
+                    </select>
+
+                    <button class="btn disabled" id="tick-btn" onclick="Tick()" style="width: 50%;"><i
+                            class="fa fa-clock-o" aria-hidden="true"></i>
+                        Tick</button>
+                    <p style="text-align: center; font-weight: bold;">Generate External Events</p>
+                    <div style="margin-left: 35%;">
+
+                        <button class="btn disabled" id="schd-btn"
+                            onclick="loadUnloadCommand('schedule')">Schedule</button>
+                        <button class="btn disabled" id="end-btn"
+                            onclick="loadUnloadCommand('terminate')">Terminate</button>
+                        <div class="dropdown">
+                            <button class="btn" id="newProcess-btn" onclick="ToggleCreateProcess()"> <i
+                                    class="fa fa-plus"></i> New
+                                process
+                                <div class="arrow bounce" id="arw"></div>
+                            </button>
+                            <div id="guide-tip">Click on "New Process" button to start the simulation</div>
+                            <div id="myDropdown" class="dropdown-content">
+                                <!-- <input type="number" placeholder="Enter Burst Time (1 - 30)" id="burstTime"> -->
+                                <textarea name="burstTime" id="burstTime" cols="30" rows="10"></textarea>
+                                <button class="btn" style="width: 100%; border-radius: 0%; margin: 0;"
+                                    onclick="loadUnloadCommand('newProcess')">Create</button>
                             </div>
                         </div>
-                
+                    </div>
+                    <p style="text-align: center; font-weight: bold;">Undo & Redo</p>
+                    <div style="margin-left: 42%;">
+
+                        <button class="btn disabled" id="undo-btn" onclick="Undo()"><i class="fa fa-undo"
+                                aria-hidden="true"></i>
+                            Undo</button>
+                        <button class="btn disabled" id="redo-btn" onclick="Redo()"><i class="fa fa-repeat"
+                                aria-hidden="true"></i>
+                            Redo</button>
+                    </div>
+                </div>
+
             </div>
             <!-- <div class="display-block" style="width: 60%;">
                 <p style="text-align:center; font-weight: bold;">Scheduler</p>
                 <hr>
             </div> -->
-            
-            
+
+
         </div>
         <div id="msg-sec" class="dialog-box">
-            <p style="text-align: center; font-weight: bold;">Dialog <span style="float: inline-end;"><i class="fa fa-history" id="history-d" aria-hidden="true"></i>
-            </span></p>
+            <p style="text-align: center; font-weight: bold;">Dialog<span style="float: inline-end;"><i
+                        class="fa fa-history" id="history-d" aria-hidden="true" onclick="display_prop()"></i>
+                </span></p>
             <hr>
             <table id="dialog">
                 <tr>
@@ -204,6 +215,7 @@
                     </td>
                 </tr>
             </table>
+            
         </div>
     </div>
     <div class="concept-block">
@@ -215,11 +227,18 @@
             </span>
 
             <br><br>
-    
+
             <button class="toc-element" onclick="openContent(2)"> What is scheduling?
             </button>
             <span class="content-block" id="2">
-                Similar to that of <a href="https://virtual-labs.github.io/exp-context-switching-iiith/theory.html">context switching</a>, the mechanism of scheduling is also a part of 'Process Management Subsystem'. <br><br>However, while context switching is responsible to store, restore and load the new context on the Central Processing Unit (CPU), scheduling is responsible for selecting or handing the over the next process ready to be executed on the CPU. <a href="https://virtual-labs.github.io/exp-non-preemptive-scheduling-iiith/theory.html">See more...</a>
+                Similar to that of <a
+                    href="https://virtual-labs.github.io/exp-context-switching-iiith/theory.html">context switching</a>,
+                the mechanism of scheduling is also a part of 'Process Management Subsystem'. <br><br>However, while
+                context switching is responsible to store, restore and load the new context on the Central Processing
+                Unit (CPU), scheduling is responsible for selecting or handing the over the next process ready to be
+                executed on the CPU. <a
+                    href="https://virtual-labs.github.io/exp-non-preemptive-scheduling-iiith/theory.html">See
+                    more...</a>
             </span>
 
             <br><br>
@@ -227,9 +246,17 @@
             <button class="toc-element" onclick="openContent(3)"> The mechanism of Scheduling
             </button>
             <span class="content-block" id="3">
-                The mechanism of scheduling is a kernel process which selects a process from the ready queue and hands it over to the CPU. <br><br>
-                Based on the scheduling process used by the OS like <a href="https://en.wikipedia.org/wiki/FIFO_(computing_and_electronics)">FCFS</a>, <a href="https://en.wikipedia.org/wiki/Shortest_remaining_time">SJF</a>, <a href="https://en.wikipedia.org/wiki/Round-robin_scheduling">Round Robin</a> etc, a process is selected from the ready queue after the completion of the currently executing process or by preempting the current process.<br><br>
-                This selected process is then ut on the CPU with the help of <a href="https://virtual-labs.github.io/exp-context-switching-iiith/theory.html">context switching</a> mechanism and then starts its on the CPU. <br><br>
+                The mechanism of scheduling is a kernel process which selects a process from the ready queue and hands
+                it over to the CPU. <br><br>
+                Based on the scheduling process used by the OS like <a
+                    href="https://en.wikipedia.org/wiki/FIFO_(computing_and_electronics)">FCFS</a>, <a
+                    href="https://en.wikipedia.org/wiki/Shortest_remaining_time">SJF</a>, <a
+                    href="https://en.wikipedia.org/wiki/Round-robin_scheduling">Round Robin</a> etc, a process is
+                selected from the ready queue after the completion of the currently executing process or by preempting
+                the current process.<br><br>
+                This selected process is then ut on the CPU with the help of <a
+                    href="https://virtual-labs.github.io/exp-context-switching-iiith/theory.html">context switching</a>
+                mechanism and then starts its on the CPU. <br><br>
                 <a href="https://en.wikipedia.org/wiki/Scheduling_(computing)">See more...</a>
             </span>
 
@@ -243,98 +270,7 @@
         </div>
         <i class="fa fa-book" aria-hidden="true" id="study-material" onclick="openTheory()"></i>
     </div>
-    <!-- <div class="container3">
-        <h2>Know what's happening</h2>
-        <section class="accordion">
-            <input type="checkbox" name="collapse2" id="handle1">
-            <h2 class="handle">
-                <label for="handle1">Introduction</label>
-            </h2>
-            <div class="content">
-                <p><strong>Objective:</strong> <br>
-                    Our objective in this experiment is to understand the mechanism of switching used by
-                    the OS for multi processing.
-                    In this simulation, we approach the context switching technique at a three level abstraction (User,
-                    Hardware and Kernel).
-
-                </p>
-                <p>
-                <p><strong>Intuition:</strong><br>Consider we have only two programs in the system. You are to observe
-                    the instruction given in the dialog box and respond
-                    with the corresponding
-                    action in the simulation above.</p>
-                <p>Observe the control flow between the user state, hardware and the kernel mode and how the CPU
-                    and other resources get's updated accordingly.</p>
-                </p>
-
-                <p><strong>Apparatus:</strong> <br>
-                    1. User<br>
-                    2. Hardware<br>
-                    3. Kernel<br>
-                    4. CPU<br>
-                    5. Kernel Stack (k-stack)<br>
-                    6. Process Control Block (PCB)<br>
-                    7. Interrupt Handlers<br>
-                </p>
-            </div>
-        </section>
-        <section class="accordion">
-            <input type="checkbox" name="collapse2" id="handle6">
-            <h2 class="handle">
-                <label for="handle6">Procedure</label>
-            </h2>
-            <div class="content">
-                <p>1. Read the primary instructions provided at the top of the page. <br>
-                    2. Follow the instructions provided in the dialogue box to go through the mechanism.<br>
-                    3. Click on the 'Start' button and then bootstrap the OS.<br>
-                    4. Once the program is loaded in User, use the next and previous buttons to tranverse through the
-                    process.<br>
-                    5. Follow the prompts given in the dialogue box at every step to handle the traps and interrupts
-                    during the execution of the process.</p>
-            </div>
-        </section>
-        <section class="accordion">
-            <input type="checkbox" name="collapse2" id="handle2">
-            <h2 class="handle">
-                <label for="handle2">Theory</label>
-            </h2>
-            <div class="content">
-                <p><strong>What is context?</strong><br> The term "context" refers to the state
-                    and information associated with a process or thread at a specific point in time. It
-                    encompasses various aspects of the process's execution environment, including its program
-                    counter, register values, memory allocation, and other relevant data. It provides
-                    all the necessary information for the operating system to save and later restore the
-                    process's execution when it is preempted or needs to be resumed.</p>
-                <p><strong>How is context different from PCB?:</strong> <br>
-                    While context and PCB both deal with process management and are closely related, they serve
-                    different purposes and exist at different levels of abstraction.
-                    Context is about saving and restoring the immediate execution state of a process or thread
-                    during context switches, while the PCB is a data structure used to maintain comprehensive
-                    information about a process or thread over its entire lifetime and is used for higher-level
-                    process management within the operating system.</p>
-            </div>
-        </section>
-
-
-        <section class="accordion">
-            <input type="checkbox" name="collapse2" id="handle5">
-            <h2 class="handle">
-                <label for="handle5">References</label>
-            </h2>
-            <div class="content">
-                <a href="https://docs.kernel.org/" target="_blank">Linux documentation</a><br>
-                <a href="https://en.wikipedia.org/wiki/Context_switch" target="_blank">Wikipedia</a><br>
-                <a href="https://pages.cs.wisc.edu/~remzi/OSTEP/" target="_blank">Remzi-threeEasyPieces</a><br>
-                <a href="https://drive.uqu.edu.sa/_/mskhayat/files/MySubjects/2017SS%20Operating%20Systems/Abraham%20Silberschatz-Operating%20System%20Concepts%20(9th,2012_12).pdf"
-                    target="_blank">OS
-                    by Silberschatz</a><br>
-                <a href="https://github.com/torvalds/linux" target="_blank">Linux github Repo</a>
-            </div>
-        </section> -->
-
-
-    </div>
-
+    
 </body>
 
 </html>

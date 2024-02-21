@@ -277,6 +277,16 @@ span.a {
   border: none;
   cursor: pointer;
 }
+
+#c-msg {
+  border-collapse: separate;
+border-spacing: 10px;
+border: solid;
+border-color: darkgray;
+border-radius: 10px; 
+padding: 10px;
+}
+
 .msg {
 border-collapse: separate;
 border-spacing: 10px;
@@ -435,10 +445,27 @@ input:focus-visible + label {
   width: 100%;
 }
 
+#current-dialog {
+  /* border: 5px solid; */
+  border-color: white;
+  border-radius: 0px;
+  /* padding: 15px; */
+  margin: 10px;
+  background-color: white;
+  opacity: 0.8;
+  color: navy;
+  display: block;
+  width: 95%;
+  font-weight: bold;
+  border-collapse: separate;
+  /* border-spacing: 10px; */
+}
+
 #dialog td {
   border: 5px solid;
   border-color: #F2F3F4;
   border-radius: 30px;
+  /* display:none; */
   padding: 15px;
   margin: 10px;
   background-color: dodgerblue;
