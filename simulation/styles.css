@@ -1,6 +1,18 @@
 body {
     padding: 30px;
     padding-bottom: 20px;
+    font-family: sans-serif;
+}
+
+#history-d {
+  /* font-family: sans-serif; */
+  padding: 5px;
+  font-size: 20px;
+}
+
+#history-d:hover {
+  cursor: pointer;
+  transform: scale(1.2);
 }
 
 th {
@@ -15,6 +27,59 @@ td {
   text-align: center;
 }
 
+#guide-tip {
+  position: absolute;
+  top: -1rem;
+  width: 200px;
+  left:150%;
+  background-color: gainsboro;
+  border-radius: 20px;
+  padding: 20px;
+  z-index: 20;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+  display: block;
+}
+
+#arw {
+  display: block;
+}
+.arrow
+{
+  position: relative;
+  top: -0.50rem;
+  left: 100%;
+  /* bottom: -2rem;
+  left: 50%;
+  margin-left:-20px; */
+  width: 60px;
+  height: 60px;
+
+  /* display: none; */
+
+  /**
+   * Dark Arrow Down
+   */
+  background-image: url(https://cdn-icons-png.freepik.com/512/5083/5083135.png);
+  /* transform: rotate(90deg); */
+  background-size: contain;
+}
+
+.bounce {
+  animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateX(0);
+  }
+  40% {
+    transform: translateX(-30px);
+  }
+  60% {
+    transform: translateX(-15px);
+  }
+}
+
 .tag-orange {
   padding: 10px;
   border-radius: 20px;
@@ -22,6 +87,7 @@ td {
   background-color: orange;
   color: white;
   font-weight: bolder;
+  opacity: 0.8;
 }
 
 .tag-grey {
@@ -31,6 +97,7 @@ td {
   background-color: darkgray;
   color: white;
   font-weight: bolder;
+  opacity: 0.8
 }
 
 .tag-red {
@@ -40,6 +107,7 @@ td {
   background-color: red;
   color: white;
   font-weight: bolder;
+  opacity: 0.8;
 }
 
 .tag-blue {
@@ -49,6 +117,7 @@ td {
   background-color: dodgerblue;
   color: white;
   font-weight: bolder;
+  opacity: 0.8;
 }
 
 .tag-green {
@@ -58,6 +127,7 @@ td {
   background-color: green;
   color: white;
   font-weight: bolder;
+  opacity: 0.8;
 }
 
 .bt_input {
@@ -100,6 +170,7 @@ td {
   border-radius: 10px;
   margin: 1px;
   color: white;
+  opacity: 0.8;
   margin: 5px;
   background-color: green;
   border: solid 2px green;
@@ -121,6 +192,23 @@ td {
   background-color: white;
   color: black;
 }
+
+.disabled{
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+#policy-btn {
+  background-color: white;
+  color: black;
+  border: solid 2px green;
+  opacity: 0.8;
+}
+
+span.a {
+  display: inline;
+}
+
 
 .Instructions {
   border-color: dodgerblue;
@@ -159,7 +247,7 @@ td {
   background-color: #F2F3F4 ;
   margin-top: 10px;
   border-radius: 10px;
-  height: 310px;
+  height: 450px;
   padding: 2px;
   overflow-y: scroll;
 }
@@ -189,6 +277,16 @@ td {
   border: none;
   cursor: pointer;
 }
+
+#c-msg {
+  border-collapse: separate;
+border-spacing: 10px;
+border: solid;
+border-color: darkgray;
+border-radius: 10px; 
+padding: 10px;
+}
+
 .msg {
 border-collapse: separate;
 border-spacing: 10px;
@@ -324,8 +422,9 @@ input:focus-visible + label {
 
 .ts_cell {
     padding: 4px;
-    border: solid #888;
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-family: sans-serif;
+  
+    border: solid whitesmoke;
 }
 
 .states {
@@ -346,13 +445,31 @@ input:focus-visible + label {
   width: 100%;
 }
 
+#current-dialog {
+  /* border: 5px solid; */
+  border-color: white;
+  border-radius: 0px;
+  /* padding: 15px; */
+  margin: 10px;
+  background-color: white;
+  opacity: 0.8;
+  color: navy;
+  display: block;
+  width: 95%;
+  font-weight: bold;
+  border-collapse: separate;
+  /* border-spacing: 10px; */
+}
+
 #dialog td {
   border: 5px solid;
   border-color: #F2F3F4;
   border-radius: 30px;
+  /* display:none; */
   padding: 15px;
   margin: 10px;
   background-color: dodgerblue;
+  opacity: 0.8;
   color: white;
   width: 100%;
   border-bottom-right-radius: 0px;
@@ -550,6 +667,7 @@ input:focus-visible + label {
   padding: 14px 20px 12px 45px;
   border: none;
   border-bottom: 1px solid #ddd;
+  height: 70px;
 }
 
 #burstTime:focus {outline: 3px solid #ddd;}
@@ -582,7 +700,7 @@ input:focus-visible + label {
   border-radius: 10px;
   font-size: larger;
   font-weight: bold;
-  font-family: Arial, Helvetica, sans-serif;
+  /* font-family: Arial, Helvetica, sans-serif; */
 }
 
 .toc-element:hover {
@@ -806,13 +924,14 @@ position: sticky;
 top: 0;
 }
 
-.tickDisplay {
+.tick_sch_Display {
   font-size: large;
   font-weight: bolder;
   color: olive;
   padding: 10px;
   margin: 10px;
 }
+
 
 .inst_button {
 background-color: moccasin;
@@ -923,6 +1042,8 @@ margin-bottom: 0;
 
 #info_btn {
 border-radius: 100%; 
+padding-left: 6px;
+padding-right: 6px;
 width: fit-content;
 color: white;
 font-weight: bolder;
@@ -933,7 +1054,7 @@ cursor: help;
 
 .wrapper {  
   background-color: white;
-  font-family: Arial, Helvetica, sans-serif;
+  /* font-family: Arial, Helvetica, sans-serif; */
   border: none;
   font-size: larger;
   cursor: pointer;
@@ -1046,4 +1167,48 @@ pointer-events: auto;
   display: none;
   overflow: hidden;
   background-color: #f1f1f1;
+}
+
+.arrow {
+  color: dodgerblue;
+  position: absolute;
+  /* top: 50%;
+  left: 50%; */
+  transform: translate(-50%, -50%);
+  transform: rotate(90deg);
+  cursor: pointer;
+}
+
+.arrow span {
+  color: dodgerblue;
+  display: block;
+  width: 1.5vw;
+  height: 1.5vw;
+  border-bottom: 5px solid white;
+  border-right: 5px solid white;
+  transform: rotate(45deg);
+  margin: -10px;
+  animation: animate 2s infinite;
+}
+
+.arrow span:nth-child(2) {
+  animation-delay: -0.2s;
+}
+
+.arrow span:nth-child(3) {
+  animation-delay: -0.4s;
+}
+
+@keyframes animate {
+  0% {
+      opacity: 0;
+      transform: rotate(45deg) translate(-20px, -20px);
+  }
+  50% {
+      opacity: 1;
+  }
+  100% {
+      opacity: 0;
+      transform: rotate(45deg) translate(20px, 20px);
+  }
 }
