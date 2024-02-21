@@ -995,6 +995,8 @@ margin-bottom: 0;
 
 #info_btn {
 border-radius: 100%; 
+padding-left: 6px;
+padding-right: 6px;
 width: fit-content;
 color: white;
 font-weight: bolder;
