@@ -154,7 +154,7 @@ function loadUnloadCommand(cmd) {
             State["clickedState"] = null;
             Button_State["tick"] = false;
             UpdateUI();
-            assemble_msg("You have choosen a new scheduling policy. Click on the 'Tick' button to succesfully execute the schedule", "dodgerblue");
+            assemble_msg("You have chosen a new scheduling policy. Click on the 'Tick' button to succesfully execute the schedule", "dodgerblue");
         }
         else if (State["clickedState"] == null) {
             if (State["Policy"] == null) {
@@ -489,13 +489,26 @@ function scheduleFCFS() {
 }
 
 function getShortestJob(){
-    let i=JSON.parse(JSON.stringify(State["Ready"][0].id));
-    for (let j=0; j<State["Ready"].length; j++){
-        if(State["Ready"][j].mapping["burst_time"]<State["Ready"][i].mapping["burst_time"]){
-            i=JSON.parse(JSON.stringify(State["Ready"][j]));
+    // let i=JSON.parse(JSON.stringify(State["Ready"][0].id));
+    // for (let j=0; j<State["Ready"].length; j++){
+    //     if(State["Ready"][j].mapping["burst_time"]<State["Ready"][i].mapping["burst_time"]){
+    //         i=JSON.parse(JSON.stringify(State["Ready"][j]));
+    //     }
+    // }
+    // return i.id;
+
+    // Get processes in State["Ready"] with minimum burst time
+
+    let minIndex = 0;
+    let minBurstTime = State["Ready"][0].mapping["burst_time"];
+    for (let i = 1; i < State["Ready"].length; i++) {
+        if (State["Ready"][i].mapping["burst_time"] < minBurstTime) {
+            minBurstTime = State["Ready"][i].mapping["burst_time"];
+            minIndex = i;
         }
     }
-    return i.id;
+    return State["Ready"][minIndex].id;
+
 }
 function scheduleSJF(){
     if (State["Running"] == null) {
