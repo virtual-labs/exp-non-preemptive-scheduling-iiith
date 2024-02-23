@@ -54,17 +54,6 @@ function UpdatePolicy() {
     // console.log(State["Policy"]);
 }
 
-// function display_prop() {
-//     if (document.getElementById("dialog").style.display == "none") {
-//         console.log("Hii. You have clicked on history")
-//         document.getElementById("current-dialog").style.display = "none";
-//         document.getElementById("dialog").style.display = "block";
-//     }
-//     else {
-//         document.getElementById("dialog").style.display = "none";
-//         document.getElementById("current-dialog").style.display = "block";
-//     }
-// }
 
 function dialog_settings() {
     document.getElementById("d_setting").classList.toggle("s_show");

@@ -205,23 +205,29 @@
 
         </div>
         <div id="msg-sec" class="dialog-box">
-            <p style="text-align: center; font-weight: bold;">Dialog<span style="float: inline-end;"><div class="s_dropdown">
-                <button onclick="dialog_settings()" class="s_dropbtn">Dropdown</button>
-                <div id="d_setting" class="s_dropdown-content">
-                  <a href="#home">Home</a>
-                  <a href="#about">About</a>
-                  <a href="#contact">Contact</a>
-                </div>
-              </div>
-                </span></p>
-            <hr>
+            <p style="text-align: center; font-weight: bold; float: inline-start; margin-left: 10px;">Dialog box
+                <span>
+                    <div class="s_dropdown">
+                        <button onclick="dialog_settings()" class="s_dropbtn">&#9881
+                        </button>
+                        <div id="d_setting" class="s_dropdown-content">
+                            <a href="#show_history"><i class="fa fa-eye" aria-hidden="true"></i>
+                                Show dialog history</a>
+                            <a href="#hide_history"><i class="fa fa-eye-slash" aria-hidden="true"></i>
+                                Hide dialog history</a>
+
+                        </div>
+                    </div>
+                </span>
+            </p>
+            <!-- <hr> -->
             <table id="dialog">
                 <tr>
                     <td class="msg">Please create a new process to start the experiment.
                     </td>
                 </tr>
             </table>
-            
+
         </div>
     </div>
     <div class="concept-block">
@@ -276,7 +282,7 @@
         </div>
         <i class="fa fa-book" aria-hidden="true" id="study-material" onclick="openTheory()"></i>
     </div>
-    
+
 </body>
 
 </html>
