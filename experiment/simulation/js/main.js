@@ -49,6 +49,7 @@ class Process {
 function UpdatePolicy() {
     let policy = document.getElementById("policy-btn");
     State["Policy"] = policy.value=="None"?null:policy.value;
+    assemble_msg("Scheduling policy updated to " + policy.value, "dodgerblue");
     UpdateUI();
     // console.log(State["Policy"]);
 }
@@ -680,23 +681,23 @@ function Schedule() {
 function SchedulePolicy() {
     if (State["Policy"] == "FCFS") {
         FCFS();
-        document.getElementById("sch_algo").innerHTML = "FCFS";
+        document.getElementById("schd_p").innerHTML = "FCFS";
     }
     else if (State["Policy"] == "SJF") {
         SJF();
-        document.getElementById("sch_algo").innerHTML = "SJF";
+        document.getElementById("schd_p").innerHTML = "SJF";
     }
     else if (State["Policy"] == "SRTF") {
         SRTF();
-        document.getElementById("sch_algo").innerHTML = "SRTF";
+        document.getElementById("schd_p").innerHTML = "SRTF";
     }
     else if (State["Policy"] == "Priority") {
         Priority();
-        document.getElementById("sch_algo").innerHTML = "Priority scheduling";
+        document.getElementById("schd_p").innerHTML = "Priority scheduling";
     }
     else if (State["Policy"] == "Round Robin") {
         RoundRobin();
-        document.getElementById("sch_algo").innerHTML = "Round Robin";
+        document.getElementById("schd_p").innerHTML = "Round Robin";
     }
 }
 
@@ -806,6 +807,8 @@ function Tick() {
         StateAction_log.push(new Action("schedule",JSON.parse(JSON.stringify(State))));
         // Previous_States.push(JSON.parse(JSON.stringify(State)));
         // Action_log.push(new Action("schedule",JSON.parse(JSON.stringify(State))));
+        State["clickedState"] = null;
+        Button_State["schedule"] = false;
         // State["clickedState"] = null;
         UpdateUI();
         // UpdatePreviousState();
