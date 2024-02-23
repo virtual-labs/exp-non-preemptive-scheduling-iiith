@@ -205,8 +205,14 @@
 
         </div>
         <div id="msg-sec" class="dialog-box">
-            <p style="text-align: center; font-weight: bold;">Dialog<span style="float: inline-end;"><i
-                        class="fa fa-history" id="history-d" aria-hidden="true" onclick="display_prop()"></i>
+            <p style="text-align: center; font-weight: bold;">Dialog<span style="float: inline-end;"><div class="s_dropdown">
+                <button onclick="dialog_settings()" class="s_dropbtn">Dropdown</button>
+                <div id="d_setting" class="s_dropdown-content">
+                  <a href="#home">Home</a>
+                  <a href="#about">About</a>
+                  <a href="#contact">Contact</a>
+                </div>
+              </div>
                 </span></p>
             <hr>
             <table id="dialog">

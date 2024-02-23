@@ -4,6 +4,45 @@ body {
     font-family: sans-serif;
 }
 
+.s_dropbtn {
+  background-color: #3498DB;
+  color: white;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+}
+
+.s_dropbtn:hover, .s_dropbtn:focus {
+  background-color: #2980B9;
+}
+
+.s_dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.s_dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  overflow: auto;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.s_dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.s_dropdown a:hover {background-color: #ddd;}
+
+.s_show {display: block;}
+
 #history-d {
   /* font-family: sans-serif; */
   padding: 5px;

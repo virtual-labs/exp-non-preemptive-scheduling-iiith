@@ -65,6 +65,24 @@ function UpdatePolicy() {
 //     }
 // }
 
+function dialog_settings() {
+    document.getElementById("d_setting").classList.toggle("s_show");
+  }
+  
+  // Close the dropdown if the user clicks outside of it
+  window.onclick = function(event) {
+    if (!event.target.matches('.s_dropbtn')) {
+      var dropdowns = document.getElementsByClassName("s_dropdown-content");
+      var i;
+      for (i = 0; i < dropdowns.length; i++) {
+        var openDropdown = dropdowns[i];
+        if (openDropdown.classList.contains('s_show')) {
+          openDropdown.classList.remove('s_show');
+        }
+      }
+    }
+  }
+
 function assemble_msg(FEEDBACK, color) {
     var dialogue = document.getElementById("dialog");
     var tb = dialogue.getElementsByTagName("tbody")[0];
