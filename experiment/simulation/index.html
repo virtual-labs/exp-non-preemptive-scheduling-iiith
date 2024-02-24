@@ -205,22 +205,30 @@
 
         </div>
         <div id="msg-sec" class="dialog-box">
-            <p style="text-align: center; font-weight: bold; float: inline-start; margin-left: 10px;">Dialog box
-                <span>
-                    <div class="s_dropdown">
-                        <button onclick="dialog_settings()" class="s_dropbtn">&#9881
-                        </button>
-                        <div id="d_setting" class="s_dropdown-content">
-                            <a href="#show_history"><i class="fa fa-eye" aria-hidden="true"></i>
-                                Show dialog history</a>
-                            <a href="#hide_history"><i class="fa fa-eye-slash" aria-hidden="true"></i>
-                                Hide dialog history</a>
+            <div style="border-bottom: solid 1px black; margin-bottom: 10px;">
+                <p style="font-weight: bold; float: left; margin-left: 140px;">Dialog box
+                </p>
 
-                        </div>
+                <div class="s_dropdown">
+                    <button onclick="dialog_settings()" class="s_dropbtn">&#9881
+                    </button>
+                    <div id="d_setting" class="s_dropdown-content">
+                        <a id="show_history" onclick="show_history()"><i class="fa fa-eye" aria-hidden="true"></i>
+                            Show dialog history</a>
+                        <a id="hide_history" onclick="hide_history()"><i class="fa fa-eye-slash" aria-hidden="true"></i>
+                            Hide dialog history</a>
                     </div>
-                </span>
-            </p>
-            <!-- <hr> -->
+
+                </div>
+
+                <div style="clear: both;"></div> <!-- Clear float -->
+
+            </div>
+
+            <div id="current_dialog">
+                Please create a new process to start the experiment.
+            </div>
+
             <table id="dialog">
                 <tr>
                     <td class="msg">Please create a new process to start the experiment.

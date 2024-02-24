@@ -43,7 +43,10 @@ body {
   display: block;
 }
 
-.s_dropdown a:hover {background-color: #ddd;}
+.s_dropdown a:hover {
+  background-color: #ddd;
+  cursor: pointer;
+}
 
 .s_show {display: block;}
 
@@ -478,30 +481,20 @@ input:focus-visible + label {
 /* css for table cells */
 
 #dialog {
-  /* border: 2px solid; */
+  display: none;
   border-color: transparent;
-  /* border-radius: 10px; */
   padding: 10px;
-  /* margin: 10px; */
-  /* background-color: dodgerblue; */
-  /* color: white; */
   width: 100%;
 }
 
-#current-dialog {
-  /* border: 5px solid; */
+#current_dialog {
+  display: block;
   border-color: white;
-  border-radius: 0px;
-  /* padding: 15px; */
+  padding: 10px;
+  border-radius: 10px; 
   margin: 10px;
   background-color: white;
   opacity: 0.8;
-  color: navy;
-  display: block;
-  width: 95%;
-  font-weight: bold;
-  border-collapse: separate;
-  /* border-spacing: 10px; */
 }
 
 #dialog td {

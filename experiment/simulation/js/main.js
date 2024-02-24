@@ -48,7 +48,7 @@ class Process {
 
 function UpdatePolicy() {
     let policy = document.getElementById("policy-btn");
-    State["Policy"] = policy.value=="None"?null:policy.value;
+    State["Policy"] = policy.value == "None" ? null : policy.value;
     assemble_msg("Scheduling policy updated to " + policy.value, "dodgerblue");
     UpdateUI();
     // console.log(State["Policy"]);
@@ -57,21 +57,33 @@ function UpdatePolicy() {
 
 function dialog_settings() {
     document.getElementById("d_setting").classList.toggle("s_show");
-  }
-  
-  // Close the dropdown if the user clicks outside of it
-  window.onclick = function(event) {
+}
+
+// Close the dropdown if the user clicks outside of it
+window.onclick = function (event) {
     if (!event.target.matches('.s_dropbtn')) {
-      var dropdowns = document.getElementsByClassName("s_dropdown-content");
-      var i;
-      for (i = 0; i < dropdowns.length; i++) {
-        var openDropdown = dropdowns[i];
-        if (openDropdown.classList.contains('s_show')) {
-          openDropdown.classList.remove('s_show');
+        var dropdowns = document.getElementsByClassName("s_dropdown-content");
+        var i;
+        for (i = 0; i < dropdowns.length; i++) {
+            var openDropdown = dropdowns[i];
+            if (openDropdown.classList.contains('s_show')) {
+                openDropdown.classList.remove('s_show');
+            }
         }
-      }
     }
-  }
+}
+
+function show_history() {
+
+    document.getElementById("current_dialog").style.display = "none";
+    document.getElementById("dialog").style.display = "block";
+
+}
+
+function hide_history() {
+    document.getElementById("dialog").style.display = "none";
+    document.getElementById("current_dialog").style.display = "block";
+}
 
 function assemble_msg(FEEDBACK, color) {
     var dialogue = document.getElementById("dialog");
@@ -85,8 +97,9 @@ function assemble_msg(FEEDBACK, color) {
 
     text += FEEDBACK;
 
-    
     td.innerHTML = text;
+
+    document.getElementById("current_dialog").innerHTML = text;
 
     var msgElements = document.getElementsByClassName("msg");
 
@@ -115,7 +128,7 @@ function sendalert(message) {
     }
 }
 
-let checkedRow; 
+let checkedRow;
 
 function _getCheckedRow() {
     var pTable = document.getElementById("processes");
@@ -125,7 +138,7 @@ function _getCheckedRow() {
 
     for (var i = 1; i < rows.length; i++) { // Start from index 1 to skip header row
         var checkbox = rows[i].getElementsByTagName('input')[0];
-        
+
         if (checkbox.checked) {
             checkedRow = [];
             for (var j = 1; j < rows[i].cells.length; j++) { // Start from index 1 to skip checkbox cell
@@ -175,7 +188,7 @@ function loadUnloadCommand(cmd) {
                 sendalert("A process is currently running on the CPU. Please wait for it to complete or terminate it.");
                 return;
             }
-            if(State["Ready"].length===0){
+            if (State["Ready"].length === 0) {
                 assemble_msg("No ready processes to be run on the CPU. Please create a new process.", "red");
                 sendalert("No ready processes to be run on the CPU. Please create a new process.");
                 return;
@@ -350,7 +363,7 @@ function UpdateTable() {
 }
 
 function updateCPU() {
-    if(State["Running"] != null) {
+    if (State["Running"] != null) {
 
         let cpuTable = document.getElementById("CPU")
         // console.log(State["Running"].mapping["run_time"])
@@ -361,20 +374,20 @@ function updateCPU() {
             return;
         }
         cpuTable.innerHTML = "<th>Process ID</th><th>Burst Time</th><th>Run Time</th>";
-            // Add State["Ready"][0] to cpuTable
-            let row = cpuTable.insertRow(-1);
-            let cell1 = row.insertCell(0);
-            cell1.innerHTML = State["Running"].id;
+        // Add State["Ready"][0] to cpuTable
+        let row = cpuTable.insertRow(-1);
+        let cell1 = row.insertCell(0);
+        cell1.innerHTML = State["Running"].id;
 
-            let cell2 = row.insertCell(1);
-            cell2.innerHTML = State["Running"].mapping["burst_time"];
-            let cell3 = row.insertCell(2);
-            cell3.innerHTML = State["Running"].mapping["run_time"];
+        let cell2 = row.insertCell(1);
+        cell2.innerHTML = State["Running"].mapping["burst_time"];
+        let cell3 = row.insertCell(2);
+        cell3.innerHTML = State["Running"].mapping["run_time"];
 
-            assemble_msg("Process with pid " + State["Running"].id + " now running on the CPU!");
-            UpdateUI();
+        assemble_msg("Process with pid " + State["Running"].id + " now running on the CPU!");
+        UpdateUI();
     }
-    else{
+    else {
         let cpuTable = document.getElementById("CPU")
         cpuTable.innerHTML = "";
     }
@@ -392,7 +405,7 @@ function _schedule() {
         checkbox.name = "rowCheckbox"
         checkboxcell.appendChild(checkbox);
         // Add event listener to handle single-choice behavior
-        checkbox.addEventListener('change', function() {
+        checkbox.addEventListener('change', function () {
             if (this.checked) {
                 for (var j = 1; j < rows.length; j++) {
                     if (rows[j] !== this.parentNode.parentNode) {
@@ -411,7 +424,7 @@ function _schedule() {
 function scheduleFCFS() {
     if (State["Running"] == null) {
         _getCheckedRow();
-        if(checkedRow == null) {
+        if (checkedRow == null) {
             assemble_msg("Please select a process before scheduling", "red");
             sendalert("Please select a process before scheduling");
             return;
@@ -419,7 +432,7 @@ function scheduleFCFS() {
         let cpuTable = document.getElementById("CPU")
         let readyTable = document.getElementById("processes")
         if (State["Ready"].length != 0) {
-            if(State["Policy"] == "FCFS") {
+            if (State["Policy"] == "FCFS") {
                 if (checkedRow[0] != State["Ready"][0].id) {
                     assemble_msg("Please select the right process according to the scheduling policy choosen.", "red");
                     return;
@@ -496,7 +509,7 @@ function scheduleFCFS() {
 
 }
 
-function getShortestJob(){
+function getShortestJob() {
     // let i=JSON.parse(JSON.stringify(State["Ready"][0].id));
     // for (let j=0; j<State["Ready"].length; j++){
     //     if(State["Ready"][j].mapping["burst_time"]<State["Ready"][i].mapping["burst_time"]){
@@ -518,10 +531,10 @@ function getShortestJob(){
     return State["Ready"][minIndex].id;
 
 }
-function scheduleSJF(){
+function scheduleSJF() {
     if (State["Running"] == null) {
         _getCheckedRow();
-        if(checkedRow == null) {
+        if (checkedRow == null) {
             assemble_msg("Please select a process before scheduling", "red");
             sendalert("Please select a process before scheduling");
             return;
@@ -700,7 +713,7 @@ function FCFS() {
     }
 }
 
-function SJF(){
+function SJF() {
     if (State["Running"] == null) {
         if (State["Ready"].length == 0) {
             return;
@@ -760,7 +773,7 @@ function Tick() {
 
             if (State["Running"].mapping["burst_time"] <= State["Running"].mapping["run_time"]) {
                 Terminate(0);
-                StateAction_log.push(new Action("terminate",JSON.parse(JSON.stringify(State))));
+                StateAction_log.push(new Action("terminate", JSON.parse(JSON.stringify(State))));
             }
         }
         else {
@@ -769,31 +782,31 @@ function Tick() {
         }
 
         UpdateUI();
-        if(State["Running"]!=null){
-        StateAction_log.push(new Action("tick",JSON.parse(JSON.stringify(State))));
+        if (State["Running"] != null) {
+            StateAction_log.push(new Action("tick", JSON.parse(JSON.stringify(State))));
         }
         UpdateUI();
         // UpdatePreviousState();
     }
     else if (State["clickedState"] == "newProcess") {
-        Redo_log=[];
+        Redo_log = [];
         CreateProcess();
         State["time_counter"]++;
         State["clickedState"] = null;
-        StateAction_log.push(new Action("newProcess",JSON.parse(JSON.stringify(State))));
+        StateAction_log.push(new Action("newProcess", JSON.parse(JSON.stringify(State))));
         // Previous_States.push(JSON.parse(JSON.stringify(State)));
         // Action_log.push(new Action("newProcess",State));
         UpdateUI();
         // UpdatePreviousState();
     }
     else if (State["clickedState"] == "schedule") {
-        Redo_log=[];
+        Redo_log = [];
 
         SchedulePolicy();
 
         State["time_counter"]++;
         State["clickedState"] = null;
-        StateAction_log.push(new Action("schedule",JSON.parse(JSON.stringify(State))));
+        StateAction_log.push(new Action("schedule", JSON.parse(JSON.stringify(State))));
         // Previous_States.push(JSON.parse(JSON.stringify(State)));
         // Action_log.push(new Action("schedule",JSON.parse(JSON.stringify(State))));
         State["clickedState"] = null;
@@ -803,13 +816,13 @@ function Tick() {
         // UpdatePreviousState();
     }
     else if (State["clickedState"] == "terminate") {
-        if(Terminate()!==null){
-        Redo_log=[];
-        State["time_counter"]++;
-        StateAction_log.push(new Action("terminate",JSON.parse(JSON.stringify(State))));
-        // Previous_States.push(JSON.parse(JSON.stringify(State)));
-        // Action_log.push(new Action("terminate",JSON.parse(JSON.stringify(State))));
-       
+        if (Terminate() !== null) {
+            Redo_log = [];
+            State["time_counter"]++;
+            StateAction_log.push(new Action("terminate", JSON.parse(JSON.stringify(State))));
+            // Previous_States.push(JSON.parse(JSON.stringify(State)));
+            // Action_log.push(new Action("terminate",JSON.parse(JSON.stringify(State))));
+
         }
         State["clickedState"] = null;
         UpdateUI();
@@ -824,7 +837,7 @@ function UpdatePreviousState() {
     // console.clear();
     for (let i = StateAction_log.length - 1; i >= 0; i--) {
         let state = JSON.parse(JSON.stringify(StateAction_log[i].state));
-        let policy = state["Policy"]==null?"None":state["Policy"];
+        let policy = state["Policy"] == null ? "None" : state["Policy"];
         // console.log(state)
         let temp = []
         state["Ready"].forEach((process) => {
@@ -860,7 +873,7 @@ function UpdatePreviousState() {
         table.innerHTML = '<tr>    <td class="ts_cell">Ready:</td>    <td class="ts_cell">' + ready + '</td></tr><tr>    <td class="ts_cell">Waiting for I/O:</td>    <td class="ts_cell">' + waiting + '</td></tr><tr>    <td class="ts_cell">Terminated:</td>    <td class="ts_cell">' + terminated + '</td></tr><tr>    <td class="ts_cell">Completed:</td>    <td class="ts_cell">' + completed + '</td></tr><tr><tr>    <td class="ts_cell">cpu:</td>    <td class="ts_cell">' + running + '</td></tr><tr>    <td class="ts_cell">Map:</td>    <td class="ts_cell">' + map + '</td></tr><tr>    <td class="ts_cell">Timer:</td>    <td class="ts_cell">' + timer + '</td></tr><tr>    <td class="ts_cell">Scheduling policy:</td>    <td class="ts_cell">' + policy + '</td></tr>';
         container.appendChild(table);
     }
-    
+
 }
 
 function createToggleFunction(i) {
@@ -883,7 +896,7 @@ function UpdateBtnState() {
             "redo": false
         }
     }
-    else if(State["Running"]==null && State["clickedState"]==null && State["Ready"].length!=0){
+    else if (State["Running"] == null && State["clickedState"] == null && State["Ready"].length != 0) {
         Button_State = {
             "tick": false,
             "schedule": true,
@@ -894,7 +907,7 @@ function UpdateBtnState() {
         }
     }
     else {
-        if(State["clickedState"]=="schedule"){
+        if (State["clickedState"] == "schedule") {
 
             Button_State = {
                 "tick": true,
@@ -905,7 +918,7 @@ function UpdateBtnState() {
                 "redo": false
             }
         }
-        else if(State["clickedState"]=="newProcess"){
+        else if (State["clickedState"] == "newProcess") {
             Button_State = {
                 "tick": true,
                 "schedule": false,
@@ -915,7 +928,7 @@ function UpdateBtnState() {
                 "redo": false
             }
         }
-        else if(State["clickedState"]=="terminate"){
+        else if (State["clickedState"] == "terminate") {
             Button_State = {
                 "tick": true,
                 "schedule": false,
@@ -925,7 +938,7 @@ function UpdateBtnState() {
                 "redo": false
             }
         }
-        else{
+        else {
             Button_State = {
                 "tick": false,
                 "schedule": false,
@@ -937,16 +950,16 @@ function UpdateBtnState() {
         }
 
     }
-    if(StateAction_log.length>0){
+    if (StateAction_log.length > 0) {
         Button_State["undo"] = true;
     }
-    else{
+    else {
         Button_State["undo"] = false;
     }
-    if(Redo_log.length>0){
+    if (Redo_log.length > 0) {
         Button_State["redo"] = true;
     }
-    else{
+    else {
         Button_State["redo"] = false;
     }
 }
@@ -980,7 +993,7 @@ function UpdateBtnUI() {
             newProcess.classList.remove("disabled");
         }
     }
-    if (State["clickedState"]!="terminate"){ 
+    if (State["clickedState"] != "terminate") {
         if (Button_State["terminate"] == false) {
             terminate.classList.add("disabled");
         }
@@ -988,7 +1001,7 @@ function UpdateBtnUI() {
             terminate.classList.remove("disabled");
         }
     }
-    
+
     if (Button_State["undo"] == false) {
         undo.classList.add("disabled");
     }
@@ -1012,8 +1025,8 @@ function UpdateUI() {
     UpdatePreviousState();
 }
 
-function Undo(){
-    if(StateAction_log.length<1){
+function Undo() {
+    if (StateAction_log.length < 1) {
         Button_State["undo"] = false;
         updateCPU();
         UpdateUI();
@@ -1021,9 +1034,9 @@ function Undo(){
     }
     Button_State["redo"] = true;
     // console.log(Button_State)
-    
+
     Redo_log.push(JSON.parse(JSON.stringify(StateAction_log.pop())));
-    State=JSON.parse(JSON.stringify(StateAction_log[StateAction_log.length-1].state));
+    State = JSON.parse(JSON.stringify(StateAction_log[StateAction_log.length - 1].state));
     // console.log(StateAction_log.length);
 
     // Action_log.push(new Action("Undo",State));
@@ -1032,12 +1045,12 @@ function Undo(){
 
 }
 
-function Redo(){
-    if(Redo_log.length<1){
+function Redo() {
+    if (Redo_log.length < 1) {
         return;
     }
     State = JSON.parse(JSON.stringify(Redo_log.pop().state));
-    StateAction_log.push(new Action("Redo",State));
+    StateAction_log.push(new Action("Redo", State));
     UpdateUI();
     updateCPU();
 }
