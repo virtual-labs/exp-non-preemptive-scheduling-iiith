@@ -1088,8 +1088,18 @@ border: none;
 cursor: help;
 }
 
+#info_btn_new {
+  float: inline-end;
+  opacity: 1;
+  margin-left: 5px;
+  color: white;
+  font-weight: bolder;
+  background-color: none;
+  cursor: help;
+}
+
 .wrapper {  
-  background-color: white;
+  /* background-color: white; */
   /* font-family: Arial, Helvetica, sans-serif; */
   border: none;
   font-size: larger;

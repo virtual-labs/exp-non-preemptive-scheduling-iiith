@@ -159,20 +159,46 @@
                         <option value="RR"><button>Round-Robin</button></option>
                     </select>
 
-                    <button class="btn disabled" id="tick-btn" onclick="Tick()" style="width: 50%;"><i
-                            class="fa fa-clock-o" aria-hidden="true"></i>
-                        Tick</button>
+                    <button class="btn disabled" id="tick-btn" onclick="Tick()" style="width: 50%;">
+                        <i class="fa fa-clock-o" aria-hidden="true"></i>
+
+                        Tick
+
+                        <i class="wrapper" id="info_btn_new"> <i class="fa fa-info-circle" aria-hidden="true"></i>
+
+                            <span class="tooltip">Each tick counts as one clock cycle. Any instruction completes it's
+                                execution only when the clock ticks.
+                            </span>
+                        </i>
+
+                    </button>
                     <p style="text-align: center; font-weight: bold;">Generate External Events</p>
                     <div style="margin-left: 35%;">
 
-                        <button class="btn disabled" id="schd-btn"
-                            onclick="loadUnloadCommand('schedule')">Schedule</button>
+                        <button class="btn disabled" id="schd-btn" onclick="loadUnloadCommand('schedule')">Schedule
+                            <i class="wrapper" id="info_btn_new"> <i class="fa fa-info-circle" aria-hidden="true"></i>
+
+                                <span class="tooltip">Scheduling selects the next process to be run on the CPU according
+                                    to the scheduling policy.
+                                </span>
+                            </i>
+                        </button>
                         <button class="btn disabled" id="end-btn"
-                            onclick="loadUnloadCommand('terminate')">Terminate</button>
+                            onclick="loadUnloadCommand('terminate')">Terminate
+                            <i class="wrapper" id="info_btn_new"> <i class="fa fa-info-circle" aria-hidden="true"></i>
+
+                                <span class="tooltip">The currently running process terminates irrespective of the status of the process.
+                                </span>
+                            </i>
+                        </button>
                         <div class="dropdown">
                             <button class="btn" id="newProcess-btn" onclick="ToggleCreateProcess()"> <i
-                                    class="fa fa-plus"></i> New
-                                process
+                                    class="fa fa-plus"></i> New process
+                                    <i class="wrapper" id="info_btn_new"> <i class="fa fa-info-circle" aria-hidden="true"></i>
+
+                                <span class="tooltip">The currently running process terminates irrespective of the status of the process.
+                                </span>
+                            </i>
                                 <div class="arrow bounce" id="arw"></div>
                             </button>
                             <div id="guide-tip">Click on "New Process" button to start the simulation</div>
