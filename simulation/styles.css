@@ -4,6 +4,52 @@ body {
     font-family: sans-serif;
 }
 
+.s_dropbtn {
+  background-color: #3498DB;
+  /* border-radius: 100px; */
+  color: white;
+  padding: 10px;
+  font-weight: bolder;
+  font-size: 30px;
+  border: none;
+  cursor: pointer;
+}
+
+.s_dropbtn:hover, .s_dropbtn:focus {
+  background-color: #2980B9;
+}
+
+.s_dropdown {
+  position: relative;
+  float: inline-end;
+}
+
+.s_dropdown-content {
+  display: none;
+  right: 0;
+  position: absolute;
+  background-color: white;
+  border-radius: 10px;
+  min-width: 200px;
+  overflow: auto;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.s_dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.s_dropdown a:hover {
+  background-color: #ddd;
+  cursor: pointer;
+}
+
+.s_show {display: block;}
+
 #history-d {
   /* font-family: sans-serif; */
   padding: 5px;
@@ -435,30 +481,20 @@ input:focus-visible + label {
 /* css for table cells */
 
 #dialog {
-  /* border: 2px solid; */
+  display: none;
   border-color: transparent;
-  /* border-radius: 10px; */
   padding: 10px;
-  /* margin: 10px; */
-  /* background-color: dodgerblue; */
-  /* color: white; */
   width: 100%;
 }
 
-#current-dialog {
-  /* border: 5px solid; */
+#current_dialog {
+  display: block;
   border-color: white;
-  border-radius: 0px;
-  /* padding: 15px; */
+  padding: 10px;
+  border-radius: 10px; 
   margin: 10px;
   background-color: white;
   opacity: 0.8;
-  color: navy;
-  display: block;
-  width: 95%;
-  font-weight: bold;
-  border-collapse: separate;
-  /* border-spacing: 10px; */
 }
 
 #dialog td {
@@ -1052,8 +1088,18 @@ border: none;
 cursor: help;
 }
 
+#info_btn_new {
+  float: inline-end;
+  opacity: 1;
+  margin-left: 5px;
+  color: white;
+  font-weight: bolder;
+  background-color: none;
+  cursor: help;
+}
+
 .wrapper {  
-  background-color: white;
+  /* background-color: white; */
   /* font-family: Arial, Helvetica, sans-serif; */
   border: none;
   font-size: larger;
