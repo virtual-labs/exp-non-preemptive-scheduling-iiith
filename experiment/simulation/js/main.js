@@ -115,6 +115,14 @@ function assemble_msg(FEEDBACK, color) {
     document.getElementById("msg-sec").scrollTop = document.getElementById("msg-sec").scrollHeight
 }
 
+function closeGuide() {
+    document.getElementById("guide-tip_1").style.display = "none";
+    document.getElementById("arw_1").style.display = "none";
+
+    document.getElementById("guide-tip").style.display = "block";
+    document.getElementById("arw").style.display = "block";
+}
+
 function sendalert(message) {
 
     alertMsg = message;

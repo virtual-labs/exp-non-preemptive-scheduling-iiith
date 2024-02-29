@@ -83,11 +83,24 @@ td {
   padding: 20px;
   z-index: 20;
   box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+  display: none;
+}
+
+#guide-tip_1 {
+  position: absolute;
+  top: 68%;
+  width: 300px;
+  left:24%;
+  background-color: gainsboro;
+  border-radius: 20px;
+  padding: 15px;
+  z-index: 20;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.2);
   display: block;
 }
 
 #arw {
-  display: block;
+  display: none;
 }
 .arrow
 {
@@ -109,6 +122,33 @@ td {
   /* transform: rotate(90deg); */
   background-size: contain;
 }
+#arw_1 {
+  display: block;
+}
+.arrow_1
+{
+  position: absolute;
+  top: 61%;
+  left: 35%;
+  /* bottom: -2rem;
+  left: 50%;
+  margin-left:-20px; */
+  width: 60px;
+  height: 60px;
+  /* display: none; */
+
+  /**
+   * Dark Arrow Down
+   */
+  background-image: url(./images/arrow-up.png);
+  /* transform: rotate(90deg); */
+  background-size: contain;
+}
+
+.bounce_1 {
+  animation: bounce_1 2s infinite;
+}
+
 
 .bounce {
   animation: bounce 2s infinite;
@@ -123,6 +163,18 @@ td {
   }
   60% {
     transform: translateX(-15px);
+  }
+}
+
+@keyframes bounce_1 {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-30px);
+  }
+  60% {
+    transform: translateY(-15px);
   }
 }
 
