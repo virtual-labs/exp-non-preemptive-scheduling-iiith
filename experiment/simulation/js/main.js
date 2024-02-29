@@ -121,6 +121,10 @@ function closeGuide() {
 
     document.getElementById("guide-tip").style.display = "block";
     document.getElementById("arw").style.display = "block";
+
+    document.getElementById("newProcess-btn").style.opacity = 0.8;
+
+    assemble_msg("Please create a new process to start the experiment.")
 }
 
 function sendalert(message) {
