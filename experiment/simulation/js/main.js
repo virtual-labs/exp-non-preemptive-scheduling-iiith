@@ -49,7 +49,7 @@ class Process {
 function UpdatePolicy() {
     let policy = document.getElementById("policy-btn");
     State["Policy"] = policy.value == "None" ? null : policy.value;
-    assemble_msg("Scheduling policy updated to " + policy.value, "dodgerblue");
+    assemble_msg("Scheduling policy updated to " + policy.value);
     UpdateUI();
     // console.log(State["Policy"]);
 }
@@ -85,17 +85,28 @@ function hide_history() {
     document.getElementById("current_dialog").style.display = "block";
 }
 
-function assemble_msg(FEEDBACK, color) {
+function assemble_msg(FEEDBACK, PROMPT) {
     var dialogue = document.getElementById("dialog");
     var tb = dialogue.getElementsByTagName("tbody")[0];
     var row = document.createElement("tr");
     var td = document.createElement("td");
     // Assign class to td
+
+    fb_text = "<b>FEEDBACK: </b>";
+    pmt_text = "<br><b>PROMPT: </b>";
+    
     td.className = "msg";
 
     var text = "";
 
-    text += FEEDBACK;
+    // var fb_text = document.createElement("span");
+
+    text += fb_text + FEEDBACK + pmt_text + PROMPT;
+
+    if (PROMPT == null) {
+        text = ""
+        text += FEEDBACK
+    }
 
     td.innerHTML = text;
 
@@ -107,7 +118,7 @@ function assemble_msg(FEEDBACK, color) {
         var prev_msg = msgElements[msgElements.length - 1];
         prev_msg.style.backgroundColor = " #cbc4c2 ";
     }
-    td.style.backgroundColor = color;
+
     row.appendChild(td);
     tb.appendChild(row);
     dialogue.appendChild(tb);
@@ -123,6 +134,7 @@ function closeGuide() {
     document.getElementById("arw").style.display = "block";
 
     document.getElementById("newProcess-btn").style.opacity = 0.8;
+    document.getElementById("newProcess-btn").style.cursor = "pointer";
 
     assemble_msg("Please create a new process to start the experiment.")
 }
@@ -187,21 +199,21 @@ function loadUnloadCommand(cmd) {
             State["clickedState"] = null;
             Button_State["tick"] = false;
             UpdateUI();
-            assemble_msg("You have chosen a new scheduling policy. Click on the 'Tick' button to succesfully execute the schedule", "dodgerblue");
+            assemble_msg("You have chosen a new scheduling policy", "Click on the 'Tick' button to succesfully execute the schedule");
         }
         else if (State["clickedState"] == null) {
             if (State["Policy"] == null) {
-                assemble_msg("Please select a scheduling policy first", "red");
+                assemble_msg("Error! You haven't selected any scheduling policy", "Please select a scheduling policy first");
                 sendalert("Please select a scheduling policy first");
                 return;
             }
             if (State["Running"] != null) {
-                assemble_msg("A process is currently running on the CPU. Please wait for it to complete or terminate it", "red");
+                assemble_msg("Oops! A process is currently running on the CPU.", "Please wait for it to complete or terminate it");
                 sendalert("A process is currently running on the CPU. Please wait for it to complete or terminate it.");
                 return;
             }
             if (State["Ready"].length === 0) {
-                assemble_msg("No ready processes to be run on the CPU. Please create a new process.", "red");
+                assemble_msg("Error! No ready processes to be run on the CPU.", "Please create a new process.");
                 sendalert("No ready processes to be run on the CPU. Please create a new process.");
                 return;
             }
@@ -230,17 +242,17 @@ function loadUnloadCommand(cmd) {
         }
         else if (State["clickedState"] == null) {
             if (State["Running"] != null) {
-                assemble_msg("A process is currently running on the CPU. Please wait for it to complete or terminate it.", "dodgerblue");
+                assemble_msg("A process is currently running on the CPU.", "Please wait for it to complete or terminate it.");
                 sendalert("A process is currently running on the CPU. Please wait for it to complete or terminate it.");
                 return;
             }
             State["clickedState"] = "newProcess";
-            assemble_msg("Please click the 'Tick' button to execute the creation of a new process");
+            assemble_msg("You have selected the 'New process' option","Please click the 'Tick' button to execute the creation of a new process");
             UpdateUI();
             newProcess();
         }
         else {
-            assemble_msg("Please complete the previous command first or unselect it", "dodgerblue");
+            assemble_msg("Oops! You can execute only one operation at a time","Please complete the previous command first or unselect it");
             sendalert("Please complete the previous command first or unselect it")
         }
     }
@@ -251,7 +263,7 @@ function loadUnloadCommand(cmd) {
         }
         else if (State["clickedState"] == null) {
             if (State["Running"] == null) {
-                assemble_msg("No process is currently running on the CPU. Please schedule a process", "dodgerblue");
+                assemble_msg("No process is currently running on the CPU.", "Please schedule a process");
                 sendalert("No process is currently running on the CPU. Please schedule a process.");
                 return;
             }
@@ -306,7 +318,7 @@ function CreateProcess() {
     State["Ready"].push(process);
     UpdateState();
     UpdateTable();
-    assemble_msg("New process created successfully!", "green");
+    assemble_msg("Good! New process created successfully!", "You can either schedule the process(s) or create another new process");
 }
 
 function UpdateTable() {
@@ -396,7 +408,7 @@ function updateCPU() {
         let cell3 = row.insertCell(2);
         cell3.innerHTML = State["Running"].mapping["run_time"];
 
-        assemble_msg("Process with pid " + State["Running"].id + " now running on the CPU!");
+        assemble_msg("Process with pid " + State["Running"].id + " now running on the CPU!", "Click on 'Tick' to complete its execution.");
         UpdateUI();
     }
     else {
@@ -437,7 +449,7 @@ function scheduleFCFS() {
     if (State["Running"] == null) {
         _getCheckedRow();
         if (checkedRow == null) {
-            assemble_msg("Please select a process before scheduling", "red");
+            assemble_msg("Error! You haven't selected any process", "Please select the correct process according to FCFS before using 'Tick'");
             sendalert("Please select a process before scheduling");
             return;
         }
@@ -446,7 +458,7 @@ function scheduleFCFS() {
         if (State["Ready"].length != 0) {
             if (State["Policy"] == "FCFS") {
                 if (checkedRow[0] != State["Ready"][0].id) {
-                    assemble_msg("Please select the right process according to the scheduling policy choosen.", "red");
+                    assemble_msg("Error! You have choosen the wrong process","Please select the correct process according to FCFS before using 'Tick'");
                     return;
                 }
                 cpuTable.innerHTML = "<th>Process ID</th><th>Burst Time</th><th>Run Time</th>";
@@ -461,7 +473,7 @@ function scheduleFCFS() {
                 cell3.innerHTML = State["Ready"][0].mapping["run_time"];
 
                 // Remove State["Ready"][0] from State["Ready"] and add to State["Running"]
-                assemble_msg("Process with pid " + State["Ready"][0].id + " now running on the CPU!");
+                assemble_msg("Process with pid " + State["Ready"][0].id + " now running on the CPU!", "Use 'Tick' to execute the process");
                 tmp = State["Ready"][0];
                 State["Running"] = tmp;
 
@@ -481,7 +493,7 @@ function scheduleFCFS() {
                     }
                 }
                 if (checkedRow[0] != State["Ready"][minIndex].id) {
-                    assemble_msg("Please select the right process according to the scheduling policy choosen.", "red");
+                    assemble_msg("Error! You have choosen the wrong process","Please select the correct process according to SJF before using 'Tick'");
                     return;
                 }
                 cpuTable.innerHTML = "<th>Process ID</th><th>Burst Time</th><th>Run Time</th>";
@@ -496,7 +508,7 @@ function scheduleFCFS() {
                 cell3.innerHTML = State["Ready"][minIndex].mapping["run_time"];
 
                 // Remove State["Ready"][minIndex] from State["Ready"] and add to State["Running"]
-                assemble_msg("Process with pid " + State["Ready"][minIndex].id + " now running on the CPU!");
+                assemble_msg("Process with pid " + State["Ready"][minIndex].id + " now running on the CPU!", "Use 'Tick' to execute the process");
                 tmp = State["Ready"][minIndex];
                 State["Running"] = tmp;
 
@@ -547,7 +559,7 @@ function scheduleSJF() {
     if (State["Running"] == null) {
         _getCheckedRow();
         if (checkedRow == null) {
-            assemble_msg("Please select a process before scheduling", "red");
+            assemble_msg("Error! You haven't selected any process", "Please select the correct process according to SJF before using 'Tick'");
             sendalert("Please select a process before scheduling");
             return;
         }
@@ -555,7 +567,7 @@ function scheduleSJF() {
         let readyTable = document.getElementById("processes")
         if (State["Ready"].length != 0) {
             if (checkedRow[0] != getShortestJob()) {
-                assemble_msg("Please select the right process according to the scheduling policy choosen.", "red");
+                assemble_msg("Error! You have choosen the wrong process","Please select the correct process according to SJF before using 'Tick'");
                 return;
             }
             cpuTable.innerHTML = "<th>Process ID</th><th>Burst Time</th><th>Run Time</th>";
@@ -757,13 +769,13 @@ function Terminate(n = 1) {
             tmp.status = "Completed";
             State["Completed"].push(tmp)
         }
-        assemble_msg("Currently running process terminated succesfully", "green");
+        assemble_msg("Currently running process terminated succesfully", "You can schedule a process or create a new process");
         State["Running"] = null;
         cpuTable.deleteRow(0);
         cpuTable.deleteRow(0);
     }
     else {
-        assemble_msg("No running process to terminate. Please schedule a process.", "red");
+        assemble_msg("No running process to terminate.", "Please schedule a process onto the CPU");
         sendalert("No running process to terminate. Please schedule a process.")
         // return null;
     }
@@ -1040,6 +1052,7 @@ function UpdateUI() {
 function Undo() {
     if (StateAction_log.length < 1) {
         Button_State["undo"] = false;
+        assemble_msg("'Undo' failed! You are already at the initial state of the system", "You can either the 'Redo' the changes, or proceed from the current state")
         updateCPU();
         UpdateUI();
         return;
@@ -1050,7 +1063,7 @@ function Undo() {
     Redo_log.push(JSON.parse(JSON.stringify(StateAction_log.pop())));
     State = JSON.parse(JSON.stringify(StateAction_log[StateAction_log.length - 1].state));
     // console.log(StateAction_log.length);
-
+    assemble_msg("The 'Undo' operation has been successful", "You can either the 'Redo' the changes, or proceed from the current state")
     // Action_log.push(new Action("Undo",State));
     UpdateUI();
     updateCPU();
@@ -1059,10 +1072,12 @@ function Undo() {
 
 function Redo() {
     if (Redo_log.length < 1) {
+        assemble_msg("'Redo' failed! You are already looking at the latest system state", "You can either the 'Undo' the system, or proceed from the current state")
         return;
     }
     State = JSON.parse(JSON.stringify(Redo_log.pop().state));
     StateAction_log.push(new Action("Redo", State));
+    assemble_msg("The 'Redo' operation has been successful", "You can either the 'Undo' the changes, or proceed from the current state")
     UpdateUI();
     updateCPU();
 }
