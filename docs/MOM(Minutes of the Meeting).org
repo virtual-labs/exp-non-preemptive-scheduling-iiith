@@ -134,3 +134,19 @@
             - After the explaination of already reading of context switching, question should be asked wheather the user have seen the context switching experiment.
    - Investigate the "Web Assembly".
    - Write the code design document as well for the experiment.
+
+** March 1, 2024
+*** Attendees:
+    - Prof. Venkatesh Choppella
+    - Bhargavi
+    - Yashpal
+
+*** Discussion:
+    - Upon selection of button, dialog box should be showing the action.
+    - The dialog box should be showing the feedback & prompt in different colors, distinguishable for color blind people.
+    - Scheduling policy should be chosen at the start of the experiment, and can't be changed in the middle of the experiment.
+    - Arrow should be shown for selection of the process during scheduling action.
+    - There should be i button in map in the current state.
+    - Be more generous with the error messages.
+    - Explore the possibility of dialog in the experiment with the user.
+    
