@@ -92,8 +92,6 @@ function assemble_msg(FEEDBACK, PROMPT) {
     var td = document.createElement("td");
     // Assign class to td
 
-    fb_text = "<b>FEEDBACK: </b>";
-    pmt_text = "<br><b>PROMPT: </b>";
     
     td.className = "msg";
 
@@ -101,11 +99,11 @@ function assemble_msg(FEEDBACK, PROMPT) {
 
     // var fb_text = document.createElement("span");
 
-    text += fb_text + FEEDBACK + pmt_text + PROMPT;
+    text += "<p style='color: blue'>" + FEEDBACK + "<hr>" + "<p style='color: orange'>" + PROMPT;
 
     if (PROMPT == null) {
         text = ""
-        text += FEEDBACK
+        text += "<p style='color: blue'>" + FEEDBACK
     }
 
     td.innerHTML = text;
