@@ -532,15 +532,6 @@ function scheduleFCFS() {
 }
 
 function getShortestJob() {
-    // let i=JSON.parse(JSON.stringify(State["Ready"][0].id));
-    // for (let j=0; j<State["Ready"].length; j++){
-    //     if(State["Ready"][j].mapping["burst_time"]<State["Ready"][i].mapping["burst_time"]){
-    //         i=JSON.parse(JSON.stringify(State["Ready"][j]));
-    //     }
-    // }
-    // return i.id;
-
-    // Get processes in State["Ready"] with minimum burst time
 
     let minIndex = 0;
     let minBurstTime = State["Ready"][0].mapping["burst_time"];
@@ -550,7 +541,7 @@ function getShortestJob() {
             minIndex = i;
         }
     }
-    return State["Ready"][minIndex].id;
+    return minIndex
 
 }
 function scheduleSJF() {
@@ -564,7 +555,8 @@ function scheduleSJF() {
         let cpuTable = document.getElementById("CPU")
         let readyTable = document.getElementById("processes")
         if (State["Ready"].length != 0) {
-            if (checkedRow[0] != getShortestJob()) {
+            idx = getShortestJob();
+            if (checkedRow[0] != State["Ready"][idx].id) {
                 assemble_msg("Error! You have choosen the wrong process","Please select the correct process according to SJF before using 'Tick'");
                 return;
             }
@@ -572,19 +564,20 @@ function scheduleSJF() {
             // Add State["Ready"][0] to cpuTable
             let row = cpuTable.insertRow(-1);
             let cell1 = row.insertCell(0);
-            cell1.innerHTML = State["Ready"][0].id;
+            cell1.innerHTML = State["Ready"][idx].id;
 
             let cell2 = row.insertCell(1);
-            cell2.innerHTML = State["Ready"][0].mapping["burst_time"];
+            cell2.innerHTML = State["Ready"][idx].mapping["burst_time"];
             let cell3 = row.insertCell(2);
-            cell3.innerHTML = State["Ready"][0].mapping["run_time"];
+            cell3.innerHTML = State["Ready"][idx].mapping["run_time"];
 
-            // Remove State["Ready"][0] from State["Ready"] and add to State["Running"]
-            assemble_msg("Process with pid " + State["Ready"][0].id + " now running on the CPU!");
-            tmp = State["Ready"][0];
+            // Remove State["Ready"][idx] from State["Ready"] and add to State["Running"]
+            assemble_msg("Process with pid " + State["Ready"][idx].id + " now running on the CPU!");
+            tmp = State["Ready"][idx];
             State["Running"] = tmp;
 
-            State["Ready"].shift();
+            // Remove State["Ready"][idx]
+            State["Ready"].pop(idx);
             State["Running"].status = "Running";
             UpdateUI();
         }
