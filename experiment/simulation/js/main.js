@@ -45,12 +45,19 @@ class Process {
         State["id_counter"]++;
     }
 }
-
+let st = -1;
 function UpdatePolicy() {
-    let policy = document.getElementById("policy-btn");
-    State["Policy"] = policy.value == "None" ? null : policy.value;
-    assemble_msg("Scheduling policy updated to " + policy.value);
-    UpdateUI();
+    if(st == -1){
+        let policy = document.getElementById("policy-btn");
+        State["Policy"] = policy.value == "None" ? null : policy.value;
+        assemble_msg("Scheduling policy updated to " + policy.value);
+        UpdateUI();
+    }
+    else {
+        let policy = document.getElementById("policy-btn");
+        policy.value = State["Policy"];
+        sendalert("Scheduling policy cannot be changed mid-simulation, Please reset the simulation to change the scheduling policy");
+    }
     // console.log(State["Policy"]);
 }
 
@@ -192,6 +199,7 @@ function openContent(toc_id) {
 
 
 function loadUnloadCommand(cmd) {
+    st = 0;
     if (cmd == "schedule") {
         if (State["clickedState"] == "schedule") {
             State["clickedState"] = null;
