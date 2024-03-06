@@ -88,7 +88,7 @@ td {
 
 #guide-tip_1 {
   position: absolute;
-  top: 68%;
+  top: 60%;
   width: 300px;
   left:24%;
   background-color: gainsboro;
@@ -128,7 +128,7 @@ td {
 .arrow_1
 {
   position: absolute;
-  top: 61%;
+  top: 52%;
   left: 35%;
   /* bottom: -2rem;
   left: 50%;

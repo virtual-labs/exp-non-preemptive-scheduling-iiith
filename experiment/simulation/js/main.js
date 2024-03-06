@@ -48,6 +48,7 @@ class Process {
 let st = -1;
 function UpdatePolicy() {
     if(st == -1){
+        closeGuide();
         let policy = document.getElementById("policy-btn");
         State["Policy"] = policy.value == "None" ? null : policy.value;
         assemble_msg("Scheduling policy updated to " + policy.value);
