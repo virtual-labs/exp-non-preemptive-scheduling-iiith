@@ -33,16 +33,7 @@
 
     </div>
 
-    <!-- <div class="Instructions">
-        <p style="font-weight: bolder; color: dodgerBlue; text-align: center;">Instructions</p>
-        <hr>
-        <p style="padding-left: 10px;">
-            1. Please read the theory before starting the experiment.<br>
-            2. Follow the instructions in the dialog box to walk through the simulation.<br>
-            3. Student can control the simulation using the controls provided in 'Controls' section.<br>
-            4. Click on the "Start" button to start the simulation.<br>
-        </p>
-    </div> -->
+    
     <div class="container">
         <div class="ts_states">
             <p style="text-align: center; font-weight: bold">Transition states of the system</p>
@@ -52,12 +43,12 @@
                 <div class="tabset">
                     <input type="radio" name="tabset" id="tab1" aria-controls="marzen" checked>
                     <label id="current_state" for="tab1">Current System<br>State&nbsp<button class="wrapper"
-                            id="info_btn"> &#8505
+                            id="info_btn"> <i class="fa fa-info-circle" aria-hidden="true"></i>
                             <span class="tooltip">The informtion about the plant (CPU and process table) is displayed
                                 here.</span></button></label>
                     <input type="radio" name="tabset" id="tab2" aria-controls="marzen">
                     <label id="previous_states" for="tab2">Previous system<br>States&nbsp<button class="wrapper"
-                            id="info_btn"> &#8505
+                            id="info_btn"> <i class="fa fa-info-circle" aria-hidden="true"></i>
                             <span class="tooltip">All the previous states of the plant(CPU and process table) are stored
                                 here to refer later.</span></button></label>
 
@@ -150,28 +141,32 @@
                 <p style="text-align:center; font-weight: bold;">Controls</p>
 
                 <div class="controls">
-                    <b>Scheduling Policy:</b>
-                    <select name="things" class="btn" id="policy-btn" onchange="UpdatePolicy()">
-                        <option value="None" selected="selected">Please Select the Scheduling Policy...</option>
-                        <option value="FCFS">First Come First Serve</option>
-                        <option value="SJF">Shortest Job First</option>
-                        <option value="SRTF">Shorted Remaining Time First</option>
-                        <option value="RR"><button>Round-Robin</button></option>
-                    </select>
+                    
 
-                    <button class="btn disabled" id="tick-btn" onclick="Tick()" style="width: 50%;">
-                        <i class="fa fa-clock-o" aria-hidden="true"></i>
-
-                        Tick
-
-                        <i class="wrapper" id="info_btn_new"> <i class="fa fa-info-circle" aria-hidden="true"></i>
-
+                        <b>Scheduling Policy:</b>
+                        <select name="things" class="btn" id="policy-btn" onchange="UpdatePolicy()">
+                            <option value="None" selected="selected">Please Select the Scheduling Policy...</option>
+                            <option value="FCFS">First Come First Serve</option>
+                            <option value="SJF">Shortest Job First</option>
+                            <option value="SRTF">Shorted Remaining Time First</option>
+                            <option value="RR"><button>Round-Robin</button></option>
+                        </select>
+                        
+                        <button class="btn disabled" id="tick-btn" onclick="Tick()" style="width: 50%;">
+                            <i class="fa fa-clock-o" aria-hidden="true"></i>
+                            
+                            Tick
+                            
+                            <i class="wrapper" id="info_btn_new"> <i class="fa fa-info-circle" aria-hidden="true"></i>
+                            
                             <span class="tooltip">Each tick counts as one clock cycle. Any instruction completes it's
                                 execution only when the clock ticks.
                             </span>
                         </i>
-
+                        
                     </button>
+                    <div class="arrow_1 bounce_1" id="arw_1"></div>
+                    <div id="guide-tip_1">Select a scheduling policy for the experiment</div>
                     <p style="text-align: center; font-weight: bold;">Generate External Events</p>
                     <div style="margin-left: 35%;">
 
@@ -192,7 +187,7 @@
                             </i>
                         </button>
                         <div class="dropdown">
-                            <button class="btn" id="newProcess-btn" onclick="ToggleCreateProcess()"> <i
+                            <button class="btn disabled" id="newProcess-btn" onclick="ToggleCreateProcess()"> <i
                                     class="fa fa-plus"></i> New process
                                     <i class="wrapper" id="info_btn_new"> <i class="fa fa-info-circle" aria-hidden="true"></i>
 
@@ -252,12 +247,12 @@
             </div>
 
             <div id="current_dialog">
-                Please create a new process to start the experiment.
+                Please select a scheduling policy before starting the experiment.
             </div>
 
             <table id="dialog">
                 <tr>
-                    <td class="msg">Please create a new process to start the experiment.
+                    <td class="msg">Please select a scheduling policy before starting the experiment.
                     </td>
                 </tr>
             </table>
