@@ -19,6 +19,8 @@ let Button_State = {
     "terminate": false,
     "undo": false,
     "redo": false,
+    "io": false,
+    "io_cmpl": false
 }
 
 let StateAction_log = [];
@@ -236,6 +238,29 @@ function loadUnloadCommand(cmd) {
             sendalert("Please complete the previous command first or unselect it")
         }
     }
+    if (cmd == "io_cmpl") {
+        if (State["clickedState"] == "io_cmpl") {
+            State["clickedState"] = null;
+            UpdateUI();
+        }
+        else if (State["clickedState"] == null) {
+            if (State["Waiting"].length == 0) {
+                assemble_msg("Error! No processes are waiting for I/O.", "Please wait for a process to join the waiting queue.");
+                sendalert("No processes waiting for I/O!");
+                return;
+            }
+            State["clickedState"] = "io_cmpl";
+            Button_State["tick"] = true;
+            io_cmpl_btn = document.getElementById("io-cmpl-btn");
+            io_cmpl_btn.classList.add("btn-loaded");
+            UpdateUI();
+            _schedule();
+        }
+        else {
+            sendalert("Please complete the previous command first or unselect it.");
+        }
+
+    }
     if (cmd == "newProcess") {
         if (arrow_used == 0) {
             document.getElementById("guide-tip").style.display = "none";
@@ -374,7 +399,7 @@ function UpdateTable() {
         let cell2 = row.insertCell(2);
         cell2.innerHTML = process.burst_time;
         let cell3 = row.insertCell(3);
-        cell3.innerHTML = process.burst_time;
+        cell3.innerHTML = process.burst_time - process.mapping["run_time"];
         let cell4 = row.insertCell(4);
         cell4.innerHTML = process.status;
         cell4.className = "tag-orange";
@@ -462,7 +487,6 @@ function _schedule() {
     var pTable = document.getElementById("processes");
     var tbody = pTable.getElementsByTagName('tbody')[0];
     var rows = tbody.rows;
-
     for (var i = 1; i < rows.length; i++) {
         var checkboxcell = rows[i].insertCell(0);
         var checkbox = document.createElement("input");
@@ -480,8 +504,6 @@ function _schedule() {
             }
         });
     }
-
-
     var headerRow = pTable.rows[0].insertCell(0);
     headerRow.innerHTML = "<b>Select</b>";
 }
@@ -654,6 +676,7 @@ function UpdateState() {
     let newProcess_btn = document.getElementById("newProcess-btn");
     let end_btn = document.getElementById("end-btn");
     let io_btn = document.getElementById("io-btn");
+    let io_cmpl_btn = document.getElementById("io-cmpl-btn");
     readyQueue.innerHTML = "";
     temp = [];
     State["Ready"].forEach((process) => {
@@ -703,11 +726,15 @@ function UpdateState() {
     else if (State["clickedState"] == "io_int") {
         io_btn.classList.add("btn-loaded");
     }
+    else if (State["clickedState"] == "io_cmpl") {
+        io_cmpl_btn.classList.add("btn-loaded");
+    }
     else if (State["clickedState"] == null) {
         schd_btn.classList.remove("btn-loaded");
         newProcess_btn.classList.remove("btn-loaded");
         end_btn.classList.remove("btn-loaded");
         io_btn.classList.remove("btn-loaded");
+        io_cmpl_btn.classList.remove("btn-loaded");
     }
 
 }
@@ -822,6 +849,38 @@ function Terminate(n = 1) {
     UpdateTable();
 }
 
+function SelectIO() {
+    if (State["Waiting"].length > 0) {
+        _getCheckedRow();
+        if (checkedRow == null) {
+            assemble_msg("Error! You haven't selected any process", "Please select a process to remove from the waiting queue.");
+            sendalert("Please select a process to remove from waiting queue.");
+            return;
+        }
+        if (checkedRow[4] != "Waiting") {
+            assemble_msg("Error! You have choosen the wrong process","Please select a process from the waiting queue.");
+            return;
+        }
+        for (var i = 0; i < State["Waiting"].length; i++) {
+            if(checkedRow[0] == State["Waiting"][i].id) {
+                State["Waiting"][i].status = "Ready";
+                State["Ready"].push(State["Waiting"][i]);
+                // Remove State["Waiting"][i]
+                State["Waiting"].pop(i);
+                UpdateUI();
+                return;
+            }
+        }
+        if(State["Waiting"].length == 0) {
+            Button_State["io_cmpl"] = false;
+        }
+    }
+    else {
+        Button_State["io_cmpl"] = false;
+        sendalert("No processes waiting for IO.");
+    }
+}
+
 function Tick() {
     if (State["clickedState"] == null) {
         if (State["Running"] != null) {
@@ -878,6 +937,18 @@ function Tick() {
         // State["clickedState"] = null;
         UpdateUI();
         // UpdatePreviousState();
+    }
+    else if (State["clickedState"] == "io_cmpl") {
+        Redo_log = [];
+
+        SelectIO();
+
+        State["time_counter"]++;
+        State["clickedState"] = null;
+        StateAction_log.push(new Action("io_cmpl", JSON.parse(JSON.stringify(State))));
+        Button_State["io_cmpl"] = false;
+
+        UpdateUI();
     }
     else if (State["clickedState"] == "terminate") {
         if (Terminate() !== null) {
@@ -961,6 +1032,12 @@ function createToggleFunction(i) {
 
 
 function UpdateBtnState() {
+    if(State["Waiting"].length > 0) {
+        Button_State["io_cmpl"] = true;
+    }
+    else {
+        Button_State["io_cmpl"] = false;
+    }
     if (State["Running"] != null) {
         Button_State = {
             "tick": true,
@@ -993,7 +1070,8 @@ function UpdateBtnState() {
                 "terminate": false,
                 "undo": false,
                 "redo": false,
-                "io": false
+                "io": false,
+                "io_cmpl": false
             }
         }
         else if (State["clickedState"] == "newProcess") {
@@ -1004,7 +1082,8 @@ function UpdateBtnState() {
                 "terminate": false,
                 "undo": false,
                 "redo": false,
-                "io": false
+                "io": false,
+                "io_cmpl": false
             }
         }
         else if (State["clickedState"] == "terminate") {
@@ -1015,7 +1094,8 @@ function UpdateBtnState() {
                 "terminate": true,
                 "undo": false,
                 "redo": false,
-                "io": false
+                "io": false,
+                "io_cmpl": false
             }
         }
         else {
@@ -1053,6 +1133,7 @@ function UpdateBtnUI() {
     let undo = document.getElementById("undo-btn");
     let redo = document.getElementById("redo-btn");
     let io = document.getElementById("io-btn");
+    let io_cmpl = document.getElementById("io-cmpl-btn");
     if (Button_State["tick"] == false) {
         tick.classList.add("disabled");
     }
@@ -1064,6 +1145,12 @@ function UpdateBtnUI() {
     }
     else {
         io.classList.remove("disabled");
+    }
+    if (Button_State["io_cmpl"] == false) {
+        io_cmpl.classList.add("disabled");
+    }
+    else {
+        io_cmpl.classList.remove("disabled");
     }
     if (State["clickedState"] != "schedule") {
         if (Button_State["schedule"] == false) {
