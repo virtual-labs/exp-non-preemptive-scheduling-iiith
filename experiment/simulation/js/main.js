@@ -281,6 +281,25 @@ function loadUnloadCommand(cmd) {
             sendalert("Please complete the previous command first or unselect it")
         }
     }
+    if (cmd == "io_int") {
+        if (State["clickedState"] == "io_int") {
+            State["clickedState"] = null;
+            UpdateUI();
+        }
+        else if (State["clickedState"] == null) {
+            if (State["Running"] == null) {
+                assemble_msg("No process is currently running on the CPU.", "Please schedule a process");
+                sendalert("No process is currently running on the CPU. Please schedule a process.");
+                return;
+            }
+            State["clickedState"] = "io_int";
+            UpdateUI();
+        }
+        else {
+            sendalert("Please complete the previous command first or unselect it")
+        }
+    
+    }
 }
 
 function ToggleCreateProcess() {
@@ -359,6 +378,21 @@ function UpdateTable() {
         let cell4 = row.insertCell(4);
         cell4.innerHTML = process.status;
         cell4.className = "tag-orange";
+    }
+    );
+    State["Waiting"].forEach((process) => {
+        let row = table.insertRow(-1);
+        let cell0 = row.insertCell(0);
+        cell0.innerHTML = process.id;
+        let cell1 = row.insertCell(1);
+        cell1.innerHTML = process.arrival_time;
+        let cell2 = row.insertCell(2);
+        cell2.innerHTML = process.burst_time;
+        let cell3 = row.insertCell(3);
+        cell3.innerHTML = process.burst_time - process.mapping["run_time"];
+        let cell4 = row.insertCell(4);
+        cell4.innerHTML = process.status;
+        cell4.className = "tag-blue";
     }
     );
     State["Completed"].forEach((process) => {
@@ -619,6 +653,7 @@ function UpdateState() {
     let schd_btn = document.getElementById("schd-btn");
     let newProcess_btn = document.getElementById("newProcess-btn");
     let end_btn = document.getElementById("end-btn");
+    let io_btn = document.getElementById("io-btn");
     readyQueue.innerHTML = "";
     temp = [];
     State["Ready"].forEach((process) => {
@@ -665,10 +700,14 @@ function UpdateState() {
     else if (State["clickedState"] == "terminate") {
         end_btn.classList.add("btn-loaded");
     }
+    else if (State["clickedState"] == "io_int") {
+        io_btn.classList.add("btn-loaded");
+    }
     else if (State["clickedState"] == null) {
         schd_btn.classList.remove("btn-loaded");
         newProcess_btn.classList.remove("btn-loaded");
         end_btn.classList.remove("btn-loaded");
+        io_btn.classList.remove("btn-loaded");
     }
 
 }
@@ -750,6 +789,7 @@ function SJF() {
 
 function ContextSwitch() {
     if (State["Running"] != null) {
+        State["Running"].status = "Waiting";
         State["Waiting"].push(State["Running"]);
         State["Running"] = null;
         UpdateState();
@@ -852,7 +892,18 @@ function Tick() {
         UpdateUI();
         // UpdatePreviousState();
     }
-    // console.log(Previous_States);
+    else if (State["clickedState"] == "io_int") {
+        Redo_log = [];
+        ContextSwitch();
+        State["time_counter"]++;
+        StateAction_log.push(new Action("io_int", JSON.parse(JSON.stringify(State))));
+        // Previous_States.push(JSON.parse(JSON.stringify(State)));
+        // Action_log.push(new Action("io_int",JSON.parse(JSON.stringify(State))));
+        State["clickedState"] = null;
+        UpdateUI();
+        updateCPU();
+        // UpdatePreviousState();
+    }
 }
 
 function UpdatePreviousState() {
@@ -917,7 +968,8 @@ function UpdateBtnState() {
             "newProcess": true,
             "terminate": true,
             "undo": false,
-            "redo": false
+            "redo": false,
+            "io": true
         }
     }
     else if (State["Running"] == null && State["clickedState"] == null && State["Ready"].length != 0) {
@@ -927,7 +979,8 @@ function UpdateBtnState() {
             "newProcess": true,
             "terminate": false,
             "undo": false,
-            "redo": false
+            "redo": false,
+            "io": false
         }
     }
     else {
@@ -939,7 +992,8 @@ function UpdateBtnState() {
                 "newProcess": true,
                 "terminate": false,
                 "undo": false,
-                "redo": false
+                "redo": false,
+                "io": false
             }
         }
         else if (State["clickedState"] == "newProcess") {
@@ -949,7 +1003,8 @@ function UpdateBtnState() {
                 "newProcess": true,
                 "terminate": false,
                 "undo": false,
-                "redo": false
+                "redo": false,
+                "io": false
             }
         }
         else if (State["clickedState"] == "terminate") {
@@ -959,7 +1014,8 @@ function UpdateBtnState() {
                 "newProcess": false,
                 "terminate": true,
                 "undo": false,
-                "redo": false
+                "redo": false,
+                "io": false
             }
         }
         else {
@@ -969,7 +1025,8 @@ function UpdateBtnState() {
                 "newProcess": true,
                 "terminate": false,
                 "undo": false,
-                "redo": false
+                "redo": false,
+                "io": false
             }
         }
 
@@ -995,11 +1052,18 @@ function UpdateBtnUI() {
     let terminate = document.getElementById("end-btn");
     let undo = document.getElementById("undo-btn");
     let redo = document.getElementById("redo-btn");
+    let io = document.getElementById("io-btn");
     if (Button_State["tick"] == false) {
         tick.classList.add("disabled");
     }
     else {
         tick.classList.remove("disabled");
+    }
+    if (Button_State["io"] == false) {
+        io.classList.add("disabled");
+    }
+    else {
+        io.classList.remove("disabled");
     }
     if (State["clickedState"] != "schedule") {
         if (Button_State["schedule"] == false) {
