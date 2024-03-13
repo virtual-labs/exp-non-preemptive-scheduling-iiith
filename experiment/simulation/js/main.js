@@ -273,11 +273,11 @@ function loadUnloadCommand(cmd) {
             newProcess_btn.classList.remove("btn-loaded");
         }
         else if (State["clickedState"] == null) {
-            if (State["Running"] != null) {
-                assemble_msg("A process is currently running on the CPU.", "Please wait for it to complete or terminate it.");
-                sendalert("A process is currently running on the CPU. Please wait for it to complete or terminate it.");
-                return;
-            }
+            // if (State["Running"] != null) {
+            //     assemble_msg("A process is currently running on the CPU.", "Please wait for it to complete or terminate it.");
+            //     sendalert("A process is currently running on the CPU. Please wait for it to complete or terminate it.");
+            //     return;
+            // }
             State["clickedState"] = "newProcess";
             assemble_msg("You have selected the 'New process' option","Please click the 'Tick' button to execute the creation of a new process");
             UpdateUI();
