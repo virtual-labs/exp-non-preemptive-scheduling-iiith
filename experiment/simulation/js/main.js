@@ -20,7 +20,7 @@ let Button_State = {
     "undo": false,
     "redo": false,
     "io": false,
-    "io_cmpl": false
+    
 }
 
 let StateAction_log = [];
@@ -1032,12 +1032,6 @@ function createToggleFunction(i) {
 
 
 function UpdateBtnState() {
-    if(State["Waiting"].length > 0) {
-        Button_State["io_cmpl"] = true;
-    }
-    else {
-        Button_State["io_cmpl"] = false;
-    }
     if (State["Running"] != null) {
         Button_State = {
             "tick": true,
@@ -1071,7 +1065,6 @@ function UpdateBtnState() {
                 "undo": false,
                 "redo": false,
                 "io": false,
-                "io_cmpl": false
             }
         }
         else if (State["clickedState"] == "newProcess") {
@@ -1083,7 +1076,7 @@ function UpdateBtnState() {
                 "undo": false,
                 "redo": false,
                 "io": false,
-                "io_cmpl": false
+                
             }
         }
         else if (State["clickedState"] == "terminate") {
@@ -1095,7 +1088,20 @@ function UpdateBtnState() {
                 "undo": false,
                 "redo": false,
                 "io": false,
-                "io_cmpl": false
+                
+            }
+        }
+        else if (State["clickedState"] == "io_cmpl") {
+            Button_State = {
+                "tick": true,
+                "schedule": false,
+                "newProcess": false,
+                "terminate": false,
+                "undo": false,
+                "redo": false,
+                "io": false,
+                
+            
             }
         }
         else {
@@ -1146,7 +1152,7 @@ function UpdateBtnUI() {
     else {
         io.classList.remove("disabled");
     }
-    if (Button_State["io_cmpl"] == false) {
+    if (State["Waiting"].length == 0 || Button_State["io_cmpl"] == false) {
         io_cmpl.classList.add("disabled");
     }
     else {
