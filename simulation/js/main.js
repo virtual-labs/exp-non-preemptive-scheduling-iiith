@@ -19,6 +19,9 @@ let Button_State = {
     "terminate": false,
     "undo": false,
     "redo": false,
+    "io": false,
+    "int": false
+    
 }
 
 let StateAction_log = [];
@@ -236,6 +239,29 @@ function loadUnloadCommand(cmd) {
             sendalert("Please complete the previous command first or unselect it")
         }
     }
+    if (cmd == "io_cmpl") {
+        if (State["clickedState"] == "io_cmpl") {
+            State["clickedState"] = null;
+            UpdateUI();
+        }
+        else if (State["clickedState"] == null) {
+            if (State["Waiting"].length == 0) {
+                assemble_msg("Error! No processes are waiting for I/O.", "Please wait for a process to join the waiting queue.");
+                sendalert("No processes waiting for I/O!");
+                return;
+            }
+            State["clickedState"] = "io_cmpl";
+            Button_State["tick"] = true;
+            io_cmpl_btn = document.getElementById("io-cmpl-btn");
+            io_cmpl_btn.classList.add("btn-loaded");
+            UpdateUI();
+            _schedule();
+        }
+        else {
+            sendalert("Please complete the previous command first or unselect it.");
+        }
+
+    }
     if (cmd == "newProcess") {
         if (arrow_used == 0) {
             document.getElementById("guide-tip").style.display = "none";
@@ -248,11 +274,11 @@ function loadUnloadCommand(cmd) {
             newProcess_btn.classList.remove("btn-loaded");
         }
         else if (State["clickedState"] == null) {
-            if (State["Running"] != null) {
-                assemble_msg("A process is currently running on the CPU.", "Please wait for it to complete or terminate it.");
-                sendalert("A process is currently running on the CPU. Please wait for it to complete or terminate it.");
-                return;
-            }
+            // if (State["Running"] != null) {
+            //     assemble_msg("A process is currently running on the CPU.", "Please wait for it to complete or terminate it.");
+            //     sendalert("A process is currently running on the CPU. Please wait for it to complete or terminate it.");
+            //     return;
+            // }
             State["clickedState"] = "newProcess";
             assemble_msg("You have selected the 'New process' option","Please click the 'Tick' button to execute the creation of a new process");
             UpdateUI();
@@ -276,6 +302,44 @@ function loadUnloadCommand(cmd) {
             }
             State["clickedState"] = "terminate";
             UpdateUI();
+        }
+        else {
+            sendalert("Please complete the previous command first or unselect it")
+        }
+    }
+    if (cmd == "io_int") {
+        if (State["clickedState"] == "io_int") {
+            State["clickedState"] = null;
+            UpdateUI();
+        }
+        else if (State["clickedState"] == null) {
+            if (State["Running"] == null) {
+                assemble_msg("No process is currently running on the CPU.", "Please schedule a process");
+                sendalert("No process is currently running on the CPU. Please schedule a process.");
+                return;
+            }
+            State["clickedState"] = "io_int";
+            UpdateUI();
+        }
+        else {
+            sendalert("Please complete the previous command first or unselect it")
+        }
+    
+    }
+    if (cmd == "int") {
+        if (State["clickedState"] == "int") {
+            State["clickedState"] = null;
+            UpdateUI();
+        }
+        else if (State["clickedState"] == null) {
+            if (State["Running"] == null) {
+                assemble_msg("No process is currently running on the CPU.", "Please schedule a process");
+                sendalert("No process is currently running on the CPU. Please schedule a process.");
+                return;
+            }
+            State["clickedState"] = "int";
+            UpdateUI();
+            
         }
         else {
             sendalert("Please complete the previous command first or unselect it")
@@ -355,10 +419,25 @@ function UpdateTable() {
         let cell2 = row.insertCell(2);
         cell2.innerHTML = process.burst_time;
         let cell3 = row.insertCell(3);
-        cell3.innerHTML = process.burst_time;
+        cell3.innerHTML = process.burst_time - process.mapping["run_time"];
         let cell4 = row.insertCell(4);
         cell4.innerHTML = process.status;
         cell4.className = "tag-orange";
+    }
+    );
+    State["Waiting"].forEach((process) => {
+        let row = table.insertRow(-1);
+        let cell0 = row.insertCell(0);
+        cell0.innerHTML = process.id;
+        let cell1 = row.insertCell(1);
+        cell1.innerHTML = process.arrival_time;
+        let cell2 = row.insertCell(2);
+        cell2.innerHTML = process.burst_time;
+        let cell3 = row.insertCell(3);
+        cell3.innerHTML = process.burst_time - process.mapping["run_time"];
+        let cell4 = row.insertCell(4);
+        cell4.innerHTML = process.status;
+        cell4.className = "tag-blue";
     }
     );
     State["Completed"].forEach((process) => {
@@ -428,7 +507,6 @@ function _schedule() {
     var pTable = document.getElementById("processes");
     var tbody = pTable.getElementsByTagName('tbody')[0];
     var rows = tbody.rows;
-
     for (var i = 1; i < rows.length; i++) {
         var checkboxcell = rows[i].insertCell(0);
         var checkbox = document.createElement("input");
@@ -446,8 +524,6 @@ function _schedule() {
             }
         });
     }
-
-
     var headerRow = pTable.rows[0].insertCell(0);
     headerRow.innerHTML = "<b>Select</b>";
 }
@@ -543,10 +619,10 @@ function scheduleFCFS() {
 function getShortestJob() {
 
     let minIndex = 0;
-    let minBurstTime = State["Ready"][0].mapping["burst_time"];
+    let minBurstTime = State["Ready"][0].mapping["burst_time"] - State["Ready"][0].mapping["run_time"];
     for (let i = 1; i < State["Ready"].length; i++) {
-        if (State["Ready"][i].mapping["burst_time"] < minBurstTime) {
-            minBurstTime = State["Ready"][i].mapping["burst_time"];
+        if (State["Ready"][i].mapping["burst_time"] - State["Ready"][i].mapping["run_time"] < minBurstTime) {
+            minBurstTime = State["Ready"][i].mapping["burst_time"] - State["Ready"][i].mapping["run_time"];
             minIndex = i;
         }
     }
@@ -554,6 +630,7 @@ function getShortestJob() {
 
 }
 function scheduleSJF() {
+
     if (State["Running"] == null) {
         _getCheckedRow();
         if (checkedRow == null) {
@@ -562,31 +639,33 @@ function scheduleSJF() {
             return;
         }
         let cpuTable = document.getElementById("CPU")
-        let readyTable = document.getElementById("processes")
         if (State["Ready"].length != 0) {
             idx = getShortestJob();
             if (checkedRow[0] != State["Ready"][idx].id) {
                 assemble_msg("Error! You have choosen the wrong process","Please select the correct process according to SJF before using 'Tick'");
                 return;
             }
+            console.log(State["Ready"][idx]);
+            tmp = State["Ready"][idx];
+            State["Ready"].splice(idx, 1);
+            console.log(tmp);
             cpuTable.innerHTML = "<th>Process ID</th><th>Burst Time</th><th>Run Time</th>";
             // Add State["Ready"][0] to cpuTable
             let row = cpuTable.insertRow(-1);
             let cell1 = row.insertCell(0);
-            cell1.innerHTML = State["Ready"][idx].id;
+            cell1.innerHTML = tmp.id;
 
             let cell2 = row.insertCell(1);
-            cell2.innerHTML = State["Ready"][idx].mapping["burst_time"];
+            cell2.innerHTML = tmp.mapping["burst_time"];
             let cell3 = row.insertCell(2);
-            cell3.innerHTML = State["Ready"][idx].mapping["run_time"];
+            cell3.innerHTML = tmp.mapping["run_time"];
 
-            // Remove State["Ready"][idx] from State["Ready"] and add to State["Running"]
-            assemble_msg("Process with pid " + State["Ready"][idx].id + " now running on the CPU!");
-            tmp = State["Ready"][idx];
+            // Remove tmp from State["Ready"] and add to State["Running"]
+            assemble_msg("Process with pid " + tmp.id + " now running on the CPU!");
+            
             State["Running"] = tmp;
-
             // Remove State["Ready"][idx]
-            State["Ready"].pop(idx);
+            
             State["Running"].status = "Running";
             UpdateUI();
         }
@@ -619,6 +698,9 @@ function UpdateState() {
     let schd_btn = document.getElementById("schd-btn");
     let newProcess_btn = document.getElementById("newProcess-btn");
     let end_btn = document.getElementById("end-btn");
+    let io_btn = document.getElementById("io-btn");
+    let io_cmpl_btn = document.getElementById("io-cmpl-btn");
+    let int_btn = document.getElementById("int-btn");
     readyQueue.innerHTML = "";
     temp = [];
     State["Ready"].forEach((process) => {
@@ -665,11 +747,23 @@ function UpdateState() {
     else if (State["clickedState"] == "terminate") {
         end_btn.classList.add("btn-loaded");
     }
+    else if (State["clickedState"] == "io_int") {
+        io_btn.classList.add("btn-loaded");
+    }
+    else if (State["clickedState"] == "io_cmpl") {
+        io_cmpl_btn.classList.add("btn-loaded");
+    }
+    else if (State["clickedState"] == "int") {
+        int_btn.classList.add("btn-loaded");
+    }
     else if (State["clickedState"] == null) {
         schd_btn.classList.remove("btn-loaded");
         newProcess_btn.classList.remove("btn-loaded");
         end_btn.classList.remove("btn-loaded");
-    }
+        io_btn.classList.remove("btn-loaded");
+        io_cmpl_btn.classList.remove("btn-loaded");
+        int_btn.classList.remove("btn-loaded");
+    }   
 
 }
 
@@ -748,12 +842,37 @@ function SJF() {
 
 }
 
-function ContextSwitch() {
-    if (State["Running"] != null) {
-        State["Waiting"].push(State["Running"]);
-        State["Running"] = null;
+function SRTF() {
+    if (State["Running"] == null) {
+        if (State["Ready"].length == 0) {
+            return;
+        }
+        scheduleSJF();
         UpdateState();
-        UpdateTable();
+    }
+}
+
+function ContextSwitch(n = 0) {
+    if (n == 1) {
+        if (State["Running"] != null) {
+            State["Running"].status = "Ready";
+            State["Running"].arrival_time = State["time_counter"] + 1;
+            State["Ready"].push(State["Running"]);
+            State["Running"] = null;
+            UpdateState();
+            UpdateTable();
+            updateCPU();
+        }
+    }
+    else {
+        if (State["Running"] != null) {
+            State["Running"].status = "Waiting";
+            State["Waiting"].push(State["Running"]);
+            State["Running"] = null;
+            UpdateState();
+            UpdateTable();
+            updateCPU();
+        }
     }
 }
 
@@ -782,7 +901,48 @@ function Terminate(n = 1) {
     UpdateTable();
 }
 
+function SelectIO() {
+    if (State["Waiting"].length > 0) {
+        _getCheckedRow();
+        if (checkedRow == null) {
+            assemble_msg("Error! You haven't selected any process", "Please select a process to remove from the waiting queue.");
+            sendalert("Please select a process to remove from waiting queue.");
+            return;
+        }
+        if (checkedRow[4] != "Waiting") {
+            assemble_msg("Error! You have choosen the wrong process","Please select a process from the waiting queue.");
+            return;
+        }
+        for (var i = 0; i < State["Waiting"].length; i++) {
+            if(checkedRow[0] == State["Waiting"][i].id) {
+                State["Waiting"][i].status = "Ready";
+                State["Ready"].push(State["Waiting"][i]);
+                // Remove State["Waiting"][i]
+                State["Waiting"].pop(i);
+                UpdateUI();
+                return;
+            }
+        }
+        if(State["Waiting"].length == 0) {
+            Button_State["io_cmpl"] = false;
+        }
+    }
+    else {
+        Button_State["io_cmpl"] = false;
+        sendalert("No processes waiting for IO.");
+    }
+}
+
 function Tick() {
+    if(State["Ready"].length > 0 && State["Running"] != null) {
+        idx = getShortestJob();
+        if(State["Ready"][idx].mapping["burst_time"] - State["Ready"][idx].mapping["run_time"] < State["Running"].mapping["burst_time"] - State["Running"].mapping["run_time"]) {
+            if(State["clickedState"] != "int") {
+                sendalert("Schedule the job with shortest remaining time!");
+                return;
+            }
+        }
+    }
     if (State["clickedState"] == null) {
         if (State["Running"] != null) {
             Redo_log = [];
@@ -790,7 +950,6 @@ function Tick() {
             let ticker = document.getElementById("ticker");
             ticker.innerHTML = State["time_counter"];
             State["Running"].mapping["run_time"]++;
-            State["Running"].mapping["burst_time"];
             let cpuTable = document.getElementById("CPU")
             cpuTable.rows[1].cells[1].innerHTML = State["Running"].mapping["burst_time"];
             cpuTable.rows[1].cells[2].innerHTML = State["Running"].mapping["run_time"];
@@ -804,8 +963,6 @@ function Tick() {
             sendalert("No running process to tick. Please schedule a process.", "red");
             // return null;
         }
-
-        UpdateUI();
         if (State["Running"] != null) {
             StateAction_log.push(new Action("tick", JSON.parse(JSON.stringify(State))));
         }
@@ -820,6 +977,23 @@ function Tick() {
         StateAction_log.push(new Action("newProcess", JSON.parse(JSON.stringify(State))));
         // Previous_States.push(JSON.parse(JSON.stringify(State)));
         // Action_log.push(new Action("newProcess",State));
+        if (State["Running"] != null) {
+            Redo_log = [];
+            let ticker = document.getElementById("ticker");
+            ticker.innerHTML = State["time_counter"];
+            State["Running"].mapping["run_time"]++;
+            let cpuTable = document.getElementById("CPU")
+            cpuTable.rows[1].cells[1].innerHTML = State["Running"].mapping["burst_time"];
+            cpuTable.rows[1].cells[2].innerHTML = State["Running"].mapping["run_time"];
+
+            if (State["Running"].mapping["burst_time"] <= State["Running"].mapping["run_time"]) {
+                Terminate(0);
+                StateAction_log.push(new Action("terminate", JSON.parse(JSON.stringify(State))));
+            }
+        }
+        if (State["Running"] != null) {
+            StateAction_log.push(new Action("tick", JSON.parse(JSON.stringify(State))));
+        }
         UpdateUI();
         // UpdatePreviousState();
     }
@@ -835,9 +1009,35 @@ function Tick() {
         // Action_log.push(new Action("schedule",JSON.parse(JSON.stringify(State))));
         State["clickedState"] = null;
         Button_State["schedule"] = false;
-        // State["clickedState"] = null;
         UpdateUI();
-        // UpdatePreviousState();
+    }
+    else if (State["clickedState"] == "io_cmpl") {
+        Redo_log = [];
+
+        SelectIO();
+
+        State["time_counter"]++;
+        State["clickedState"] = null;
+        StateAction_log.push(new Action("io_cmpl", JSON.parse(JSON.stringify(State))));
+        Button_State["io_cmpl"] = false;
+        if (State["Running"] != null) {
+            Redo_log = [];
+            let ticker = document.getElementById("ticker");
+            ticker.innerHTML = State["time_counter"];
+            State["Running"].mapping["run_time"]++;
+            let cpuTable = document.getElementById("CPU")
+            cpuTable.rows[1].cells[1].innerHTML = State["Running"].mapping["burst_time"];
+            cpuTable.rows[1].cells[2].innerHTML = State["Running"].mapping["run_time"];
+
+            if (State["Running"].mapping["burst_time"] <= State["Running"].mapping["run_time"]) {
+                Terminate(0);
+                StateAction_log.push(new Action("terminate", JSON.parse(JSON.stringify(State))));
+            }
+        }
+        if (State["Running"] != null) {
+            StateAction_log.push(new Action("tick", JSON.parse(JSON.stringify(State))));
+        }
+        UpdateUI();
     }
     else if (State["clickedState"] == "terminate") {
         if (Terminate() !== null) {
@@ -849,10 +1049,80 @@ function Tick() {
 
         }
         State["clickedState"] = null;
+        if (State["Running"] != null) {
+            Redo_log = [];
+            let ticker = document.getElementById("ticker");
+            ticker.innerHTML = State["time_counter"];
+            State["Running"].mapping["run_time"]++;
+            let cpuTable = document.getElementById("CPU")
+            cpuTable.rows[1].cells[1].innerHTML = State["Running"].mapping["burst_time"];
+            cpuTable.rows[1].cells[2].innerHTML = State["Running"].mapping["run_time"];
+
+            if (State["Running"].mapping["burst_time"] <= State["Running"].mapping["run_time"]) {
+                Terminate(0);
+                StateAction_log.push(new Action("terminate", JSON.parse(JSON.stringify(State))));
+            }
+        }
+        if (State["Running"] != null) {
+            StateAction_log.push(new Action("tick", JSON.parse(JSON.stringify(State))));
+        }
         UpdateUI();
-        // UpdatePreviousState();
     }
-    // console.log(Previous_States);
+    else if (State["clickedState"] == "io_int") {
+        Redo_log = [];
+        ContextSwitch();
+        State["time_counter"]++;
+        StateAction_log.push(new Action("io_int", JSON.parse(JSON.stringify(State))));
+        // Previous_States.push(JSON.parse(JSON.stringify(State)));
+        // Action_log.push(new Action("io_int",JSON.parse(JSON.stringify(State))));
+        State["clickedState"] = null;
+        updateCPU();
+        if (State["Running"] != null) {
+            Redo_log = [];
+            let ticker = document.getElementById("ticker");
+            ticker.innerHTML = State["time_counter"];
+            State["Running"].mapping["run_time"]++;
+            let cpuTable = document.getElementById("CPU")
+            cpuTable.rows[1].cells[1].innerHTML = State["Running"].mapping["burst_time"];
+            cpuTable.rows[1].cells[2].innerHTML = State["Running"].mapping["run_time"];
+
+            if (State["Running"].mapping["burst_time"] <= State["Running"].mapping["run_time"]) {
+                Terminate(0);
+                StateAction_log.push(new Action("terminate", JSON.parse(JSON.stringify(State))));
+            }
+        }
+        if (State["Running"] != null) {
+            StateAction_log.push(new Action("tick", JSON.parse(JSON.stringify(State))));
+        }
+        UpdateUI();
+    }
+    else if (State["clickedState"] == "int") {
+        Redo_log = [];
+        if (State["Running"] != null) {
+            Redo_log = [];
+            let ticker = document.getElementById("ticker");
+            ticker.innerHTML = State["time_counter"];
+            State["Running"].mapping["run_time"]++;
+            let cpuTable = document.getElementById("CPU")
+            cpuTable.rows[1].cells[1].innerHTML = State["Running"].mapping["burst_time"];
+            cpuTable.rows[1].cells[2].innerHTML = State["Running"].mapping["run_time"];
+
+            if (State["Running"].mapping["burst_time"] <= State["Running"].mapping["run_time"]) {
+                Terminate(0);
+                StateAction_log.push(new Action("terminate", JSON.parse(JSON.stringify(State))));
+            }
+        }
+        if (State["Running"] != null) {
+            StateAction_log.push(new Action("tick", JSON.parse(JSON.stringify(State))));
+        }
+        ContextSwitch(1);
+        State["time_counter"]++;
+        StateAction_log.push(new Action("int", JSON.parse(JSON.stringify(State))));
+        State["clickedState"] = null;
+        updateCPU();
+        
+        UpdateUI();
+    }
 }
 
 function UpdatePreviousState() {
@@ -917,7 +1187,9 @@ function UpdateBtnState() {
             "newProcess": true,
             "terminate": true,
             "undo": false,
-            "redo": false
+            "redo": false,
+            "io": true,
+            "int": true
         }
     }
     else if (State["Running"] == null && State["clickedState"] == null && State["Ready"].length != 0) {
@@ -927,7 +1199,9 @@ function UpdateBtnState() {
             "newProcess": true,
             "terminate": false,
             "undo": false,
-            "redo": false
+            "redo": false,
+            "io": false,
+            "int": false
         }
     }
     else {
@@ -939,7 +1213,9 @@ function UpdateBtnState() {
                 "newProcess": true,
                 "terminate": false,
                 "undo": false,
-                "redo": false
+                "redo": false,
+                "io": false,
+                "int": false
             }
         }
         else if (State["clickedState"] == "newProcess") {
@@ -949,7 +1225,10 @@ function UpdateBtnState() {
                 "newProcess": true,
                 "terminate": false,
                 "undo": false,
-                "redo": false
+                "redo": false,
+                "io": false,
+                "int": false
+                
             }
         }
         else if (State["clickedState"] == "terminate") {
@@ -959,7 +1238,24 @@ function UpdateBtnState() {
                 "newProcess": false,
                 "terminate": true,
                 "undo": false,
-                "redo": false
+                "redo": false,
+                "io": false,
+                "int": false
+                
+            }
+        }
+        else if (State["clickedState"] == "io_cmpl") {
+            Button_State = {
+                "tick": true,
+                "schedule": false,
+                "newProcess": false,
+                "terminate": false,
+                "undo": false,
+                "redo": false,
+                "io": false,
+                "int": false
+                
+            
             }
         }
         else {
@@ -969,7 +1265,9 @@ function UpdateBtnState() {
                 "newProcess": true,
                 "terminate": false,
                 "undo": false,
-                "redo": false
+                "redo": false,
+                "io": false,
+                "int": false
             }
         }
 
@@ -995,11 +1293,32 @@ function UpdateBtnUI() {
     let terminate = document.getElementById("end-btn");
     let undo = document.getElementById("undo-btn");
     let redo = document.getElementById("redo-btn");
+    let io = document.getElementById("io-btn");
+    let io_cmpl = document.getElementById("io-cmpl-btn");
+    let int = document.getElementById("int-btn");
     if (Button_State["tick"] == false) {
         tick.classList.add("disabled");
     }
     else {
         tick.classList.remove("disabled");
+    }
+    if (Button_State["io"] == false) {
+        io.classList.add("disabled");
+    }
+    else {
+        io.classList.remove("disabled");
+    }
+    if (Button_State["int"] == false) {
+        int.classList.add("disabled");
+    }
+    else {
+        int.classList.remove("disabled");
+    }
+    if (State["Waiting"].length == 0 || Button_State["io_cmpl"] == false) {
+        io_cmpl.classList.add("disabled");
+    }
+    else {
+        io_cmpl.classList.remove("disabled");
     }
     if (State["clickedState"] != "schedule") {
         if (Button_State["schedule"] == false) {
