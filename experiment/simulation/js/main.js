@@ -934,7 +934,7 @@ function SelectIO() {
 }
 
 function Tick() {
-    if(State["Ready"].length > 0 && State["Running"] != null) {
+    if(State["Ready"].length > 0 && State["Running"] != null && State["Policy"] == "SRTF") {
         idx = getShortestJob();
         if(State["Ready"][idx].mapping["burst_time"] - State["Ready"][idx].mapping["run_time"] < State["Running"].mapping["burst_time"] - State["Running"].mapping["run_time"]) {
             if(State["clickedState"] != "int") {
