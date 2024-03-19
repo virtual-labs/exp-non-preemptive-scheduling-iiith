@@ -117,7 +117,12 @@ function assemble_msg(FEEDBACK, PROMPT) {
         text += "<p style='color: blue'>" + FEEDBACK
     }
 
-    td.innerHTML = text;
+    td.innerHTML = FEEDBACK + "<hr>" + PROMPT;
+
+    if (PROMPT == null) {
+        td.innerHTML = ""
+        td.innerHTML += FEEDBACK
+    }
 
     document.getElementById("current_dialog").innerHTML = text;
 

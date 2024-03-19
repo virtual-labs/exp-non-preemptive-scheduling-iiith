@@ -33,7 +33,7 @@
 
     </div>
 
-    
+
     <div class="container">
         <div class="ts_states">
             <p style="text-align: center; font-weight: bold">Transition states of the system</p>
@@ -141,34 +141,36 @@
                 <p style="text-align:center; font-weight: bold;">Controls</p>
 
                 <div class="controls">
-                    
 
-                        <b>Scheduling Policy:</b>
-                        <select name="things" class="btn" id="policy-btn" onchange="UpdatePolicy()">
-                            <option value="None" selected="selected">Please Select the Scheduling Policy...</option>
-                            <option value="FCFS">First Come First Serve</option>
-                            <option value="SJF">Shortest Job First</option>
-                            <option value="SRTF">Shorted Remaining Time First</option>
-                            <option value="RR"><button>Round-Robin</button></option>
-                        </select>
-                        
-                        <button class="btn disabled" id="tick-btn" onclick="Tick()" style="width: 50%;">
-                            <i class="fa fa-clock-o" aria-hidden="true"></i>
-                            
-                            Tick
-                            
-                            <i class="wrapper" id="info_btn_new"> <i class="fa fa-info-circle" aria-hidden="true"></i>
-                            
+
+                    <b>Scheduling Policy:</b>
+                    <select name="things" class="btn" id="policy-btn" onchange="UpdatePolicy()">
+                        <option value="None" selected="selected">Please Select the Scheduling Policy...</option>
+                        <option value="FCFS">First Come First Serve</option>
+                        <option value="SJF">Shortest Job First</option>
+                        <option value="SRTF">Shorted Remaining Time First</option>
+                        <option value="RR"><button>Round-Robin</button></option>
+                    </select>
+
+                    <button class="btn disabled" id="tick-btn" onclick="Tick()" style="width: 50%;">
+                        <i class="fa fa-clock-o" aria-hidden="true"></i>
+
+                        Tick
+
+                        <i class="wrapper" id="info_btn_new"> <i class="fa fa-info-circle" aria-hidden="true"></i>
+
                             <span class="tooltip">Each tick counts as one clock cycle. Any instruction completes it's
                                 execution only when the clock ticks.
                             </span>
                         </i>
-                        
+
                     </button>
+
                     <div class="arrow_1 bounce_1" id="arw_1"></div>
                     <div id="guide-tip_1">Select a scheduling policy for the experiment</div>
-                    <p style="text-align: center; font-weight: bold;">Generate External Events</p>
-                    <div style="margin-left: 35%;">
+
+                    <p style="text-align: center; font-weight: bold; position: relative;">Generate External Events</p>
+                    <div style="margin-left: 15%;">
 
                         <button class="btn disabled" id="schd-btn" onclick="loadUnloadCommand('schedule')">Schedule
                             <i class="wrapper" id="info_btn_new"> <i class="fa fa-info-circle" aria-hidden="true"></i>
@@ -178,34 +180,34 @@
                                 </span>
                             </i>
                         </button>
-                        <button class="btn disabled" id="end-btn"
-                            onclick="loadUnloadCommand('terminate')">Terminate
+                        <button class="btn disabled" id="end-btn" onclick="loadUnloadCommand('terminate')">Terminate
                             <i class="wrapper" id="info_btn_new"> <i class="fa fa-info-circle" aria-hidden="true"></i>
 
-                                <span class="tooltip">The currently running process terminates irrespective of the status of the process.
+                                <span class="tooltip">The currently running process terminates irrespective of the
+                                    status of the process.
                                 </span>
                             </i>
                         </button>
-                        <button class="btn disabled" id="io-btn"
-                            onclick="loadUnloadCommand('io_int')">I/O Interrupt
+                        <button class="btn disabled" id="io-btn" onclick="loadUnloadCommand('io_int')">I/O Interrupt
                             <i class="wrapper" id="info_btn_new"> <i class="fa fa-info-circle" aria-hidden="true"></i>
 
-                                <span class="tooltip">The currently running process is interrupted and moved to the waiting
+                                <span class="tooltip">The currently running process is interrupted and moved to the
+                                    waiting
                                     queue.
                                 </span>
                             </i>
                         </button>
-                        <button class="btn disabled" id="io-cmpl-btn"
-                            onclick="loadUnloadCommand('io_cmpl')">I/O Complete
+                        <button class="btn disabled" id="io-cmpl-btn" onclick="loadUnloadCommand('io_cmpl')">I/O
+                            Complete
                             <i class="wrapper" id="info_btn_new"> <i class="fa fa-info-circle" aria-hidden="true"></i>
 
-                                <span class="tooltip">Selectes a process from the waiting queue and moves it to the ready
+                                <span class="tooltip">Selectes a process from the waiting queue and moves it to the
+                                    ready
                                     queue.
                                 </span>
                             </i>
                         </button>
-                        <button class="btn disabled" id="int-btn"
-                            onclick="loadUnloadCommand('int')">Interrupt
+                        <button class="btn disabled" id="int-btn" onclick="loadUnloadCommand('int')">Interrupt
                             <i class="wrapper" id="info_btn_new"> <i class="fa fa-info-circle" aria-hidden="true"></i>
 
                                 <span class="tooltip">Interrupts the CPU.
@@ -215,11 +217,13 @@
                         <div class="dropdown">
                             <button class="btn disabled" id="newProcess-btn" onclick="ToggleCreateProcess()"> <i
                                     class="fa fa-plus"></i> New process
-                                    <i class="wrapper" id="info_btn_new"> <i class="fa fa-info-circle" aria-hidden="true"></i>
+                                <i class="wrapper" id="info_btn_new"> <i class="fa fa-info-circle"
+                                        aria-hidden="true"></i>
 
-                                <span class="tooltip">The currently running process terminates irrespective of the status of the process.
-                                </span>
-                            </i>
+                                    <span class="tooltip">The currently running process terminates irrespective of the
+                                        status of the process.
+                                    </span>
+                                </i>
                                 <div class="arrow bounce" id="arw"></div>
                             </button>
                             <div id="guide-tip">Click on "New Process" button to start the simulation</div>
