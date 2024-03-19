@@ -134,7 +134,7 @@
 
                     </table>
                 </div>
-                <div class="tick_sch_Display">
+                <div class="tick_sch_Display" id="display-div">
                     <p>Number of Ticks: <span id="ticker"></span></p>
                 </div>
 
@@ -201,7 +201,7 @@
                             Complete
                             <i class="wrapper" id="info_btn_new"> <i class="fa fa-info-circle" aria-hidden="true"></i>
 
-                                <span class="tooltip">Selectes a process from the waiting queue and moves it to the
+                                <span class="tooltip">Selects a process from the waiting queue and moves it to the
                                     ready
                                     queue.
                                 </span>
@@ -232,6 +232,23 @@
                                 <textarea name="burstTime" id="burstTime" cols="30" rows="10"></textarea>
                                 <button class="btn" style="width: 100%; border-radius: 0%; margin: 0;"
                                     onclick="loadUnloadCommand('newProcess')">Create</button>
+                            </div>
+                        </div>
+                        <div class="dropdown">
+                            <button class="btn" style="display: none;" id="quantum-btn" onclick="ToggleQuantum()"> <i
+                                    class="fa fa-clock-o"></i> Quantum
+                                <i class="wrapper" id="info_btn_new"> <i class="fa fa-info-circle"
+                                        aria-hidden="true"></i>
+
+                                    <span class="tooltip">The time quantum for the Round Robin scheduling policy.
+                                    </span>
+                                </i>
+                                <div class="arrow bounce" id="arw"></div>
+                            </button>
+                            <div id="myDropdown_1" class="dropdown-content">
+                                <textarea name="quantum" id="quantum" cols="30" rows="5"></textarea>
+                                <button class="btn" style="width: 100%; border-radius: 0%; margin: 0;"
+                                    onclick="setQuantum()">Set</button>
                             </div>
                         </div>
                     </div>

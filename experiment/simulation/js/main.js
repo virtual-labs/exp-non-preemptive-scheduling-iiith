@@ -9,7 +9,8 @@ let State = {
     "Policy": null,
     "clickedState": null,
     "time_counter": 0,
-    "id_counter": 1
+    "id_counter": 1,
+    "quantum": null
 };
 
 let Button_State = {
@@ -29,6 +30,7 @@ let Redo_log = [];
 
 let arrow_used = 0;
 
+var quant_counter = 0;
 
 class Action {
     constructor(action, state) {
@@ -56,6 +58,12 @@ function UpdatePolicy() {
         State["Policy"] = policy.value == "None" ? null : policy.value;
         assemble_msg("Scheduling policy updated to " + policy.value);
         UpdateUI();
+
+        if(policy.value == "RR") {
+            var quantumButton = document.getElementById("quantum-btn");
+
+            quantumButton.style.display = "block";
+        }
     }
     else {
         let policy = document.getElementById("policy-btn");
@@ -65,6 +73,23 @@ function UpdatePolicy() {
     // console.log(State["Policy"]);
 }
 
+function setQuantum() {
+    var quantum = document.getElementById("quantum").value;
+    State["quantum"] = quantum;
+    assemble_msg("Quantum updated to " + quantum);
+    
+    var quantumButton = document.getElementById("quantum-btn");
+    document.getElementById("myDropdown_1").classList.toggle("show");
+    quantumButton.style.display = "none";
+
+    var quantumDisplay = document.getElementById("display-div");
+    quantumDisplay.innerHTML += "<p>Quantum: " + quantum + "</p>";
+
+    quant_counter = 0;
+    
+    UpdateUI();
+
+}
 
 function dialog_settings() {
     document.getElementById("d_setting").classList.toggle("s_show");
@@ -209,6 +234,10 @@ function openContent(toc_id) {
 
 function loadUnloadCommand(cmd) {
     st = 0;
+    if(State["Policy"] == "RR" && State["quantum"] == null) {
+        sendalert("Please set the quantum for Round Robin scheduling policy");
+        return;
+    }
     if (cmd == "schedule") {
         if (State["clickedState"] == "schedule") {
             State["clickedState"] = null;
@@ -366,6 +395,17 @@ function ToggleCreateProcess() {
     }
     else {
         sendalert("Please complete the previous command first or unselect it")
+    }
+}
+
+function ToggleQuantum() {
+    if (State["Policy"] == "RR") {
+        document.getElementById("myDropdown_1").classList.toggle("show");
+        let quant_inp = document.getElementById("quantum");
+        quant_inp.placeholder = "Enter Quantum (1-15) to set the quantum for Round Robin scheduling policy";
+    }
+    else {
+        sendalert("Please select Round Robin as the scheduling policy to set the quantum")
     }
 }
 
@@ -544,67 +584,29 @@ function scheduleFCFS() {
         let cpuTable = document.getElementById("CPU")
         let readyTable = document.getElementById("processes")
         if (State["Ready"].length != 0) {
-            if (State["Policy"] == "FCFS") {
-                if (checkedRow[0] != State["Ready"][0].id) {
-                    assemble_msg("Error! You have choosen the wrong process","Please select the correct process according to FCFS before using 'Tick'");
-                    return;
-                }
-                cpuTable.innerHTML = "<th>Process ID</th><th>Burst Time</th><th>Run Time</th>";
-                // Add State["Ready"][0] to cpuTable
-                let row = cpuTable.insertRow(-1);
-                let cell1 = row.insertCell(0);
-                cell1.innerHTML = State["Ready"][0].id;
-
-                let cell2 = row.insertCell(1);
-                cell2.innerHTML = State["Ready"][0].mapping["burst_time"];
-                let cell3 = row.insertCell(2);
-                cell3.innerHTML = State["Ready"][0].mapping["run_time"];
-
-                // Remove State["Ready"][0] from State["Ready"] and add to State["Running"]
-                assemble_msg("Process with pid " + State["Ready"][0].id + " now running on the CPU!", "Use 'Tick' to execute the process");
-                tmp = State["Ready"][0];
-                State["Running"] = tmp;
-
-                State["Ready"].shift();
-                State["Running"].status = "Running";
-                UpdateUI();
+            if (checkedRow[0] != State["Ready"][0].id) {
+                assemble_msg("Error! You have choosen the wrong process","Please select the correct process according to FCFS before using 'Tick'");
+                return;
             }
-            else if (State["Policy"] == "SJF") {
-                // Find the index of ready processes with minimum burst time
+            cpuTable.innerHTML = "<th>Process ID</th><th>Burst Time</th><th>Run Time</th>";
+            // Add State["Ready"][0] to cpuTable
+            let row = cpuTable.insertRow(-1);
+            let cell1 = row.insertCell(0);
+            cell1.innerHTML = State["Ready"][0].id;
 
-                let minIndex = 0;
-                let minBurstTime = State["Ready"][0].mapping["burst_time"];
-                for (let i = 1; i < State["Ready"].length; i++) {
-                    if (State["Ready"][i].mapping["burst_time"] < minBurstTime) {
-                        minBurstTime = State["Ready"][i].mapping["burst_time"];
-                        minIndex = i;
-                    }
-                }
-                if (checkedRow[0] != State["Ready"][minIndex].id) {
-                    assemble_msg("Error! You have choosen the wrong process","Please select the correct process according to SJF before using 'Tick'");
-                    return;
-                }
-                cpuTable.innerHTML = "<th>Process ID</th><th>Burst Time</th><th>Run Time</th>";
-                // Add State["Ready"][0] to cpuTable
-                let row = cpuTable.insertRow(-1);
-                let cell1 = row.insertCell(0);
-                cell1.innerHTML = State["Ready"][minIndex].id;
+            let cell2 = row.insertCell(1);
+            cell2.innerHTML = State["Ready"][0].mapping["burst_time"];
+            let cell3 = row.insertCell(2);
+            cell3.innerHTML = State["Ready"][0].mapping["run_time"];
 
-                let cell2 = row.insertCell(1);
-                cell2.innerHTML = State["Ready"][minIndex].mapping["burst_time"];
-                let cell3 = row.insertCell(2);
-                cell3.innerHTML = State["Ready"][minIndex].mapping["run_time"];
+            // Remove State["Ready"][0] from State["Ready"] and add to State["Running"]
+            assemble_msg("Process with pid " + State["Ready"][0].id + " now running on the CPU!", "Use 'Tick' to execute the process");
+            tmp = State["Ready"][0];
+            State["Running"] = tmp;
 
-                // Remove State["Ready"][minIndex] from State["Ready"] and add to State["Running"]
-                assemble_msg("Process with pid " + State["Ready"][minIndex].id + " now running on the CPU!", "Use 'Tick' to execute the process");
-                tmp = State["Ready"][minIndex];
-                State["Running"] = tmp;
-
-                // Remove State["Ready"][minIndex]
-                State["Ready"].pop(minIndex);
-                State["Running"].status = "Running";
-                UpdateUI();
-            }
+            State["Ready"].shift();
+            State["Running"].status = "Running";
+            UpdateUI();
         }
         else {
             // assemble_msg("No ready processes to be run on the CPU. Please create a new process.", "red");
@@ -820,7 +822,7 @@ function SchedulePolicy() {
         Priority();
         document.getElementById("schd_p").innerHTML = "Priority scheduling";
     }
-    else if (State["Policy"] == "Round Robin") {
+    else if (State["Policy"] == "RR") {
         RoundRobin();
         document.getElementById("schd_p").innerHTML = "Round Robin";
     }
@@ -853,6 +855,19 @@ function SRTF() {
             return;
         }
         scheduleSJF();
+        UpdateState();
+    }
+}
+
+function RoundRobin() {
+    if(State["Running"] == null) {
+        if(State["Ready"].length == 0) {
+            console.log("hi");
+            return;
+        }
+        quant_counter = 0;
+        console.log("hi");
+        scheduleFCFS();
         UpdateState();
     }
 }
@@ -948,6 +963,14 @@ function Tick() {
             }
         }
     }
+    if(State["Running"] != null && State["Policy"] == "RR") {
+        if(quant_counter >= State["quantum"] && State["clickedState"] != "int") {
+            sendalert("Quantum expired! Schedule the next process");
+            return;
+        }
+        quant_counter++;
+
+    }
     if (State["clickedState"] == null) {
         if (State["Running"] != null) {
             Redo_log = [];
@@ -1004,17 +1027,17 @@ function Tick() {
     }
     else if (State["clickedState"] == "schedule") {
         Redo_log = [];
-
+        
         SchedulePolicy();
 
         State["time_counter"]++;
         State["clickedState"] = null;
         StateAction_log.push(new Action("schedule", JSON.parse(JSON.stringify(State))));
-        // Previous_States.push(JSON.parse(JSON.stringify(State)));
-        // Action_log.push(new Action("schedule",JSON.parse(JSON.stringify(State))));
+
         State["clickedState"] = null;
         Button_State["schedule"] = false;
         UpdateUI();
+        
     }
     else if (State["clickedState"] == "io_cmpl") {
         Redo_log = [];
@@ -1107,7 +1130,7 @@ function Tick() {
             Redo_log = [];
             let ticker = document.getElementById("ticker");
             ticker.innerHTML = State["time_counter"];
-            State["Running"].mapping["run_time"]++;
+            // State["Running"].mapping["run_time"]++;
             let cpuTable = document.getElementById("CPU")
             cpuTable.rows[1].cells[1].innerHTML = State["Running"].mapping["burst_time"];
             cpuTable.rows[1].cells[2].innerHTML = State["Running"].mapping["run_time"];
@@ -1121,6 +1144,7 @@ function Tick() {
             StateAction_log.push(new Action("tick", JSON.parse(JSON.stringify(State))));
         }
         ContextSwitch(1);
+        quant_counter = 0;
         State["time_counter"]++;
         StateAction_log.push(new Action("int", JSON.parse(JSON.stringify(State))));
         State["clickedState"] = null;
