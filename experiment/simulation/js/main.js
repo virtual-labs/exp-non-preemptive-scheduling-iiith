@@ -75,6 +75,10 @@ function UpdatePolicy() {
 
 function setQuantum() {
     var quantum = document.getElementById("quantum").value;
+    if (quantum >= 15) {
+        sendalert("Quantum cannot be greater than 15");
+        return;
+    }
     State["quantum"] = quantum;
     assemble_msg("Quantum updated to " + quantum);
     
