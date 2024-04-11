@@ -149,4 +149,20 @@
     - There should be i button in map in the current state.
     - Be more generous with the error messages.
     - Explore the possibility of dialog in the experiment with the user.
+
+** March 8, 2024
+*** Attendees:
+    - Prof. Venkatesh Choppella
+    - Bhargavi
+    - Yashpal
+    - Aayush
+    - Pranav
+
+*** Discussion:
+    -   Build a mockup of the smol experiment, as an example.
+    -   The smol example should be able to integrate with the ibp.
+    -   Explore the possibility of storing the state and files in the local storage. 
+    -   Change the name of "interrupt" button to "pre-empt" button.
+    -   In the procedure of the experiment, introduce all the elements of the simulation.
+    -   
     
