@@ -164,5 +164,7 @@
     -   Explore the possibility of storing the state and files in the local storage. 
     -   Change the name of "interrupt" button to "pre-empt" button.
     -   In the procedure of the experiment, introduce all the elements of the simulation.
-    -   
+    -   Don't use sherif fonts for the context switching experiment.
+    -   The dialog box should be more interactive.
+    -   There should be state and action diagram on context swithcing experiment.
     
