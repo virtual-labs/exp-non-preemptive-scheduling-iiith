@@ -167,5 +167,5 @@
     -   Don't use sherif fonts for the context switching experiment.
     -   The dialog box should be more interactive.
     -   There should be state and action diagram on context swithcing experiment.
-    -   Explore the possibility of auto generating the intractive theory page.
+    -   Explore the possibility of automatically generating the intractive theory page.
     
