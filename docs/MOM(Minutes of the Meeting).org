@@ -168,4 +168,5 @@
     -   The dialog box should be more interactive.
     -   There should be state and action diagram on context swithcing experiment.
     -   Explore the possibility of automatically generating the intractive theory page.
+    -   Create a single Github repo that of OS4all where we can put the minutes of the meeting 
     
