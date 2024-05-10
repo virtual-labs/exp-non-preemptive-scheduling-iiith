@@ -1575,24 +1575,3 @@ function Redo() {
 	UpdateUI();
 	updateCPU();
 }
-
-function ResetPage() {
-	// Reset the state of the system to its initial state
-	State = {
-		Ready: [],
-		Running: null,
-		Waiting: [],
-		Terminated: [],
-		Completed: [],
-		Map: { id: null, run_time: null, burst_time: null },
-		Timer: null,
-		Policy: null,
-		clickedState: null,
-		time_counter: 0,
-		id_counter: 1,
-		quantum: null,
-	};
-	StateAction_log = [];
-	Redo_log = [];
-	UpdateUI();
-}

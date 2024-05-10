@@ -124,6 +124,10 @@ td {
 }
 #arw_1 {
   display: block;
+  position: absolute;
+  top: 88%; 
+  left: 50%; 
+  transform: translateX(-50%);
 }
 .arrow_1
 {
