@@ -125,7 +125,7 @@ td {
 #arw_1 {
   display: block;
   position: absolute;
-  top: 88%; 
+  top: 15%; 
   left: 50%; 
   transform: translateX(-50%);
 }
@@ -571,6 +571,7 @@ input:focus-visible + label {
 
 .controls {
   margin: 10px;
+  position: relative;
 }
 
 .btns {

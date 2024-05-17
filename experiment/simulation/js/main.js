@@ -1,4 +1,4 @@
-
+	
 let State = {
 	Ready: [],
 	Running: null,
@@ -34,7 +34,7 @@ var quant_counter = 0;
 
 class Action {
 	constructor(action, state) {
-		this.action = action;
+			this.action = action;
 		this.state = state;
 	}
 }
