@@ -67,7 +67,8 @@ function UpdatePolicy() {
 		let policy = document.getElementById("policy-btn");
 		policy.value = State["Policy"];
 		sendalert(
-			"Scheduling policy cannot be changed mid-simulation, Please reset the simulation to change the scheduling policy"
+			//"Scheduling policy cannot be changed mid-simulation, Please reset the simulation to change the scheduling policy"
+			"The scheduling policy cannot be changed mid-simulation. Please click on the 'Reset' button to be able to choose another scheduling policy."
 		);
 	}
 	// console.log(State["Policy"]);
@@ -249,39 +250,52 @@ function loadUnloadCommand(cmd) {
 			State["clickedState"] = null;
 			Button_State["tick"] = false;
 			UpdateUI();
-			assemble_msg(
-				"You have chosen a new scheduling policy",
-				"Click on the 'Tick' button to succesfully execute the schedule"
-			);
+			// assemble_msg(
+			// 	//"You have chosen a new scheduling policy",
+			// 	//"Click on the 'Tick' button to succesfully execute the schedule"
+			// );
 		} else if (State["clickedState"] == null) {
 			if (State["Policy"] == null) {
 				assemble_msg(
-					"Error! You haven't selected any scheduling policy",
-					"Please select a scheduling policy first"
+					//"Error! You haven't selected any scheduling policy",
+					//"Please select a scheduling policy first"
+					"Error! You haven't selected a scheduling policy for the simulation.",
+					"The simulation can only begin once you select a scheduling policy for it. Please click on the 'Scheduling policy' dropdown and select one."
 				);
-				sendalert("Please select a scheduling policy first");
+				sendalert(
+					//"Please select a scheduling policy first"
+					"Please select a scheduling policy to be able to start the simulation."
+				);
 				return;
 			}
 			if (State["Running"] != null) {
 				assemble_msg(
-					"Oops! A process is currently running on the CPU.",
-					"Please wait for it to complete or terminate it"
+					//"Oops! A process is currently running on the CPU.",
+					//"Please wait for it to complete or terminate it"
+					"Oops! A process that you scheduled to run is currently running on the CPU.",
+					"You have many options right now. You can lead the execution of the running process to completion by using the 'Tick' button. Or you could terminate the running process using the 'Terminate' button. You can also interrupt the running process using the 'I/O Interrupt' button. In case there is a process in the waiting queue, you can use the 'I/O Complete' button and select that process to bring it to ready state."
 				);
 				sendalert(
-					"A process is currently running on the CPU. Please wait for it to complete or terminate it."
+					"A process is currently running on the CPU. Please take a look at the dialog box to explore your current options."
 				);
 				return;
 			}
 			if (State["Ready"].length === 0) {
 				assemble_msg(
-					"Error! No ready processes to be run on the CPU.",
-					"Please create a new process."
+					//"Error! No ready processes to be run on the CPU.",
+					//"Please create a new process."
+					"Error! The process queue is empty.",
+					"Please create a process first. Click on the '+ New process' button. Make sure to enter the burst time (between 1 and 30) for the process that you want to create, and then click on the 'Tick' button to advance the simulation. This will execute the creation and addition of a new process to the process queue."
 				);
 				sendalert(
-					"No ready processes to be run on the CPU. Please create a new process."
+					"The process queue is empty, so nothing can be scheduled right now. Please take a look at the prompt for help."
 				);
 				return;
 			}
+			assemble_msg(
+				"You have chosen the 'Schedule' button.",
+				"After clicking on the 'Schedule' button, please select the process that you want to schedule, and then click on the 'Tick' button to bring the process to running state."
+			);
 			State["clickedState"] = "schedule";
 			Button_State["tick"] = true;
 			schd_btn = document.getElementById("schd-btn");
@@ -290,7 +304,7 @@ function loadUnloadCommand(cmd) {
 			_schedule();
 			// console.log(schd_btn.classList)
 		} else {
-			sendalert("Please complete the previous command first or unselect it");
+			sendalert("Please complete the previous command first or unselect it to be able to select a different command.");
 		}
 	}
 	if (cmd == "io_cmpl") {
@@ -300,12 +314,20 @@ function loadUnloadCommand(cmd) {
 		} else if (State["clickedState"] == null) {
 			if (State["Waiting"].length == 0) {
 				assemble_msg(
-					"Error! No processes are waiting for I/O.",
-					"Please wait for a process to join the waiting queue."
+					//"Error! No processes are waiting for I/O.",
+					//"Please wait for a process to join the waiting queue."
+					"Error! There are no processes waiting for I/O completion.",
+					"There is no process in the waiting queue, which means that no process is waiting for the completion of an I/O operation. Take a look at the controls to see which other external events you can generate."
 				);
-				sendalert("No processes waiting for I/O!");
+				sendalert(//"No processes waiting for I/O!"
+				"There are no processes waiting for I/O completion. Take a look at the dialog box for help."
+				);
 				return;
 			}
+			assemble_msg(
+				"You have chosen the 'I/O Complete' button.",
+				"After clicking on the 'I/O Complete' button, select the process from the waiting queue which is waiting for an I/O operation to complete, and click on the 'Tick' button to remove it from the waiting queue and bring it to ready state."
+			);
 			State["clickedState"] = "io_cmpl";
 			Button_State["tick"] = true;
 			io_cmpl_btn = document.getElementById("io-cmpl-btn");
@@ -313,7 +335,7 @@ function loadUnloadCommand(cmd) {
 			UpdateUI();
 			_schedule();
 		} else {
-			sendalert("Please complete the previous command first or unselect it.");
+			sendalert("Please complete the previous command first or unselect it to be able to select a different command.");
 		}
 	}
 	if (cmd == "newProcess") {
@@ -334,17 +356,19 @@ function loadUnloadCommand(cmd) {
 			// }
 			State["clickedState"] = "newProcess";
 			assemble_msg(
-				"You have selected the 'New process' option",
-				"Please click the 'Tick' button to execute the creation of a new process"
+				//"You have selected the 'New process' option",
+				//"Please click the 'Tick' button to execute the creation of a new process"
+				"You chose the '+ New process' button.",
+				"Please make sure that you have entered the burst time (between 1 and 30) for the process that you want to create, and then click on the 'Tick' button to advance the simulation. This will execute the creation and addition of a new process to the process queue."
 			);
 			UpdateUI();
 			newProcess();
 		} else {
 			assemble_msg(
-				"Oops! You can execute only one operation at a time",
-				"Please complete the previous command first or unselect it"
+				"Oops! You can execute only one operation at a time.",
+				"Please complete the previous command first or unselect it to be able to select a different command."
 			);
-			sendalert("Please complete the previous command first or unselect it");
+			sendalert("Please complete the previous command first or unselect it to be able to select a different command.");
 		}
 	}
 	if (cmd == "terminate") {
@@ -354,18 +378,24 @@ function loadUnloadCommand(cmd) {
 		} else if (State["clickedState"] == null) {
 			if (State["Running"] == null) {
 				assemble_msg(
-					"No process is currently running on the CPU.",
-					"Please schedule a process"
+					// "No process is currently running on the CPU.",
+					// "Please schedule a process"
+					"Error! No processes are currenlty running on the CPU. There is nothing to terminate.",
+					"Please click on the 'Schedule' button, select the process that you want to schedule, and then click on the 'Tick' button to bring the process to running state. Once you have a running process, you can choose to terminate it using the 'Terminate' button."
 				);
 				sendalert(
-					"No process is currently running on the CPU. Please schedule a process."
+					"No processes are currently running on the CPU. Please take a look at the dialog box for help."
 				);
 				return;
 			}
+			assemble_msg(
+				"You have chosen the 'Terminate' button.",
+				"After clicking the 'Terminate' button, click on the 'Tick' button to terminate the currently running process."
+			);
 			State["clickedState"] = "terminate";
 			UpdateUI();
 		} else {
-			sendalert("Please complete the previous command first or unselect it");
+			sendalert("Please complete the previous command first or unselect it to be able to select a different command.");
 		}
 	}
 	if (cmd == "io_int") {
@@ -375,18 +405,18 @@ function loadUnloadCommand(cmd) {
 		} else if (State["clickedState"] == null) {
 			if (State["Running"] == null) {
 				assemble_msg(
-					"No process is currently running on the CPU.",
-					"Please schedule a process"
+					"Error! There is no process running on the CPU currently.",
+					"To interrupt the execution of a running process, you first need to either schedule an existing process, or create a new process and schedule it to run. To do this please click on the 'Schedule' button, select the process that you want to schedule, and then click on the 'Tick' button to bring the process to running state."
 				);
 				sendalert(
-					"No process is currently running on the CPU. Please schedule a process."
+					"There is no process running on the CPU currently. Please take a look at the dialog box for help."
 				);
 				return;
 			}
 			State["clickedState"] = "io_int";
 			UpdateUI();
 		} else {
-			sendalert("Please complete the previous command first or unselect it");
+			sendalert("Please complete the previous command first or unselect it to be able to select a different command.");
 		}
 	}
 	if (cmd == "int") {
@@ -396,18 +426,18 @@ function loadUnloadCommand(cmd) {
 		} else if (State["clickedState"] == null) {
 			if (State["Running"] == null) {
 				assemble_msg(
-					"No process is currently running on the CPU.",
-					"Please schedule a process"
+					"Error! There is no process running on the CPU currently.",
+					"To interrupt the execution of a running process, you first need to either schedule an existing process, or create a new process and schedule it to run. To do this please click on the 'Schedule' button, select the process that you want to schedule, and then click on the 'Tick' button to bring the process to running state."
 				);
 				sendalert(
-					"No process is currently running on the CPU. Please schedule a process."
+					"There is no process running on the CPU currently. Please take a look at the dialog box for help."
 				);
 				return;
 			}
 			State["clickedState"] = "int";
 			UpdateUI();
 		} else {
-			sendalert("Please complete the previous command first or unselect it");
+			sendalert("Please complete the previous command first or unselect it to be able to select a different command.");
 		}
 	}
 }
@@ -424,7 +454,7 @@ function ToggleCreateProcess() {
 			"Enter Burst Time (1-30) to create a process with Pid:" +
 			State["id_counter"];
 	} else {
-		sendalert("Please complete the previous command first or unselect it");
+		sendalert("Please complete the previous command first or unselect it to be able to select a different command.");
 	}
 }
 
@@ -459,7 +489,7 @@ function CreateProcess() {
 	}
 	if (create_process_input_int > 30) {
 		sendalert("Please enter a number between 1 to 30");
-		return;
+		return;	
 	}
 	let process = new Process(
 		State["time_counter"],
@@ -470,8 +500,10 @@ function CreateProcess() {
 	UpdateState();
 	UpdateTable();
 	assemble_msg(
-		"Good! New process created successfully!",
-		"You can either schedule the process(s) or create another new process"
+		//"Good! New process created successfully!",
+		//"You can either schedule the process(s) or create another new process"
+		"A new process has successfully been created and added to the process queue.",
+		"Now, you can either schedule any existing process(es) by clicking on the 'Schedule' button, or you can create another process by clicking on the '+ New process' button."
 	);
 }
 
@@ -577,8 +609,8 @@ function updateCPU() {
 		cell3.innerHTML = State["Running"].mapping["run_time"];
 
 		assemble_msg(
-			"Process with pid " + State["Running"].id + " now running on the CPU!",
-			"Click on 'Tick' to complete its execution."
+			"The process having PID " + State["Running"].id + " is now running on the CPU!",
+			"Click on the 'Tick' button to advance the simulation by one clock cycle and continue the execution of the process."
 		);
 		UpdateUI();
 	} else {
@@ -617,10 +649,10 @@ function scheduleFCFS() {
 		_getCheckedRow();
 		if (checkedRow == null) {
 			assemble_msg(
-				"Error! You haven't selected any process",
-				"Please select the correct process according to FCFS before using 'Tick'"
+				"Error! You haven't selected any process to schedule.",
+				"Please click on the 'Schedule' button. Then select the process from the process queue that should be scheduled according to FCFS scheduling policy."
 			);
-			sendalert("Please select a process before scheduling");
+			sendalert("You forgot to choose which process you want to schedule. Please take a look at the dialog box for help.");
 			return;
 		}
 		let cpuTable = document.getElementById("CPU");
@@ -628,9 +660,10 @@ function scheduleFCFS() {
 		if (State["Ready"].length != 0) {
 			if (checkedRow[0] != State["Ready"][0].id) {
 				assemble_msg(
-					"Error! You have choosen the wrong process",
-					"Please select the correct process according to FCFS before using 'Tick'"
+					"Error! You have chosen the wrong process according to FCFS.",
+					"Please click on the 'Schedule' button. Then select the process from the process queue that should be scheduled according to FCFS scheduling policy."
 				);
+				sendalert("The process you chose isn't right according to FCFS scheduling. Please take a look at the dialog box for help.");
 				return;
 			}
 			cpuTable.innerHTML =
@@ -647,8 +680,8 @@ function scheduleFCFS() {
 
 			// Remove State["Ready"][0] from State["Ready"] and add to State["Running"]
 			assemble_msg(
-				"Process with pid " + State["Ready"][0].id + " now running on the CPU!",
-				"Use 'Tick' to execute the process"
+				"The process having PID " + State["Ready"][0].id + " is now running on the CPU!",
+				"Use the 'Tick' button to advance the simulation by a clock cycle and continue the execution of this process."
 			);
 			tmp = State["Ready"][0];
 			State["Running"] = tmp;
@@ -659,7 +692,7 @@ function scheduleFCFS() {
 		} else {
 			// assemble_msg("No ready processes to be run on the CPU. Please create a new process.", "red");
 			sendalert(
-				"No ready processes to be run on the CPU. Please create a new process."
+				"No process is ready to be run on the CPU. Please create a new process and schedule it to run."
 			);
 			return null;
 		}
@@ -667,7 +700,7 @@ function scheduleFCFS() {
 	} else {
 		// assemble_msg("A process is currently running on the CPU. Either wait for it to complete or terminate that process.", "red");
 		sendalert(
-			"A process is currently running on the CPU. Either wait for it to complete or terminate that process."
+			"A process is already running on the CPU. Either wait for it to fully execute, or terminate that process to be able to schedule another one."
 		);
 		return null;
 	}
@@ -697,10 +730,10 @@ function scheduleSJF() {
 		_getCheckedRow();
 		if (checkedRow == null) {
 			assemble_msg(
-				"Error! You haven't selected any process",
-				"Please select the correct process according to SJF before using 'Tick'"
+				"Error! You haven't selected any process to schedule.",
+				"Please click on the 'Schedule' button. Then select the process from the process queue that should be scheduled according to SJF scheduling policy."
 			);
-			sendalert("Please select a process before scheduling");
+			sendalert("You forgot to choose which process you want to schedule. Please take a look at the dialog box for help.");
 			return;
 		}
 		let cpuTable = document.getElementById("CPU");
@@ -708,8 +741,8 @@ function scheduleSJF() {
 			idx = getShortestJob();
 			if (checkedRow[0] != State["Ready"][idx].id) {
 				assemble_msg(
-					"Error! You have choosen the wrong process",
-					"Please select the correct process according to SJF before using 'Tick'"
+					"Error! You have chosen the wrong process according to FCFS.",
+					"Please click on the 'Schedule' button. Then select the process from the process queue that should be scheduled according to SJF scheduling policy."
 				);
 				return;
 			}
@@ -748,7 +781,7 @@ function scheduleSJF() {
 	} else {
 		// assemble_msg("A process is currently running on the CPU. Either wait for it to complete or terminate that process.", "red");
 		sendalert(
-			"A process is currently running on the CPU. Either wait for it to complete or terminate that process."
+			"A process is already running on the CPU. Either wait for it to fully execute, or terminate that process to be able to schedule another one."
 		);
 		return null;
 	}
@@ -964,18 +997,18 @@ function Terminate(n = 1) {
 			State["Completed"].push(tmp);
 		}
 		assemble_msg(
-			"Currently running process terminated succesfully",
-			"You can schedule a process or create a new process"
+			"The process that was running has successfully been terminated.",
+			"Now, you can either schedule any existing process(es) by clicking on the 'Schedule' button, or you can create another process by clicking on the '+ New process' button."
 		);
 		State["Running"] = null;
 		cpuTable.deleteRow(0);
 		cpuTable.deleteRow(0);
 	} else {
 		assemble_msg(
-			"No running process to terminate.",
-			"Please schedule a process onto the CPU"
+			"Error! No processes are currenlty running on the CPU. There is nothing to terminate.",
+			"Please click on the 'Schedule' button, select the process that you want to schedule, and then click on the 'Tick' button to bring the process to running state. Once you have a running process, you can choose to terminate it using the 'Terminate' button."
 		);
-		sendalert("No running process to terminate. Please schedule a process.");
+		sendalert("No processes are currently running on the CPU. Please take a look at the dialog box for help.");
 		// return null;
 	}
 	UpdateTable();
@@ -986,16 +1019,16 @@ function SelectIO() {
 		_getCheckedRow();
 		if (checkedRow == null) {
 			assemble_msg(
-				"Error! You haven't selected any process",
-				"Please select a process to remove from the waiting queue."
+				"Error! You haven't selected which process you want to remove from the waiting queue.",
+				"After clicking on the 'I/O Complete' button, select the process from the waiting queue which is waiting for an I/O operation to complete, and click on the 'Tick' button to remove it from the waiting queue and bring it to ready state."
 			);
-			sendalert("Please select a process to remove from waiting queue.");
+			sendalert("Please select which process you want to remove from the waiting queue.");
 			return;
 		}
 		if (checkedRow[4] != "Waiting") {
 			assemble_msg(
-				"Error! You have choosen the wrong process",
-				"Please select a process from the waiting queue."
+				"Error! You have choosen the wrong process for this action.",
+				"After clicking on the 'I/O Complete' button, select the process from the waiting queue which is waiting for an I/O operation to complete, and click on the 'Tick' button to remove it from the waiting queue and bring it to ready state."
 			);
 			return;
 		}
@@ -1014,7 +1047,7 @@ function SelectIO() {
 		}
 	} else {
 		Button_State["io_cmpl"] = false;
-		sendalert("No processes waiting for IO.");
+		sendalert("There are no processes waiting for I/O completion.");
 	}
 }
 
@@ -1068,7 +1101,7 @@ function Tick() {
 			}
 		} else {
 			sendalert(
-				"No running process to tick. Please schedule a process.",
+				"No process is running on the CPU, so nothing can be ticked. Create and/or schedule a process to tick (or execute) it. ",
 				"red"
 			);
 			// return null;
@@ -1534,8 +1567,8 @@ function Undo() {
 	if (StateAction_log.length < 1) {
 		Button_State["undo"] = false;
 		assemble_msg(
-			"'Undo' failed! You are already at the initial state of the system",
-			"You can either the 'Redo' the changes, or proceed from the current state"
+			"'Undo' failed! You are already at the initial state of the system.",
+			"You can either the 'Redo' the changes, or proceed from the current state."
 		);
 		updateCPU();
 		UpdateUI();
@@ -1550,8 +1583,8 @@ function Undo() {
 	);
 	// console.log(StateAction_log.length);
 	assemble_msg(
-		"The 'Undo' operation has been successful",
-		"You can either the 'Redo' the changes, or proceed from the current state"
+		"The 'Undo' operation was successfully completed.",
+		"You can either the 'Redo' the changes, or proceed from the current state."
 	);
 	// Action_log.push(new Action("Undo",State));
 	UpdateUI();
@@ -1561,16 +1594,16 @@ function Undo() {
 function Redo() {
 	if (Redo_log.length < 1) {
 		assemble_msg(
-			"'Redo' failed! You are already looking at the latest system state",
-			"You can either the 'Undo' the system, or proceed from the current state"
+			"'Redo' failed! You are already at the latest state of the system.",
+			"You can either the 'Undo' the changes, or proceed from the current state."
 		);
 		return;
 	}
 	State = JSON.parse(JSON.stringify(Redo_log.pop().state));
 	StateAction_log.push(new Action("Redo", State));
 	assemble_msg(
-		"The 'Redo' operation has been successful",
-		"You can either the 'Undo' the changes, or proceed from the current state"
+		"The 'Redo' operation was successfully completed.",
+		"You can either the 'Undo' the changes, or proceed from the current state."
 	);
 	UpdateUI();
 	updateCPU();
