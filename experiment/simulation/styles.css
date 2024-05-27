@@ -5,7 +5,7 @@ body {
 }
 
 .s_dropbtn {
-  background-color: #3498DB;
+  background-color: #037cc2;
   /* border-radius: 100px; */
   color: white;
   padding: 10px;
@@ -16,7 +16,7 @@ body {
 }
 
 .s_dropbtn:hover, .s_dropbtn:focus {
-  background-color: #2980B9;
+  background-color: #026CA7;
 }
 
 .s_dropdown {
@@ -198,7 +198,7 @@ td {
   padding: 10px;
   border-radius: 20px;
   width: max-content;
-  background-color: orange;
+  background-color: #D55E00;
   color: white;
   font-weight: bold;
   opacity: 0.8;
@@ -218,7 +218,7 @@ td {
   padding: 10px;
   border-radius: 20px;
   width: max-content;
-  background-color: red;
+  background-color: #A80000;
   color: white;
   font-weight: bolder;
   opacity: 0.8;
@@ -238,7 +238,7 @@ td {
   padding: 10px;
   border-radius: 20px;
   width: max-content;
-  background-color: green;
+  background-color: #42C942;
   color: white;
   font-weight: bold;
   opacity: 0.8;
@@ -649,7 +649,7 @@ input:focus-visible + label {
   bottom: 30px;
   right: 30px;
   border-radius: 100px;
-  background-color: dodgerblue;
+  background-color: #037cc2;
   color: white;
   font-size: xx-large;
   padding: 20px;
@@ -658,6 +658,7 @@ input:focus-visible + label {
 
 #study-material:hover {
   cursor: pointer;
+  background-color: #026CA7;
   transform: scale(1.1);
 }
 
@@ -1035,7 +1036,6 @@ top: 0;
 .tick_sch_Display {
   font-size: large;
   font-weight: bolder;
-  color: olive;
   padding: 10px;
   margin: 10px;
 }
@@ -1322,6 +1322,16 @@ pointer-events: auto;
       opacity: 0;
       transform: rotate(45deg) translate(20px, 20px);
   }
+}
+
+.feedback {
+  color: #D55E00;
+  font-weight:bold;
+}
+
+.prompt {
+  color: #0072B2;
+  font-weight:bold;
 }
 
 .processes{

@@ -55,7 +55,9 @@ function UpdatePolicy() {
 		closeGuide();
 		let policy = document.getElementById("policy-btn");
 		State["Policy"] = policy.value == "None" ? null : policy.value;
-		assemble_msg("Scheduling policy updated to " + policy.value);
+		assemble_msg("The scheduling policy has been updated to " + policy.value + ".",
+		"It's time to create a new process. Click on the '+ New process' button. Make sure to enter the burst time (between 1 and 30) for the process, and then click on the 'Tick' button to advance the simulation. This will execute the creation and addition of a new process to the process queue."
+		);
 		UpdateUI();
 
 		if (policy.value == "RR") {
@@ -132,28 +134,43 @@ function assemble_msg(FEEDBACK, PROMPT) {
 
 	td.className = "msg";
 
-	var text = "";
+	// var text = "";
 
-	// var fb_text = document.createElement("span");
+	// // var fb_text = document.createElement("span");
 
-	text +=
-		"<p style='color: blue'>" +
-		FEEDBACK +
-		"<hr>" +
-		"<p style='color: orange'>" +
-		PROMPT;
+	// text +=
+	// 	"<p class='feedback'>" +
+	// 	FEEDBACK +
+	// 	"<hr>" +
+	// 	"<p class='prompt'>" +
+	// 	PROMPT;
 
-	if (PROMPT == null) {
-		text = "";
-		text += "<p style='color: blue'>" + FEEDBACK;
+	// if (PROMPT == null) {
+	// 	text = "";
+	// 	text += "<p class='feedback'>" + FEEDBACK;
+	// }
+
+	// td.innerHTML = FEEDBACK + "<hr>" + PROMPT;
+
+	// if (PROMPT == null) {
+	// 	td.innerHTML = "";
+	// 	td.innerHTML += FEEDBACK;
+	// }
+
+	// Initialize text with FEEDBACK
+	var text = "<p class ='feedback'>" + FEEDBACK + "</p>";
+
+	// Add PROMPT if it exists
+	if (PROMPT) {
+    text += "<hr>";
+    // Split PROMPT by ". " but keep the periods
+    var promptSentences = PROMPT.split(/(?<=\.)\s+/).filter(Boolean);
+    promptSentences.forEach(function (sentence) {
+        text += "<p class='prompt'>" + sentence.trim() + "</p>";
+    });
 	}
 
-	td.innerHTML = FEEDBACK + "<hr>" + PROMPT;
-
-	if (PROMPT == null) {
-		td.innerHTML = "";
-		td.innerHTML += FEEDBACK;
-	}
+	td.innerHTML = text;
 
 	document.getElementById("current_dialog").innerHTML = text;
 
@@ -285,7 +302,7 @@ function loadUnloadCommand(cmd) {
 					//"Error! No ready processes to be run on the CPU.",
 					//"Please create a new process."
 					"Error! The process queue is empty.",
-					"Please create a process first. Click on the '+ New process' button. Make sure to enter the burst time (between 1 and 30) for the process that you want to create, and then click on the 'Tick' button to advance the simulation. This will execute the creation and addition of a new process to the process queue."
+					"Please create a process first. Click on the '+ New process' button. Make sure to enter the burst time (between 1 and 30) for the process, and then click on the 'Tick' button to advance the simulation. This will execute the creation and addition of a new process to the process queue."
 				);
 				sendalert(
 					"The process queue is empty, so nothing can be scheduled right now. Please take a look at the prompt for help."
@@ -359,7 +376,7 @@ function loadUnloadCommand(cmd) {
 				//"You have selected the 'New process' option",
 				//"Please click the 'Tick' button to execute the creation of a new process"
 				"You chose the '+ New process' button.",
-				"Please make sure that you have entered the burst time (between 1 and 30) for the process that you want to create, and then click on the 'Tick' button to advance the simulation. This will execute the creation and addition of a new process to the process queue."
+				"Please make sure that you have entered the burst time (between 1 and 30) for the process, and then click on the 'Tick' button to advance the simulation. This will execute the creation and addition of a new process to the process queue."
 			);
 			UpdateUI();
 			newProcess();
