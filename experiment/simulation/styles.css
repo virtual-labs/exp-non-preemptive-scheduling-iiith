@@ -5,7 +5,7 @@ body {
 }
 
 .s_dropbtn {
-  background-color: #037cc2;
+  background-color: #12355B;
   /* border-radius: 100px; */
   color: white;
   padding: 10px;
@@ -16,7 +16,7 @@ body {
 }
 
 .s_dropbtn:hover, .s_dropbtn:focus {
-  background-color: #026CA7;
+  background-color: #284666;
 }
 
 .s_dropdown {
@@ -62,7 +62,7 @@ body {
 }
 
 th {
-  font-size: 12px;
+  font-size: 16px;
   margin: 0px;
   color: #566573;
   padding: 5px;
@@ -70,10 +70,9 @@ th {
 }
 
 b{
-  font-size: 12px;
+  font-size: 16px;
   margin: 0px;
-  color: #566573;
-  padding: 5px;
+  color:black;
   overflow: wrap;
 }
 
@@ -574,7 +573,7 @@ input:focus-visible + label {
   /* display:none; */
   padding: 15px;
   margin: 10px;
-  background-color: dodgerblue;
+  background-color: white;
   opacity: 0.8;
   color: white;
   width: 100%;
@@ -1325,13 +1324,31 @@ pointer-events: auto;
 }
 
 .feedback {
-  color: #D55E00;
+  color: #119DA4;
   font-weight:bold;
 }
 
 .prompt {
-  color: #0072B2;
+  color: #12355B;
   font-weight:bold;
+}
+
+#feedback_div{
+  padding: 8px;
+  font-weight: bold;
+  background-color: #119DA4;
+  color: white;
+  width: fit-content;
+  border-radius: 5px;
+}
+
+#prompt_div{
+  padding: 8px;
+  font-weight: bold;
+  background-color: #12355B;
+  color: white;
+  width: fit-content;
+  border-radius: 5px;
 }
 
 .processes{

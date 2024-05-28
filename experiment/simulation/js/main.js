@@ -158,11 +158,13 @@ function assemble_msg(FEEDBACK, PROMPT) {
 	// }
 
 	// Initialize text with FEEDBACK
-	var text = "<p class ='feedback'>" + FEEDBACK + "</p>";
+	var text = "<div id='feedback_div'>Feedback</div>";
+	text += "<p class ='feedback'>" + FEEDBACK + "</p>";
 
 	// Add PROMPT if it exists
 	if (PROMPT) {
     text += "<hr>";
+		text += "<div id='prompt_div'>Prompt</div>";
     // Split PROMPT by ". " but keep the periods
     var promptSentences = PROMPT.split(/(?<=\.)\s+/).filter(Boolean);
     promptSentences.forEach(function (sentence) {
@@ -185,8 +187,8 @@ function assemble_msg(FEEDBACK, PROMPT) {
 	tb.appendChild(row);
 	dialogue.appendChild(tb);
 
-	document.getElementById("msg-sec").scrollTop =
-		document.getElementById("msg-sec").scrollHeight;
+	//document.getElementById("msg-sec").scrollTop =
+		//document.getElementById("msg-sec").scrollHeight;
 }
 
 function closeGuide() {
@@ -1014,7 +1016,7 @@ function Terminate(n = 1) {
 			State["Completed"].push(tmp);
 		}
 		assemble_msg(
-			"The process that was running has successfully been terminated.",
+			"The process that was running has successfully been completed or terminated.",
 			"Now, you can either schedule any existing process(es) by clicking on the 'Schedule' button, or you can create another process by clicking on the '+ New process' button."
 		);
 		State["Running"] = null;
