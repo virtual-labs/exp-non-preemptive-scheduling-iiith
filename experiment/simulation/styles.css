@@ -118,7 +118,6 @@ td {
 {
   position: absolute;
   top: -0.50rem;
-  left: 200%;
   /* bottom: -2rem;
   left: 50%;
   margin-left:-20px; */
@@ -354,6 +353,7 @@ span.a {
   border-radius: 10px;
   /* height: 820px; */
   margin-right: 10px;
+  margin-left: 10px;
   padding: 2px;
 }
 
@@ -1337,6 +1337,9 @@ pointer-events: auto;
   td{
     font-size: 13px;
   }
+  .display-block{
+    margin: 6px;
+  }
 }
 
 @media (min-width: 1440px){
@@ -1346,5 +1349,14 @@ pointer-events: auto;
   
   td{
     font-size: 16px;
+  }
+  .arrow{
+    left: 110%;
+  }
+  #guide-tip{
+    left: 140%;
+  }
+  .display-block{
+    margin: 10px;
   }
 }
