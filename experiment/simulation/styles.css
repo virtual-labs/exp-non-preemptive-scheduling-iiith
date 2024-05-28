@@ -62,12 +62,14 @@ body {
 }
 
 th {
+  font-size: 16px;
   margin: 10px;
   color: #566573;
   padding: 10px;
 }
 
 td {
+  font-size: 16px;
   margin: 10px;
   padding: 10px;
   text-align: center;
@@ -1041,11 +1043,11 @@ font-weight: bold;
 }
 
 #CPU{
-
-padding: 20px;
+display: flex;
+padding: 0px;
 border-collapse: separate;
-border-spacing: 10px;
-margin: 10px;
+border-spacing: 0px;
+margin: 0px;
 
 }
 
@@ -1309,3 +1311,7 @@ pointer-events: auto;
       transform: rotate(45deg) translate(20px, 20px);
   }
 }
+.processes{
+display: flex;
+}
+
