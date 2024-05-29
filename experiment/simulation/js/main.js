@@ -64,6 +64,9 @@ function UpdatePolicy() {
 			var quantumButton = document.getElementById("quantum-btn");
 
 			quantumButton.style.display = "block";
+			assemble_msg("The scheduling policy has been updated to " + policy.value + ".",
+			"It's time to create a new process. First, click on the 'Quantum' button. Set the time quantum to a value between 1 and 15. Then, click on the '+ New process' button. Make sure to enter the burst time (between 1 and 30) for the process, and then click on the 'Tick' button to advance the simulation. This will execute the creation and addition of a new process to the process queue."
+		);
 		}
 	} else {
 		let policy = document.getElementById("policy-btn");
@@ -79,11 +82,13 @@ function UpdatePolicy() {
 function setQuantum() {
 	var quantum = document.getElementById("quantum").value;
 	if (quantum >= 15) {
-		sendalert("Quantum cannot be greater than 15");
+		sendalert("The time quantum cannot be greater than 15.");
 		return;
 	}
 	State["quantum"] = quantum;
-	assemble_msg("Quantum updated to " + quantum);
+	assemble_msg("Quantum updated to " + quantum + ".",
+	"You have set the time quantum to " + quantum + ". Now, click on the '+ New process' button. Make sure to enter the burst time (between 1 and 30) for the process, and then click on the 'Tick' button to advance the simulation. This will execute the creation and addition of a new process to the process queue."
+	);
 
 	var quantumButton = document.getElementById("quantum-btn");
 	document.getElementById("myDropdown_1").classList.toggle("show");
@@ -261,7 +266,7 @@ function openContent(toc_id) {
 function loadUnloadCommand(cmd) {
 	st = 0;
 	if (State["Policy"] == "RR" && State["quantum"] == null) {
-		sendalert("Please set the quantum for Round Robin scheduling policy");
+		sendalert("Please set the time quantum for the round-robin scheduling policy.");
 		return;
 	}
 	if (cmd == "schedule") {
@@ -292,7 +297,7 @@ function loadUnloadCommand(cmd) {
 					//"Oops! A process is currently running on the CPU.",
 					//"Please wait for it to complete or terminate it"
 					"Oops! A process that you scheduled to run is currently running on the CPU.",
-					"You have many options right now. You can lead the execution of the running process to completion by using the 'Tick' button. Or you could terminate the running process using the 'Terminate' button. You can also interrupt the running process using the 'I/O Interrupt' button. In case there is a process in the waiting queue, you can use the 'I/O Complete' button and select that process to bring it to ready state."
+					"You have many options right now. You can lead the execution of the running process to completion by using the 'Tick' button. Or you could terminate the running process using the 'Terminate' button. You can also interrupt the running process using the 'I/O Interrupt' or 'Interrupt' buttons. In case there is a process in the waiting queue, you can use the 'I/O Complete' button and select that process to bring it to ready state."
 				);
 				sendalert(
 					"A process is currently running on the CPU. Please take a look at the dialog box to explore your current options."
@@ -345,7 +350,7 @@ function loadUnloadCommand(cmd) {
 			}
 			assemble_msg(
 				"You have chosen the 'I/O Complete' button.",
-				"After clicking on the 'I/O Complete' button, select the process from the waiting queue which is waiting for an I/O operation to complete, and click on the 'Tick' button to remove it from the waiting queue and bring it to ready state."
+				"After clicking on the 'I/O Complete' button, select the process from the waiting queue which is waiting for an I/O operation to complete, and click on the 'Tick' button to move it from the waiting queue to the ready queue."
 			);
 			State["clickedState"] = "io_cmpl";
 			Button_State["tick"] = true;
@@ -433,6 +438,10 @@ function loadUnloadCommand(cmd) {
 				return;
 			}
 			State["clickedState"] = "io_int";
+			assemble_msg(
+				"You have chosen the 'I/O Interrupt' button.",
+				"After clicking on the 'I/O Interrupt' button, select the process from the running queue which you want to interrupt, and click on the 'Tick' button to move it from the running queue to the waiting queue."
+			);
 			UpdateUI();
 		} else {
 			sendalert("Please complete the previous command first or unselect it to be able to select a different command.");
@@ -482,10 +491,10 @@ function ToggleQuantum() {
 		document.getElementById("myDropdown_1").classList.toggle("show");
 		let quant_inp = document.getElementById("quantum");
 		quant_inp.placeholder =
-			"Enter Quantum (1-15) to set the quantum for Round Robin scheduling policy";
+			"Enter a number between 1 and 15 to set as the time quantum for round-robin scheduling policy.";
 	} else {
 		sendalert(
-			"Please select Round Robin as the scheduling policy to set the quantum"
+			"Please select round-robin as the scheduling policy to be able to set the quantum."
 		);
 	}
 }
@@ -1038,16 +1047,16 @@ function SelectIO() {
 		_getCheckedRow();
 		if (checkedRow == null) {
 			assemble_msg(
-				"Error! You haven't selected which process you want to remove from the waiting queue.",
-				"After clicking on the 'I/O Complete' button, select the process from the waiting queue which is waiting for an I/O operation to complete, and click on the 'Tick' button to remove it from the waiting queue and bring it to ready state."
+				"Error! You haven't selected which process you want to move from the waiting queue to the ready queue.",
+				"After clicking on the 'I/O Complete' button, select the process from the waiting queue which is waiting for an I/O operation to complete, and click on the 'Tick' button to move it from the waiting queue to the ready queue."
 			);
-			sendalert("Please select which process you want to remove from the waiting queue.");
+			sendalert("Please select which process you want to move from the waiting queue to the ready queue.");
 			return;
 		}
 		if (checkedRow[4] != "Waiting") {
 			assemble_msg(
 				"Error! You have choosen the wrong process for this action.",
-				"After clicking on the 'I/O Complete' button, select the process from the waiting queue which is waiting for an I/O operation to complete, and click on the 'Tick' button to remove it from the waiting queue and bring it to ready state."
+				"After clicking on the 'I/O Complete' button, select the process from the waiting queue which is waiting for an I/O operation to complete, and click on the 'Tick' button to move it from the waiting queue to the ready queue."
 			);
 			return;
 		}
@@ -1091,10 +1100,20 @@ function Tick() {
 	}
 	if (State["Running"] != null && State["Policy"] == "RR") {
 		if (quant_counter >= State["quantum"] && State["clickedState"] != "int") {
-			sendalert("Quantum expired! Schedule the next process");
+			assemble_msg(
+				"The quantum has expired.",
+				"Interrupt the current process using the 'Interrupt' button, then schedule the next one."
+			);
+			sendalert("The quantum has expired. Interrupt this process and schedule the next process.");
 			return;
+		}else{
+			assemble_msg(
+				"The process having PID " + State["Running"].id + " is now running on the CPU!",
+				"You can click on 'Tick' and continue executing this process until the quantum expries. You also have the option of using the 'I/O interrupt' or 'Interrupt' buttons on this process. In case the process is in the waiting queue, you can use the 'I/O Complete' button and select that process to bring it to ready state."
+			);
 		}
 		quant_counter++;
+		
 	}
 	if (State["clickedState"] == null) {
 		if (State["Running"] != null) {
@@ -1116,6 +1135,10 @@ function Tick() {
 				Terminate(0);
 				StateAction_log.push(
 					new Action("terminate", JSON.parse(JSON.stringify(State)))
+				);
+				assemble_msg(
+					"The process has completed.",
+					"The process has completed its execution and has been terminated. It has been removed from the CPU. Take a look at the available controls to see what you can do next."
 				);
 			}
 		} else {
@@ -1161,6 +1184,10 @@ function Tick() {
 				StateAction_log.push(
 					new Action("terminate", JSON.parse(JSON.stringify(State)))
 				);
+				assemble_msg(
+					"The process has completed.",
+					"The process has completed its execution and has been terminated. It has been removed from the CPU. Take a look at the available controls to see what you can do next."
+				);
 			}
 		}
 		if (State["Running"] != null) {
@@ -1195,6 +1222,10 @@ function Tick() {
 			new Action("io_cmpl", JSON.parse(JSON.stringify(State)))
 		);
 		Button_State["io_cmpl"] = false;
+		assemble_msg(
+			"I/O Complete signal has been sent.",
+			"The I/O operation has been completed and the process is now moved to the ready queue. Take a look at the available controls to see what you can do next."
+		); 
 		if (State["Running"] != null) {
 			Redo_log = [];
 			let ticker = document.getElementById("ticker");
@@ -1213,6 +1244,10 @@ function Tick() {
 				Terminate(0);
 				StateAction_log.push(
 					new Action("terminate", JSON.parse(JSON.stringify(State)))
+				);
+				assemble_msg(
+					"The process has completed.",
+					"The process has completed its execution and has been terminated. It has been removed from the CPU. Take a look at the available controls to see what you can do next."
 				);
 			}
 		}
@@ -1233,6 +1268,10 @@ function Tick() {
 			// Action_log.push(new Action("terminate",JSON.parse(JSON.stringify(State))));
 		}
 		State["clickedState"] = null;
+		assemble_msg(
+			"You chose to terminate the process.",
+			"The process has been terminated and removed from the CPU. Take a look at the available controls to see what you can do next."
+		);
 		if (State["Running"] != null) {
 			Redo_log = [];
 			let ticker = document.getElementById("ticker");
@@ -1252,6 +1291,10 @@ function Tick() {
 				StateAction_log.push(
 					new Action("terminate", JSON.parse(JSON.stringify(State)))
 				);
+				assemble_msg(
+					"The process has completed.",
+					"The process has completed its execution and has been terminated. It has been removed from the CPU. Take a look at the available controls to see what you can do next."
+				);
 			}
 		}
 		if (State["Running"] != null) {
@@ -1270,6 +1313,10 @@ function Tick() {
 		// Previous_States.push(JSON.parse(JSON.stringify(State)));
 		// Action_log.push(new Action("io_int",JSON.parse(JSON.stringify(State))));
 		State["clickedState"] = null;
+		assemble_msg(
+			"I/O Interrupt signal has been sent.",
+			"The process has been interrupted for an I/O operation and moved to the waiting queue. Take a look at the available controls to see what you can do next."
+		);
 		updateCPU();
 		if (State["Running"] != null) {
 			Redo_log = [];
@@ -1289,6 +1336,10 @@ function Tick() {
 				Terminate(0);
 				StateAction_log.push(
 					new Action("terminate", JSON.parse(JSON.stringify(State)))
+				);
+				assemble_msg(
+					"The process has completed.",
+					"The process has completed its execution and has been terminated. It has been removed from the CPU. Take a look at the available controls to see what you can do next."
 				);
 			}
 		}
@@ -1319,6 +1370,10 @@ function Tick() {
 				StateAction_log.push(
 					new Action("terminate", JSON.parse(JSON.stringify(State)))
 				);
+				assemble_msg(
+					"The process has completed.",
+					"The process has completed its execution and has been terminated. It has been removed from the CPU. Take a look at the available controls to see what you can do next."
+				);
 			}
 		}
 		if (State["Running"] != null) {
@@ -1332,7 +1387,10 @@ function Tick() {
 		StateAction_log.push(new Action("int", JSON.parse(JSON.stringify(State))));
 		State["clickedState"] = null;
 		updateCPU();
-
+		assemble_msg(
+			"Interrupt signal has been sent.",
+			"The process has been interrupted and is now moved to the ready queue. Take a look at the available controls to see what you can do next."
+		);
 		UpdateUI();
 	}
 }
