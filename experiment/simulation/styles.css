@@ -110,6 +110,19 @@ td {
   margin-top: 5px;
 }
 
+#guide-tip-quantum {
+  position: absolute;
+  top: -1rem;
+  width: 200px;
+  left:125%;
+  background-color: gainsboro;
+  border-radius: 20px;
+  padding: 20px;
+  z-index: 20;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+  display: none;
+}
+
 #arw {
   display: none;
 }
@@ -157,6 +170,20 @@ td {
    */
   background-image: url(./images/arrow-up.png);
   /* transform: rotate(90deg); */
+  background-size: contain;
+}
+
+#quantum-arw {
+  display: none;
+}
+.quantum-arrow
+{
+  position: absolute;
+  top: -0.50rem;
+  width: 60px;
+  height: 60px;
+  left: 90%;
+  background-image: url(https://cdn-icons-png.freepik.com/512/5083/5083135.png);
   background-size: contain;
 }
 

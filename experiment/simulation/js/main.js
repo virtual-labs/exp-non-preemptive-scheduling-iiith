@@ -52,13 +52,27 @@ class Process {
 let st = -1;
 function UpdatePolicy() {
 	if (st == -1) {
-		closeGuide();
 		let policy = document.getElementById("policy-btn");
 		State["Policy"] = policy.value == "None" ? null : policy.value;
-		assemble_msg("The scheduling policy has been updated to " + policy.value + ".",
-		"It's time to create a new process. Click on the '+ New process' button. Make sure to enter the burst time (between 1 and 30) for the process, and then click on the 'Tick' button to advance the simulation. This will execute the creation and addition of a new process to the process queue."
-		);
-		UpdateUI();
+		if(State["Policy"] != null) {
+			assemble_msg("The scheduling policy has been updated to " + policy.value + ".",
+			"It's time to create a new process. Click on the '+ New process' button. Make sure to enter the burst time (between 1 and 30) for the process, and then click on the 'Tick' button to advance the simulation. This will execute the creation and addition of a new process to the process queue."
+			);
+			if(State["Policy"] == "RR") {
+				showQuantumHideOthers();
+			}else{
+				showProcessHideOthers();
+				document.getElementById("quantum-btn").style.display = "none";
+			}
+			UpdateUI();
+		}else if (State["Policy"] == null) {
+			assemble_msg(
+				"Please select a scheduling policy before starting the experiment.",
+				"Click on the 'Scheduling Policy' dropdown and select one of the policies for the simulation."
+			);
+			showPolicyHideOthers();
+			document.getElementById("quantum-btn").style.display = "none";
+		}
 
 		if (policy.value == "RR") {
 			var quantumButton = document.getElementById("quantum-btn");
@@ -66,7 +80,7 @@ function UpdatePolicy() {
 			quantumButton.style.display = "block";
 			assemble_msg("The scheduling policy has been updated to " + policy.value + ".",
 			"It's time to create a new process. First, click on the 'Quantum' button. Set the time quantum to a value between 1 and 15. Then, click on the '+ New process' button. Make sure to enter the burst time (between 1 and 30) for the process, and then click on the 'Tick' button to advance the simulation. This will execute the creation and addition of a new process to the process queue."
-		);
+			);
 		}
 	} else {
 		let policy = document.getElementById("policy-btn");
@@ -98,7 +112,7 @@ function setQuantum() {
 	quantumDisplay.innerHTML += "<p>Quantum: " + quantum + "</p>";
 
 	quant_counter = 0;
-
+	showProcessHideOthers();
 	UpdateUI();
 }
 
@@ -196,17 +210,61 @@ function assemble_msg(FEEDBACK, PROMPT) {
 		//document.getElementById("msg-sec").scrollHeight;
 }
 
-function closeGuide() {
-	document.getElementById("guide-tip_1").style.display = "none";
-	document.getElementById("arw_1").style.display = "none";
-
+function showProcessHideOthers() {
 	document.getElementById("guide-tip").style.display = "block";
 	document.getElementById("arw").style.display = "block";
+
+	document.getElementById("guide-tip-quantum").style.display = "none";
+	document.getElementById("quantum-arw").style.display = "none";
+
+	document.getElementById("guide-tip_1").style.display = "none";
+	document.getElementById("arw_1").style.display = "none";
 
 	document.getElementById("newProcess-btn").style.opacity = 0.8;
 	document.getElementById("newProcess-btn").style.cursor = "pointer";
 
-	assemble_msg("Please create a new process to start the experiment.");
+	document.getElementById("quantum-btn").style.opacity = 0.4;
+	document.getElementById("quantum-btn").style.cursor = "not-allowed";
+
+	// assemble_msg("Please create a new process to start the experiment.");
+}
+
+function showQuantumHideOthers() {
+	document.getElementById("guide-tip-quantum").style.display = "block";
+	document.getElementById("quantum-arw").style.display = "block";
+
+	document.getElementById("guide-tip_1").style.display = "none";
+	document.getElementById("arw_1").style.display = "none";
+
+	document.getElementById("guide-tip").style.display = "none";
+	document.getElementById("arw").style.display = "none";
+
+	document.getElementById("quantum-btn").style.opacity = 0.8;
+	document.getElementById("quantum-btn").style.cursor = "pointer";
+
+	document.getElementById("newProcess-btn").style.opacity = 0.4;
+	document.getElementById("newProcess-btn").style.cursor = "not-allowed";
+
+	// assemble_msg("Please set a time quantum.");
+}
+
+function showPolicyHideOthers() {
+	document.getElementById("guide-tip_1").style.display = "block";
+	document.getElementById("arw_1").style.display = "block";
+
+	document.getElementById("guide-tip").style.display = "none";
+	document.getElementById("arw").style.display = "none";
+
+	document.getElementById("guide-tip-quantum").style.display = "none";
+	document.getElementById("quantum-arw").style.display = "none";
+
+	document.getElementById("newProcess-btn").style.opacity = 0.4;
+	document.getElementById("newProcess-btn").style.cursor = "not-allowed";
+
+	document.getElementById("quantum-btn").style.opacity = 0.4;
+	document.getElementById("quantum-btn").style.cursor = "not-allowed";
+
+	// assemble_msg("Please create a new process to start the experiment.");
 }
 
 function sendalert(message) {
