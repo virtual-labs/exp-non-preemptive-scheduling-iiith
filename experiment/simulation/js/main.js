@@ -144,6 +144,44 @@ function hide_history() {
 	document.getElementById("current_dialog").style.display = "block";
 }
 
+function getPreviousFeedback() {
+	let dialogTable = document.getElementById("dialog");
+	if (dialogTable.rows.length > 0) {
+			// Get the content of the second last row
+			let previous_dialog = dialogTable.rows[dialogTable.rows.length - 2].innerHTML;
+
+			// Create a temporary container to manipulate the HTML
+			let tempDiv = document.createElement("div");
+			tempDiv.innerHTML = previous_dialog;
+
+			// Extract the feedback content
+			let feedback = tempDiv.querySelector(".feedback");
+			if (feedback) {
+					return feedback.innerHTML;
+			}
+	}
+	return null;
+}
+
+function getPreviousPrompt() {
+	let dialogTable = document.getElementById("dialog");
+	if (dialogTable.rows.length > 0) {
+			// Get the content of the second last row
+			let previous_dialog = dialogTable.rows[dialogTable.rows.length - 2].innerHTML;
+
+			// Create a temporary container to manipulate the HTML
+			let tempDiv = document.createElement("div");
+			tempDiv.innerHTML = previous_dialog;
+
+			// Extract the prompt content
+			let prompt = tempDiv.querySelector(".prompt");
+			if (prompt) {
+					return prompt.innerHTML;
+			}
+	}
+	return null;
+}
+
 function assemble_msg(FEEDBACK, PROMPT) {
 	var dialogue = document.getElementById("dialog");
 	var tb = dialogue.getElementsByTagName("tbody")[0];
@@ -331,6 +369,9 @@ function loadUnloadCommand(cmd) {
 		if (State["clickedState"] == "schedule") {
 			State["clickedState"] = null;
 			Button_State["tick"] = false;
+			if(getPreviousFeedback() != null && getPreviousPrompt() != null){
+				assemble_msg(getPreviousFeedback(), getPreviousPrompt());
+			}
 			UpdateUI();
 			// assemble_msg(
 			// 	//"You have chosen a new scheduling policy",
@@ -392,6 +433,9 @@ function loadUnloadCommand(cmd) {
 	if (cmd == "io_cmpl") {
 		if (State["clickedState"] == "io_cmpl") {
 			State["clickedState"] = null;
+			if(getPreviousFeedback() != null && getPreviousPrompt() != null){
+				assemble_msg(getPreviousFeedback(), getPreviousPrompt());
+			}
 			UpdateUI();
 		} else if (State["clickedState"] == null) {
 			if (State["Waiting"].length == 0) {
@@ -430,6 +474,9 @@ function loadUnloadCommand(cmd) {
 			State["clickedState"] = null;
 			newProcess_btn = document.getElementById("newProcess-btn");
 			newProcess_btn.classList.remove("btn-loaded");
+			if(getPreviousFeedback() != null && getPreviousPrompt() != null){
+				assemble_msg(getPreviousFeedback(), getPreviousPrompt());
+			}
 		} else if (State["clickedState"] == null) {
 			// if (State["Running"] != null) {
 			//     assemble_msg("A process is currently running on the CPU.", "Please wait for it to complete or terminate it.");
@@ -456,6 +503,9 @@ function loadUnloadCommand(cmd) {
 	if (cmd == "terminate") {
 		if (State["clickedState"] == "terminate") {
 			State["clickedState"] = null;
+			if(getPreviousFeedback() != null && getPreviousPrompt() != null){
+				assemble_msg(getPreviousFeedback(), getPreviousPrompt());
+			}
 			UpdateUI();
 		} else if (State["clickedState"] == null) {
 			if (State["Running"] == null) {
@@ -483,6 +533,9 @@ function loadUnloadCommand(cmd) {
 	if (cmd == "io_int") {
 		if (State["clickedState"] == "io_int") {
 			State["clickedState"] = null;
+			if(getPreviousFeedback() != null && getPreviousPrompt() != null){
+				assemble_msg(getPreviousFeedback(), getPreviousPrompt());
+			}
 			UpdateUI();
 		} else if (State["clickedState"] == null) {
 			if (State["Running"] == null) {
@@ -508,6 +561,9 @@ function loadUnloadCommand(cmd) {
 	if (cmd == "int") {
 		if (State["clickedState"] == "int") {
 			State["clickedState"] = null;
+			if(getPreviousFeedback() != null && getPreviousPrompt() != null){
+				assemble_msg(getPreviousFeedback(), getPreviousPrompt());
+			}
 			UpdateUI();
 		} else if (State["clickedState"] == null) {
 			if (State["Running"] == null) {
@@ -521,6 +577,10 @@ function loadUnloadCommand(cmd) {
 				return;
 			}
 			State["clickedState"] = "int";
+			assemble_msg(
+				"You have chosen the 'Interrupt' button.",
+				"After clicking on the 'Interrupt' button, use the 'Tick' button to move the running process from the running queue to the waiting queue."
+			);
 			UpdateUI();
 		} else {
 			sendalert("Please complete the previous command first or unselect it to be able to select a different command.");
@@ -565,16 +625,16 @@ function CreateProcess() {
 	let create_process_input = document.getElementById("burstTime").value;
 	document.getElementById("burstTime").value = "";
 	if (create_process_input == "") {
-		sendalert("Please enter a number between 1 to 30");
+		sendalert("Please enter a burst time for the process between 1 to 30.");
 		return;
 	}
 	let create_process_input_int = parseInt(create_process_input);
 	if (create_process_input_int < 1) {
-		sendalert("Please enter a number between 1 to 30");
+		sendalert("Please enter a burst time for the process between 1 to 30.");
 		return;
 	}
 	if (create_process_input_int > 30) {
-		sendalert("Please enter a number between 1 to 30");
+		sendalert("Please enter a burst time for the process between 1 to 30.");
 		return;	
 	}
 	let process = new Process(
@@ -827,7 +887,7 @@ function scheduleSJF() {
 			idx = getShortestJob();
 			if (checkedRow[0] != State["Ready"][idx].id) {
 				assemble_msg(
-					"Error! You have chosen the wrong process according to FCFS.",
+					"Error! You have chosen the wrong process according to SJF.",
 					"Please click on the 'Schedule' button. Then select the process from the process queue that should be scheduled according to SJF scheduling policy."
 				);
 				return;
