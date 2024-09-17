@@ -258,10 +258,10 @@ function showProcessHideOthers() {
 	document.getElementById("guide-tip_1").style.display = "none";
 	document.getElementById("arw_1").style.display = "none";
 
-	document.getElementById("newProcess-btn").style.opacity = 0.8;
+	document.getElementById("newProcess-btn").style.opacity = 1;
 	document.getElementById("newProcess-btn").style.cursor = "pointer";
 
-	document.getElementById("quantum-btn").style.opacity = 0.4;
+	document.getElementById("quantum-btn").style.opacity = 1;
 	document.getElementById("quantum-btn").style.cursor = "not-allowed";
 
 	// assemble_msg("Please create a new process to start the experiment.");
@@ -277,10 +277,10 @@ function showQuantumHideOthers() {
 	document.getElementById("guide-tip").style.display = "none";
 	document.getElementById("arw").style.display = "none";
 
-	document.getElementById("quantum-btn").style.opacity = 0.8;
+	document.getElementById("quantum-btn").style.opacity = 1;
 	document.getElementById("quantum-btn").style.cursor = "pointer";
 
-	document.getElementById("newProcess-btn").style.opacity = 0.4;
+	document.getElementById("newProcess-btn").style.opacity = 1;
 	document.getElementById("newProcess-btn").style.cursor = "not-allowed";
 
 	// assemble_msg("Please set a time quantum.");
