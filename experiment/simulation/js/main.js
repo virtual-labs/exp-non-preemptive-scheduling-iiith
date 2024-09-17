@@ -305,6 +305,7 @@ function showPolicyHideOthers() {
 	// assemble_msg("Please create a new process to start the experiment.");
 }
 
+
 function sendalert(message) {
 	alertMsg = message;
 
@@ -589,6 +590,9 @@ function loadUnloadCommand(cmd) {
 }
 
 function ToggleCreateProcess() {
+	document.getElementById("arw").style.display = "none";
+    document.getElementById("guide-tip").style.display = "none";
+    
 	if (State["clickedState"] == "newProcess") {
 		State["clickedState"] = null;
 		UpdateState();
