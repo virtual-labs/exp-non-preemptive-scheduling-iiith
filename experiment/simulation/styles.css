@@ -1,7 +1,12 @@
 body {
-    padding: 30px;
+    padding: 10px;
     padding-bottom: 20px;
     font-family: sans-serif;
+    font-size:14px; 
+}
+
+p{
+  margin:12px;
 }
 
 .s_dropbtn {
@@ -650,7 +655,7 @@ input:focus-visible + label {
   overflow-x: hidden;
   padding: 5px;
   margin: 5px;
-  height: 300px;
+  height: 250px;
   float: left;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
