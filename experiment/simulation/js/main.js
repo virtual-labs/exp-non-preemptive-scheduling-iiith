@@ -609,6 +609,8 @@ function ToggleCreateProcess() {
 }
 
 function ToggleQuantum() {
+	document.getElementById("quantum-arw").style.display = "none";
+    document.getElementById("guide-tip-quantum").style.display = "none";
 	if (State["Policy"] == "RR") {
 		document.getElementById("myDropdown_1").classList.toggle("show");
 		let quant_inp = document.getElementById("quantum");
