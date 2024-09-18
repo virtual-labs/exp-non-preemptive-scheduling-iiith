@@ -1394,7 +1394,32 @@ pointer-events: auto;
 }
 
 
+@media (min-width: 768px) { 
+  p{
+    font-size:13px;
+  }
+  b{
+    font-size:11px;
+  }
+  th{
+    font-size: 11px;
+  }
+  
+  td{
+    font-size: 11px;
+  }
+  .display-block{
+    margin: 4px;
+  }
+ }
+
 @media (min-width: 1024px){
+  p{
+    font-size:15px;
+  }
+  b{
+    font-size:13px;
+  }
   th{
     font-size: 13px;
   }
@@ -1408,6 +1433,12 @@ pointer-events: auto;
 }
 
 @media (min-width: 1440px){
+  p{
+    font-size:18px;
+  }
+  b{
+    font-size:16px;
+  }
   th{
     font-size: 16px;
   }
