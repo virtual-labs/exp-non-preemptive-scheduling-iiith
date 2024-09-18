@@ -592,6 +592,7 @@ function loadUnloadCommand(cmd) {
 function ToggleCreateProcess() {
 	document.getElementById("arw").style.display = "none";
     document.getElementById("guide-tip").style.display = "none";
+	document.getElementById("start-note").style.display = "none";
     
 	if (State["clickedState"] == "newProcess") {
 		State["clickedState"] = null;
