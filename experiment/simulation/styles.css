@@ -378,11 +378,12 @@ span.a {
   margin-right: 10px;
   position:relative;
   z-index:30;
+  display:none;
 }
 
 .displays {
   float: left;
-  width: 57%;
+  width: 70%;
   /* background-color: whitesmoke ; */
   border-radius: 10px;
   /* height: 820px; */
@@ -391,17 +392,18 @@ span.a {
   padding: 2px;
   position:relative;
   z-index:20;
+  height:500px;
 }
 
 .dialog-box {
   position:relative;
   z-index:10;
   float: left;
-  width: 21%;
+  width: 30%;
   background-color: #F2F3F4 ;
   margin-top: 10px;
   border-radius: 10px;
-  height: 450px;
+  height: 490px;
   padding: 2px;
   overflow-y: scroll;
 }
@@ -1470,6 +1472,15 @@ pointer-events: auto;
   }
   .display-block{
     margin: 6px;
+  }
+  .ts_states{
+    display:block;
+  }
+  .displays{
+    width: 57%;
+  }
+  .dialog-box{
+  width: 21%;
   }
 }
 
