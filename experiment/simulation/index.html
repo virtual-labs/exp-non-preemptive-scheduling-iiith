@@ -35,7 +35,13 @@
 
 
     <div class="container">
+        
         <div class="ts_states">
+            <button class="tick-button" data-target="accordion1">&#10004;</button>
+            <button class="cross-button" data-target="accordion1">&#10006;</button>
+        
+          <div id="accordion1" class="closable">
+                <!-- ts_states content that can be shown/hidden -->
             <p style="text-align: center; font-weight: bold">Transition states of the system</p>
             <hr>
 
@@ -99,6 +105,7 @@
 
                 </div>
             </div>
+          </div>
         </div>
         <div class="displays">
 
@@ -283,6 +290,10 @@
 
         </div>
         <div id="msg-sec" class="dialog-box">
+            <button class="tick-button" data-target="accordion2">&#10004;</button>
+            <button class="cross-button" data-target="accordion2">&#10006;</button>
+            <div id="accordion2" class="closable">
+                <!-- dialog box content that can be shown/hidden -->
             <div style="border-bottom: solid 1px black; margin-bottom: 10px;">
                 <p style="font-weight: bold; float: left; margin: 20px;">Dialog box
                 </p>
@@ -313,9 +324,11 @@
                     </td> -->
                 </tr>
             </table>
-
+            </div>
         </div>
     </div>
+
+
     <div class="concept-block">
         <div id="toc">
             <button class="toc-element" onclick="openContent(1)"> Objective

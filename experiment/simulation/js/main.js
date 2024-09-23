@@ -1809,4 +1809,28 @@ function Redo() {
 	);
 	UpdateUI();
 	updateCPU();
-}''
+} ''
+
+document.addEventListener("DOMContentLoaded", function() {
+    const tickButtons = document.querySelectorAll('.tick-button');
+    const crossButtons = document.querySelectorAll('.cross-button');
+
+    tickButtons.forEach((button) => {
+        button.addEventListener('click', function() {
+            const targetAccordion = document.querySelector(`#${this.getAttribute('data-target')}`);
+            if (targetAccordion) {
+                targetAccordion.classList.add('active');
+            }
+        });
+    });
+
+    crossButtons.forEach((button) => {
+        button.addEventListener('click', function() {
+            const targetAccordion = document.querySelector(`#${this.getAttribute('data-target')}`);
+            if (targetAccordion) {
+                targetAccordion.classList.remove('active');
+            }
+        });
+	});
+	
+});
