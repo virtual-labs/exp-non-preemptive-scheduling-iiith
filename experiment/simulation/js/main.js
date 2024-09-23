@@ -1818,18 +1818,30 @@ document.addEventListener("DOMContentLoaded", function() {
     tickButtons.forEach((button) => {
         button.addEventListener('click', function() {
             const targetAccordion = document.querySelector(`#${this.getAttribute('data-target')}`);
-            if (targetAccordion) {
-                targetAccordion.classList.add('active');
-            }
+			if (targetAccordion) {
+				targetAccordion.classList.add('active');
+				
+				button.style.display = 'none'; // Hides tick button
+				const crossButton = document.querySelector(`.cross-button[data-target="${this.getAttribute('data-target')}"]`);
+				if (crossButton) {
+					crossButton.style.display = 'inline-block'; // Shows cross button
+				}
+			}
         });
     });
 
     crossButtons.forEach((button) => {
         button.addEventListener('click', function() {
             const targetAccordion = document.querySelector(`#${this.getAttribute('data-target')}`);
-            if (targetAccordion) {
-                targetAccordion.classList.remove('active');
-            }
+			if (targetAccordion) {
+				targetAccordion.classList.remove('active');
+				
+				button.style.display = 'none'; // Hides cross button
+				const tickButton = document.querySelector(`.tick-button[data-target="${this.getAttribute('data-target')}"]`);
+				if (tickButton) {
+					tickButton.style.display = 'inline-block'; // Shows tick button
+				}
+			}
         });
 	});
 	

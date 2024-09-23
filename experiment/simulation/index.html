@@ -37,10 +37,10 @@
     <div class="container">
         
         <div class="ts_states">
-            <button class="tick-button" data-target="accordion1">&#10004;</button>
+            <button class="tick-button" data-target="accordion1" style="display: none">&#10004;</button>
             <button class="cross-button" data-target="accordion1">&#10006;</button>
         
-          <div id="accordion1" class="closable">
+          <div id="accordion1" class="closable active">
                 <!-- ts_states content that can be shown/hidden -->
             <p style="text-align: center; font-weight: bold">Transition states of the system</p>
             <hr>
@@ -158,7 +158,7 @@
 
                     <b>Scheduling Policy:</b>
                     <select name="things" class="btn" id="policy-btn" onchange="UpdatePolicy()">
-                        <option value="None" selected="selected">Please Select the Scheduling Policy...</option>
+                        <option value="None" selected="selected">Select Scheduling Policy...</option>
                         <option value="FCFS">First Come First Serve</option>
                         <option value="SJF">Shortest Job First</option>
                         <option value="SRTF">Shorted Remaining Time First</option>
@@ -290,9 +290,9 @@
 
         </div>
         <div id="msg-sec" class="dialog-box">
-            <button class="tick-button" data-target="accordion2">&#10004;</button>
+            <button class="tick-button" data-target="accordion2" style="display: none">&#10004;</button>
             <button class="cross-button" data-target="accordion2">&#10006;</button>
-            <div id="accordion2" class="closable">
+            <div id="accordion2" class="closable active">
                 <!-- dialog box content that can be shown/hidden -->
             <div style="border-bottom: solid 1px black; margin-bottom: 10px;">
                 <p style="font-weight: bold; float: left; margin: 20px;">Dialog box
