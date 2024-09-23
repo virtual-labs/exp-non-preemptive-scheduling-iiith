@@ -1482,6 +1482,9 @@ pointer-events: auto;
   .dialog-box{
   width: 21%;
   }
+  #start-note{
+    display:none;
+  }
 }
 
 @media (min-width: 1440px){
