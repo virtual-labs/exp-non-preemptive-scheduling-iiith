@@ -660,7 +660,7 @@ function CreateProcess() {
 	);
 }
 
-function UpdateTable() {
+/* function UpdateTable() {
 	let table = document.getElementById("processes");
 	table.innerHTML =
 		"<th>Process ID</th><th>Arrival Time</th><th>Burst Time</th><th>Remaining time</th><th>Status</th>";
@@ -737,8 +737,106 @@ function UpdateTable() {
 		cell4.innerHTML = process.status;
 		cell4.className = "tag-red";
 	});
-}
+} */
 
+	function highlightCell(cell, newValue) {
+		if (cell.innerHTML !== newValue.toString()) {
+			console.log("Highlighting cell:", cell, " with new value:", newValue);  // Debugging
+			// Log cell content and new value
+			console.log("Highlighting CPU cell with new value:", newValue);
+			cell.innerHTML = newValue;  // Update the cell content
+			cell.classList.add("highlight");  // Add the highlight class
+	
+			// Remove highlight after 2 seconds
+			setTimeout(() => {
+				cell.classList.remove("highlight");
+			}, 2000);
+		}
+	}
+	
+	
+	function UpdateTable() {
+		let table = document.getElementById("processes");
+		table.innerHTML =
+			"<th>Process ID</th><th>Arrival Time</th><th>Burst Time</th><th>Remaining time</th><th>Status</th>";
+		
+		if (State["Running"] != null) {
+			let row = table.insertRow(-1);
+			let cell0 = row.insertCell(0);
+			highlightCell(cell0, State["Running"].id);
+			let cell1 = row.insertCell(1);
+			highlightCell(cell1, State["Running"].arrival_time);
+			let cell2 = row.insertCell(2);
+			highlightCell(cell2, State["Running"].mapping["burst_time"]);
+			let cell3 = row.insertCell(3);
+			let remainingTime = State["Running"].mapping["burst_time"] - State["Running"].mapping["run_time"];
+			highlightCell(cell3, remainingTime);
+			let cell4 = row.insertCell(4);
+			highlightCell(cell4, State["Running"].status);
+			cell4.className = "tag-green";
+		}
+		State["Ready"].forEach((process) => {
+			let row = table.insertRow(-1);
+			let cell0 = row.insertCell(0);
+			highlightCell(cell0, process.id);
+			let cell1 = row.insertCell(1);
+			highlightCell(cell1, process.arrival_time);
+			let cell2 = row.insertCell(2);
+			highlightCell(cell2, process.burst_time);
+			let cell3 = row.insertCell(3);
+			let remainingTime = process.burst_time - process.mapping["run_time"];
+			highlightCell(cell3, remainingTime);
+			let cell4 = row.insertCell(4);
+			highlightCell(cell4, process.status);
+			cell4.className = "tag-orange";
+		});
+		State["Waiting"].forEach((process) => {
+			let row = table.insertRow(-1);
+			let cell0 = row.insertCell(0);
+			highlightCell(cell0, process.id);
+			let cell1 = row.insertCell(1);
+			highlightCell(cell1, process.arrival_time);
+			let cell2 = row.insertCell(2);
+			highlightCell(cell2, process.burst_time);
+			let cell3 = row.insertCell(3);
+			let remainingTime = process.burst_time - process.mapping["run_time"];
+			highlightCell(cell3, remainingTime);
+			let cell4 = row.insertCell(4);
+			highlightCell(cell4, process.status);
+			cell4.className = "tag-blue";
+		});
+		State["Completed"].forEach((process) => {
+			let row = table.insertRow(-1);
+			let cell0 = row.insertCell(0);
+			highlightCell(cell0, process.id);
+			let cell1 = row.insertCell(1);
+			highlightCell(cell1, process.arrival_time);
+			let cell2 = row.insertCell(2);
+			highlightCell(cell2, process.burst_time);
+			let cell3 = row.insertCell(3);
+			highlightCell(cell3, 0);
+			let cell4 = row.insertCell(4);
+			highlightCell(cell4, process.status);
+			cell4.className = "tag-grey";
+		});
+		State["Terminated"].forEach((process) => {
+			let row = table.insertRow(-1);
+			let cell0 = row.insertCell(0);
+			highlightCell(cell0, process.id);
+			let cell1 = row.insertCell(1);
+			highlightCell(cell1, process.arrival_time);
+			let cell2 = row.insertCell(2);
+			highlightCell(cell2, process.burst_time);
+			let cell3 = row.insertCell(3);
+			highlightCell(cell3, 0);
+			let cell4 = row.insertCell(4);
+			highlightCell(cell4, process.status);
+			cell4.className = "tag-red";
+		});
+	}
+	
+
+/* 
 function updateCPU() {
 	if (State["Running"] != null) {
 		let cpuTable = document.getElementById("CPU");
@@ -771,7 +869,58 @@ function updateCPU() {
 		cpuTable.innerHTML = "";
 	}
 }
+} */
+	
+let previousRunTime = null; // Track the previous run time for the CPU
 
+function updateCPU() {
+	if (State["Running"] != null) {
+		let cpuTable = document.getElementById("CPU");
+
+		if (State["Running"].mapping["run_time"] == 0) {
+			cpuTable.innerHTML = "";
+			State["Running"].status = "Ready";
+			UpdateTable();
+			return;
+		}
+		
+		cpuTable.innerHTML = "<th>Process ID</th><th>Burst Time</th><th>Run Time</th>";
+		let row = cpuTable.insertRow(-1);
+		let cell1 = row.insertCell(0);
+		cell1.innerHTML = State["Running"].id;
+
+		let cell2 = row.insertCell(1);
+		cell2.innerHTML = State["Running"].mapping["burst_time"];
+
+		// Get the current run time
+		let currentRunTime = State["Running"].mapping["run_time"];
+		let cell3 = row.insertCell(2);
+		cell3.innerHTML = currentRunTime;
+
+		// Highlight the run time cell if it has changed
+		if (previousRunTime !== null && currentRunTime !== previousRunTime) {
+			cell3.classList.add("highlight"); // Add highlight class to run time cell
+			setTimeout(() => {
+				cell3.classList.remove("highlight"); // Remove highlight after 2 seconds
+			}, 2000);
+		}
+		previousRunTime = currentRunTime; // Update previous run time
+
+		assemble_msg(
+			"The process having PID " + State["Running"].id + " is now running on the CPU!",
+			"Click on the 'Tick' button to advance the simulation by one clock cycle and continue the execution of the process."
+		);
+		UpdateUI();
+	} else {
+		let cpuTable = document.getElementById("CPU");
+		cpuTable.innerHTML = "";
+	}
+}
+
+
+	
+	
+	
 function _schedule() {
 	var pTable = document.getElementById("processes");
 	var tbody = pTable.getElementsByTagName("tbody")[0];
@@ -1204,7 +1353,7 @@ function SelectIO() {
 	}
 }
 
-function Tick() {
+ function Tick() {
 	if (
 		State["Ready"].length > 0 &&
 		State["Running"] != null &&
@@ -1518,8 +1667,10 @@ function Tick() {
 		);
 		UpdateUI();
 	}
-}
+} 
 
+
+	
 function UpdatePreviousState() {
 	let container = document.getElementById("prev_state");
 	container.innerHTML = "";
@@ -1846,3 +1997,4 @@ document.addEventListener("DOMContentLoaded", function() {
 	});
 	
 });
+
