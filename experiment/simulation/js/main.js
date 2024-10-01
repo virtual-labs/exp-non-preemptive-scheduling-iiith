@@ -341,7 +341,7 @@ function _getCheckedRow() {
 	}
 
 	// Output the details of the checked row (for demonstration)
-	console.log(checkedRow);
+	// console.log(checkedRow);
 }
 
 function openTheory() {
@@ -367,6 +367,7 @@ function loadUnloadCommand(cmd) {
 		return;
 	}
 	if (cmd == "schedule") {
+		console.log("clicked stATE")
 		if (State["clickedState"] == "schedule") {
 			State["clickedState"] = null;
 			Button_State["tick"] = false;
@@ -420,6 +421,7 @@ function loadUnloadCommand(cmd) {
 				"You have chosen the 'Schedule' button.",
 				"After clicking on the 'Schedule' button, please select the process that you want to schedule, and then click on the 'Tick' button to bring the process to running state."
 			);
+			console.log(State["clickedState"])
 			State["clickedState"] = "schedule";
 			Button_State["tick"] = true;
 			schd_btn = document.getElementById("schd-btn");
@@ -740,17 +742,17 @@ function CreateProcess() {
 } */
 
 	function highlightCell(cell, newValue) {
-		if (cell.innerHTML !== newValue.toString()) {
-			console.log("Highlighting cell:", cell, " with new value:", newValue);  // Debugging
+		if (cell.innerHTML !== newValue) {
+			// console.log("Highlighting cell:", cell, " with new value:", newValue);  // Debugging
 			// Log cell content and new value
-			console.log("Highlighting CPU cell with new value:", newValue);
+			// console.log("Highlighting CPU cell with new value:", newValue);
 			cell.innerHTML = newValue;  // Update the cell content
 			cell.classList.add("highlight");  // Add the highlight class
 	
 			// Remove highlight after 2 seconds
-			setTimeout(() => {
-				cell.classList.remove("highlight");
-			}, 2000);
+			 setTimeout(() => {
+			 	cell.classList.remove("highlight");
+			 }, 2000);
 		}
 	}
 	
@@ -763,16 +765,16 @@ function CreateProcess() {
 		if (State["Running"] != null) {
 			let row = table.insertRow(-1);
 			let cell0 = row.insertCell(0);
-			highlightCell(cell0, State["Running"].id);
+			cell0.innerHTML = State["Running"].id;
 			let cell1 = row.insertCell(1);
-			highlightCell(cell1, State["Running"].arrival_time);
+			cell1.innerHTML = State["Running"].arrival_time;
 			let cell2 = row.insertCell(2);
-			highlightCell(cell2, State["Running"].mapping["burst_time"]);
+			cell2.innerHTML = State["Running"].mapping["burst_time"];
 			let cell3 = row.insertCell(3);
 			let remainingTime = State["Running"].mapping["burst_time"] - State["Running"].mapping["run_time"];
 			highlightCell(cell3, remainingTime);
 			let cell4 = row.insertCell(4);
-			highlightCell(cell4, State["Running"].status);
+			cell4.innerHTML = State["Running"].status;
 			cell4.className = "tag-green";
 		}
 		State["Ready"].forEach((process) => {
@@ -793,14 +795,14 @@ function CreateProcess() {
 		State["Waiting"].forEach((process) => {
 			let row = table.insertRow(-1);
 			let cell0 = row.insertCell(0);
-			highlightCell(cell0, process.id);
+			cell0.innerHTML = process.id;
 			let cell1 = row.insertCell(1);
-			highlightCell(cell1, process.arrival_time);
+			cell1.innerHTML = process.arrival_time;
 			let cell2 = row.insertCell(2);
-			highlightCell(cell2, process.burst_time);
+			cell2.innerHTML = State["Running"].mapping["burst_time"];
 			let cell3 = row.insertCell(3);
 			let remainingTime = process.burst_time - process.mapping["run_time"];
-			highlightCell(cell3, remainingTime);
+			cell3.innerHTML = remainingTime;
 			let cell4 = row.insertCell(4);
 			highlightCell(cell4, process.status);
 			cell4.className = "tag-blue";
@@ -808,13 +810,13 @@ function CreateProcess() {
 		State["Completed"].forEach((process) => {
 			let row = table.insertRow(-1);
 			let cell0 = row.insertCell(0);
-			highlightCell(cell0, process.id);
+			cell0.innerHTML = process.id;
 			let cell1 = row.insertCell(1);
-			highlightCell(cell1, process.arrival_time);
+			cell1.innerHTML = process.arrival_time;
 			let cell2 = row.insertCell(2);
-			highlightCell(cell2, process.burst_time);
+			cell2.innerHTML = process.burst_time;
 			let cell3 = row.insertCell(3);
-			highlightCell(cell3, 0);
+			cell3.innerHTML = 0;
 			let cell4 = row.insertCell(4);
 			highlightCell(cell4, process.status);
 			cell4.className = "tag-grey";
@@ -822,13 +824,13 @@ function CreateProcess() {
 		State["Terminated"].forEach((process) => {
 			let row = table.insertRow(-1);
 			let cell0 = row.insertCell(0);
-			highlightCell(cell0, process.id);
+			cell0.innerHTML = process.id;
 			let cell1 = row.insertCell(1);
-			highlightCell(cell1, process.arrival_time);
+			cell1.innerHTML = process.arrival_time;
 			let cell2 = row.insertCell(2);
-			highlightCell(cell2, process.burst_time);
+		cell2.innerHTML = process.burst_time;	
 			let cell3 = row.insertCell(3);
-			highlightCell(cell3, 0);
+			cell3.innerHTML = 0;
 			let cell4 = row.insertCell(4);
 			highlightCell(cell4, process.status);
 			cell4.className = "tag-red";
@@ -871,12 +873,15 @@ function updateCPU() {
 }
 } */
 	
-let previousRunTime = null; // Track the previous run time for the CPU
+//let previousRunTime = null; // Track the previous run time for the CPU
+				//cell3.classList.remove("highlight"); // Remove highlight after 2 seconds
 
-function updateCPU() {
+function UpdateCPU() {
 	if (State["Running"] != null) {
 		let cpuTable = document.getElementById("CPU");
-
+		
+		console.log("Entered updateCPU")
+		console.log(State["Running"].mapping["run_time"])
 		if (State["Running"].mapping["run_time"] == 0) {
 			cpuTable.innerHTML = "";
 			State["Running"].status = "Ready";
@@ -895,22 +900,22 @@ function updateCPU() {
 		// Get the current run time
 		let currentRunTime = State["Running"].mapping["run_time"];
 		let cell3 = row.insertCell(2);
-		cell3.innerHTML = currentRunTime;
+		highlightCell(cell3, currentRunTime);
+		//cell3.innerHTML = currentRunTime;
 
 		// Highlight the run time cell if it has changed
-		if (previousRunTime !== null && currentRunTime !== previousRunTime) {
-			cell3.classList.add("highlight"); // Add highlight class to run time cell
-			setTimeout(() => {
-				cell3.classList.remove("highlight"); // Remove highlight after 2 seconds
-			}, 2000);
-		}
-		previousRunTime = currentRunTime; // Update previous run time
+		// if (previousRunTime !== null && currentRunTime !== previousRunTime) {
+		// 	cell3.classList.add("highlight"); // Add highlight class to run time cell
+		// 	setTimeout(() => {
+		// 	}, 2000);
+		// }
+		// previousRunTime = currentRunTime; // Update previous run time
 
 		assemble_msg(
 			"The process having PID " + State["Running"].id + " is now running on the CPU!",
 			"Click on the 'Tick' button to advance the simulation by one clock cycle and continue the execution of the process."
 		);
-		UpdateUI();
+		UpdateUI(); 
 	} else {
 		let cpuTable = document.getElementById("CPU");
 		cpuTable.innerHTML = "";
@@ -960,6 +965,8 @@ function scheduleFCFS() {
 		let cpuTable = document.getElementById("CPU");
 		let readyTable = document.getElementById("processes");
 		if (State["Ready"].length != 0) {
+			console.log(checkedRow)
+			console.log(State)
 			if (checkedRow[0] != State["Ready"][0].id) {
 				assemble_msg(
 					"Error! You have chosen the wrong process according to FCFS.",
@@ -974,11 +981,11 @@ function scheduleFCFS() {
 			let row = cpuTable.insertRow(-1);
 			let cell1 = row.insertCell(0);
 			cell1.innerHTML = State["Ready"][0].id;
-
 			let cell2 = row.insertCell(1);
 			cell2.innerHTML = State["Ready"][0].mapping["burst_time"];
 			let cell3 = row.insertCell(2);
-			cell3.innerHTML = State["Ready"][0].mapping["run_time"];
+			// cell3.innerHTML = State["Ready"][0].mapping["run_time"];
+			highlightCell(cell3, State["Ready"][0].mapping["run_time"]);
 
 			// Remove State["Ready"][0] from State["Ready"] and add to State["Running"]
 			assemble_msg(
@@ -1062,7 +1069,8 @@ function scheduleSJF() {
 			let cell2 = row.insertCell(1);
 			cell2.innerHTML = tmp.mapping["burst_time"];
 			let cell3 = row.insertCell(2);
-			cell3.innerHTML = tmp.mapping["run_time"];
+			// cell3.innerHTML = tmp.mapping["run_time"];
+			highlightCell(cell3, tmp.mapping["run_time"]);
 
 			// Remove tmp from State["Ready"] and add to State["Running"]
 			assemble_msg("Process with pid " + tmp.id + " now running on the CPU!");
@@ -1223,6 +1231,9 @@ function SchedulePolicy() {
 
 function FCFS() {
 	if (State["Running"] == null) {
+		console.log(State["Ready"].length, "Ready Length")
+		console.log(State["clickedState"], "clickedState")
+		// console.log(State["Ready"].length, "Ready Length")
 		if (State["Ready"].length == 0) {
 			return;
 		}
@@ -1399,8 +1410,9 @@ function SelectIO() {
 			let cpuTable = document.getElementById("CPU");
 			cpuTable.rows[1].cells[1].innerHTML =
 				State["Running"].mapping["burst_time"];
-			cpuTable.rows[1].cells[2].innerHTML =
-				State["Running"].mapping["run_time"];
+			highlightCell(cpuTable.rows[1].cells[2],
+				State["Running"].mapping["run_time"]);
+			//console.log("updated CPU");
 
 			if (
 				State["Running"].mapping["burst_time"] <=
@@ -1554,8 +1566,8 @@ function SelectIO() {
 			let cpuTable = document.getElementById("CPU");
 			cpuTable.rows[1].cells[1].innerHTML =
 				State["Running"].mapping["burst_time"];
-			cpuTable.rows[1].cells[2].innerHTML =
-				State["Running"].mapping["run_time"];
+			highlightCell(cpuTable.rows[1].cells[2],
+				State["Running"].mapping["run_time"]);
 
 			if (
 				State["Running"].mapping["burst_time"] <=
@@ -1600,8 +1612,8 @@ function SelectIO() {
 			let cpuTable = document.getElementById("CPU");
 			cpuTable.rows[1].cells[1].innerHTML =
 				State["Running"].mapping["burst_time"];
-			cpuTable.rows[1].cells[2].innerHTML =
-				State["Running"].mapping["run_time"];
+				highlightCell(cpuTable.rows[1].cells[2],
+					State["Running"].mapping["run_time"]);
 
 			if (
 				State["Running"].mapping["burst_time"] <=
@@ -1633,8 +1645,8 @@ function SelectIO() {
 			let cpuTable = document.getElementById("CPU");
 			cpuTable.rows[1].cells[1].innerHTML =
 				State["Running"].mapping["burst_time"];
-			cpuTable.rows[1].cells[2].innerHTML =
-				State["Running"].mapping["run_time"];
+				highlightCell(cpuTable.rows[1].cells[2],
+					State["Running"].mapping["run_time"]);
 
 			if (
 				State["Running"].mapping["burst_time"] <=
@@ -1910,7 +1922,7 @@ function UpdateBtnUI() {
 function UpdateUI() {
 	UpdateState();
 	UpdateTable();
-	// UpdateCPU();
+	//UpdateCPU();
 	UpdateBtnState();
 	UpdateBtnUI();
 	UpdatePreviousState();
@@ -1920,7 +1932,7 @@ function Undo() {
 	if (StateAction_log.length < 1) {
 		Button_State["undo"] = false;
 		assemble_msg(
-			"'Undo' failed! You are already at the initial state of the system.",
+			"'Undo' failed! You are already at the initial state of the system.", 
 			"You can either the 'Redo' the changes, or proceed from the current state."
 		);
 		updateCPU();

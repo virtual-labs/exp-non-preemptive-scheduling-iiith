@@ -268,13 +268,15 @@
                                     onclick="setQuantum()">Set</button>
                             </div>
                         </div>
-                        <button class="btn disabled" id="undo-btn" onclick="Undo()" style="margin-left: 70px;"><i class="fa fa-undo"
+                        <div class="undo-reset-btn">
+                        <button class="btn disabled" id="undo-btn" onclick="Undo()"><i class="fa fa-undo"
                             aria-hidden="true"></i>
                         Undo</button>
                     <button class="btn disabled" id="redo-btn" onclick="Redo()"><i class="fa fa-repeat"
                             aria-hidden="true"></i>
                         Redo</button>
                     <button class="btn " id="reset-btn" onclick="location.reload()">Reset</button>
+                    </div>
                     </div>
                     
                     <!-- <p style="text-align: center; font-weight: bold;">Undo & Redo</p>

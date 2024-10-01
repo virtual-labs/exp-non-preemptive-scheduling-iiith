@@ -1436,8 +1436,10 @@ pointer-events: auto;
 
 /* Highlighted state */
 .highlight {
-  background-color: yellow;
-  transition: background-color 0.5s ease-in-out;
+  background-color: #16c9d2;
+  border-radius: 10px; /* Adjust the value for more or less curve */
+  transition: background-color 2s ease-in-out, opacity 2s ease-in-out; /* Slower fade effect */
+  opacity: 0.8; /* Initial opacity for visibility */
 }
 
 
@@ -1488,6 +1490,10 @@ pointer-events: auto;
   }
   #start-note{
     display:none;
+  }
+  .undo-reset-btn{
+    display:inline;
+    margin-left:100px;
   }
 }
 
