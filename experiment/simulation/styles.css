@@ -959,7 +959,7 @@ input:focus-visible + label {
 /* Modal Content */
 .modal-content {
   background-color: #fefefe;
-  margin: auto;
+  margin-left: 300px;
   padding: 20px;
   border: 1px solid #888;
   width: fit-content;
