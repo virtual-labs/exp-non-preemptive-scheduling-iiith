@@ -519,12 +519,13 @@ CSS for the subsytem tabs
 .tabset > label {
   position: relative;
   display: inline-block;
-  padding: 15px 15px 25px;
+  font-size:12px ;
+  padding: 5px 5px 10px;
   border: solid transparent;
   border-bottom: 0;
 }
 
-.tabset > label::after {
+/* .tabset > label::after {
   content: "";
   position: absolute;
   left: 15px;
@@ -532,7 +533,7 @@ CSS for the subsytem tabs
   width: 20px;
   height: 4px;
   background: #8d8d8d;
-}
+} */
 
 input:focus-visible + label {
   outline: 2px solid rgba(0,102,204,1);

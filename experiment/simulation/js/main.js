@@ -838,7 +838,7 @@ function CreateProcess() {
 	}
 	
 
-/* 
+ 
 function updateCPU() {
 	if (State["Running"] != null) {
 		let cpuTable = document.getElementById("CPU");
@@ -859,7 +859,7 @@ function updateCPU() {
 		let cell2 = row.insertCell(1);
 		cell2.innerHTML = State["Running"].mapping["burst_time"];
 		let cell3 = row.insertCell(2);
-		cell3.innerHTML = State["Running"].mapping["run_time"];
+		highlightCell(cell3, State["Running"].mapping["run_time"]);
 
 		assemble_msg(
 			"The process having PID " + State["Running"].id + " is now running on the CPU!",
@@ -871,56 +871,56 @@ function updateCPU() {
 		cpuTable.innerHTML = "";
 	}
 }
-} */
+ 
 	
 //let previousRunTime = null; // Track the previous run time for the CPU
 				//cell3.classList.remove("highlight"); // Remove highlight after 2 seconds
 
-function UpdateCPU() {
-	if (State["Running"] != null) {
-		let cpuTable = document.getElementById("CPU");
+// function UpdateCPU() {
+// 	if (State["Running"] != null) {
+// 		let cpuTable = document.getElementById("CPU");
 		
-		console.log("Entered updateCPU")
-		console.log(State["Running"].mapping["run_time"])
-		if (State["Running"].mapping["run_time"] == 0) {
-			cpuTable.innerHTML = "";
-			State["Running"].status = "Ready";
-			UpdateTable();
-			return;
-		}
+// 		console.log("Entered updateCPU")
+// 		console.log(State["Running"].mapping["run_time"])
+// 		if (State["Running"].mapping["run_time"] == 0) {
+// 			cpuTable.innerHTML = "";
+// 			State["Running"].status = "Ready";
+// 			UpdateTable();
+// 			return;
+// 		}
 		
-		cpuTable.innerHTML = "<th>Process ID</th><th>Burst Time</th><th>Run Time</th>";
-		let row = cpuTable.insertRow(-1);
-		let cell1 = row.insertCell(0);
-		cell1.innerHTML = State["Running"].id;
+// 		cpuTable.innerHTML = "<th>Process ID</th><th>Burst Time</th><th>Run Time</th>";
+// 		let row = cpuTable.insertRow(-1);
+// 		let cell1 = row.insertCell(0);
+// 		cell1.innerHTML = State["Running"].id;
 
-		let cell2 = row.insertCell(1);
-		cell2.innerHTML = State["Running"].mapping["burst_time"];
+// 		let cell2 = row.insertCell(1);
+// 		cell2.innerHTML = State["Running"].mapping["burst_time"];
 
-		// Get the current run time
-		let currentRunTime = State["Running"].mapping["run_time"];
-		let cell3 = row.insertCell(2);
-		highlightCell(cell3, currentRunTime);
-		//cell3.innerHTML = currentRunTime;
+// 		// Get the current run time
+// 		let currentRunTime = State["Running"].mapping["run_time"];
+// 		let cell3 = row.insertCell(2);
+// 		highlightCell(cell3, currentRunTime);
+// 		//cell3.innerHTML = currentRunTime;
 
-		// Highlight the run time cell if it has changed
-		// if (previousRunTime !== null && currentRunTime !== previousRunTime) {
-		// 	cell3.classList.add("highlight"); // Add highlight class to run time cell
-		// 	setTimeout(() => {
-		// 	}, 2000);
-		// }
-		// previousRunTime = currentRunTime; // Update previous run time
+// 		// Highlight the run time cell if it has changed
+// 		// if (previousRunTime !== null && currentRunTime !== previousRunTime) {
+// 		// 	cell3.classList.add("highlight"); // Add highlight class to run time cell
+// 		// 	setTimeout(() => {
+// 		// 	}, 2000);
+// 		// }
+// 		// previousRunTime = currentRunTime; // Update previous run time
 
-		assemble_msg(
-			"The process having PID " + State["Running"].id + " is now running on the CPU!",
-			"Click on the 'Tick' button to advance the simulation by one clock cycle and continue the execution of the process."
-		);
-		UpdateUI(); 
-	} else {
-		let cpuTable = document.getElementById("CPU");
-		cpuTable.innerHTML = "";
-	}
-}
+// 		assemble_msg(
+// 			"The process having PID " + State["Running"].id + " is now running on the CPU!",
+// 			"Click on the 'Tick' button to advance the simulation by one clock cycle and continue the execution of the process."
+// 		);
+// 		UpdateUI(); 
+// 	} else {
+// 		let cpuTable = document.getElementById("CPU");
+// 		cpuTable.innerHTML = "";
+// 	}
+// }
 
 
 	
@@ -979,7 +979,7 @@ function scheduleFCFS() {
 				"<th>Process ID</th><th>Burst Time</th><th>Run Time</th>";
 			// Add State["Ready"][0] to cpuTable
 			let row = cpuTable.insertRow(-1);
-			let cell1 = row.insertCell(0);
+			let cell1 = row.insertCell(0); 
 			cell1.innerHTML = State["Ready"][0].id;
 			let cell2 = row.insertCell(1);
 			cell2.innerHTML = State["Ready"][0].mapping["burst_time"];
@@ -1928,30 +1928,79 @@ function UpdateUI() {
 	UpdatePreviousState();
 }
 
+// function Undo() {
+// 	if (StateAction_log.length < 1) {
+// 		Button_State["undo"] = false;
+// 		assemble_msg(
+// 			"'Undo' failed! You are already at the initial state of the system.", 
+// 			"You can either the 'Redo' the changes, or proceed from the current state."
+// 		);
+// 		updateCPU();
+// 		UpdateUI();
+// 		return;
+// 	}
+// 	Button_State["redo"] = true;
+// 	// console.log(Button_State)
+
+// 	Redo_log.push(JSON.parse(JSON.stringify(StateAction_log.pop())));
+// 	State = JSON.parse(
+// 		JSON.stringify(StateAction_log[StateAction_log.length - 1].state)
+// 	);
+// 	// console.log(StateAction_log.length);
+// 	assemble_msg(
+// 		"The 'Undo' operation was successfully completed.",
+// 		"You can either the 'Redo' the changes, or proceed from the current state."
+// 	);
+// 	// Action_log.push(new Action("Undo",State));
+// 	UpdateUI();
+// 	updateCPU();
+// }
+
+// function Redo() {
+// 	if (Redo_log.length < 1) {
+// 		assemble_msg(
+// 			"'Redo' failed! You are already at the latest state of the system.",
+// 			"You can either the 'Undo' the changes, or proceed from the current state."
+// 		);
+// 		return;
+// 	}
+// 	State = JSON.parse(JSON.stringify(Redo_log.pop().state));
+// 	StateAction_log.push(new Action("Redo", State));
+// 	assemble_msg(
+// 		"The 'Redo' operation was successfully completed.",
+// 		"You can either the 'Undo' the changes, or proceed from the current state."
+// 	);
+// 	UpdateUI();
+// 	updateCPU();
+// }
+
 function Undo() {
 	if (StateAction_log.length < 1) {
 		Button_State["undo"] = false;
 		assemble_msg(
 			"'Undo' failed! You are already at the initial state of the system.", 
-			"You can either the 'Redo' the changes, or proceed from the current state."
+			"You can either 'Redo' the changes, or proceed from the current state."
 		);
 		updateCPU();
 		UpdateUI();
 		return;
 	}
 	Button_State["redo"] = true;
-	// console.log(Button_State)
 
+	// Store the current state in Redo log
 	Redo_log.push(JSON.parse(JSON.stringify(StateAction_log.pop())));
-	State = JSON.parse(
-		JSON.stringify(StateAction_log[StateAction_log.length - 1].state)
-	);
-	// console.log(StateAction_log.length);
+
+	// Handle case when there's no previous state (initial state)
+	if (StateAction_log.length > 0) {
+		State = JSON.parse(JSON.stringify(StateAction_log[StateAction_log.length - 1].state));
+	} else {
+		State = initialState;  // Set to initial state if action log is empty
+	}
+
 	assemble_msg(
 		"The 'Undo' operation was successfully completed.",
-		"You can either the 'Redo' the changes, or proceed from the current state."
+		"You can either 'Redo' the changes, or proceed from the current state."
 	);
-	// Action_log.push(new Action("Undo",State));
 	UpdateUI();
 	updateCPU();
 }
@@ -1960,19 +2009,24 @@ function Redo() {
 	if (Redo_log.length < 1) {
 		assemble_msg(
 			"'Redo' failed! You are already at the latest state of the system.",
-			"You can either the 'Undo' the changes, or proceed from the current state."
+			"You can either 'Undo' the changes, or proceed from the current state."
 		);
 		return;
 	}
+	// Restore the latest redo state
 	State = JSON.parse(JSON.stringify(Redo_log.pop().state));
+
+	// Log the Redo action
 	StateAction_log.push(new Action("Redo", State));
+
 	assemble_msg(
 		"The 'Redo' operation was successfully completed.",
-		"You can either the 'Undo' the changes, or proceed from the current state."
+		"You can either 'Undo' the changes, or proceed from the current state."
 	);
 	UpdateUI();
 	updateCPU();
-} ''
+}
+
 
 document.addEventListener("DOMContentLoaded", function() {
     const tickButtons = document.querySelectorAll('.tick-button');
