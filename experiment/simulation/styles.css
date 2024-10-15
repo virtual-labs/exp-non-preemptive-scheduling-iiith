@@ -1522,4 +1522,7 @@ pointer-events: auto;
   .display-block{
     margin: 10px;
   }
+  .tabset > label{
+    font-size:15px;
+  }
 }
