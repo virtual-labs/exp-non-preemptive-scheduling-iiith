@@ -1,2 +1,1 @@
-## Experiment name
-Preemptive vs.non-preemptive scheduling
+## Preemptive vs.non-preemptive scheduling
