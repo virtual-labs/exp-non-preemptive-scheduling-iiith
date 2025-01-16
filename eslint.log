@@ -1,0 +1,77 @@
+
+/home/sr7/Work/Code/IIIT/exp-non-preemptive-scheduling-iiith/experiment/simulation/js/main.js
+    53:10  warning  'UpdatePolicy' is defined but never used         no-unused-vars
+    96:10  warning  'setQuantum' is defined but never used           no-unused-vars
+   119:10  warning  'dialog_settings' is defined but never used      no-unused-vars
+   137:10  warning  'show_history' is defined but never used         no-unused-vars
+   142:10  warning  'hide_history' is defined but never used         no-unused-vars
+   309:2   warning  'alertMsg' is not defined                        no-undef
+   311:51  warning  'alertMsg' is not defined                        no-undef
+   346:10  warning  'openTheory' is defined but never used           no-unused-vars
+   354:10  warning  'openContent' is defined but never used          no-unused-vars
+   362:10  warning  'loadUnloadCommand' is defined but never used    no-unused-vars
+   424:4   warning  'schd_btn' is not defined                        no-undef
+   425:4   warning  'schd_btn' is not defined                        no-undef
+   459:4   warning  'io_cmpl_btn' is not defined                     no-undef
+   460:4   warning  'io_cmpl_btn' is not defined                     no-undef
+   475:4   warning  'newProcess_btn' is not defined                  no-undef
+   476:4   warning  'newProcess_btn' is not defined                  no-undef
+   591:10  warning  'ToggleCreateProcess' is defined but never used  no-unused-vars
+   607:10  warning  'ToggleQuantum' is defined but never used        no-unused-vars
+   805:7   warning  'readyTable' is assigned a value but never used  no-unused-vars
+   832:4   warning  'tmp' is not defined                             no-undef
+   833:23  warning  'tmp' is not defined                             no-undef
+   887:4   warning  'idx' is not defined                             no-undef
+   888:40  warning  'idx' is not defined                             no-undef
+   895:31  warning  'idx' is not defined                             no-undef
+   896:4   warning  'tmp' is not defined                             no-undef
+   896:25  warning  'idx' is not defined                             no-undef
+   897:26  warning  'idx' is not defined                             no-undef
+   898:16  warning  'tmp' is not defined                             no-undef
+   904:22  warning  'tmp' is not defined                             no-undef
+   907:22  warning  'tmp' is not defined                             no-undef
+   909:22  warning  'tmp' is not defined                             no-undef
+   912:39  warning  'tmp' is not defined                             no-undef
+   914:23  warning  'tmp' is not defined                             no-undef
+   953:2   warning  'temp' is not defined                            no-undef
+   955:3   warning  'temp' is not defined                            no-undef
+   957:32  warning  'temp' is not defined                            no-undef
+   959:2   warning  'temp' is not defined                            no-undef
+   961:3   warning  'temp' is not defined                            no-undef
+   963:34  warning  'temp' is not defined                            no-undef
+   965:2   warning  'temp' is not defined                            no-undef
+   967:3   warning  'temp' is not defined                            no-undef
+   969:37  warning  'temp' is not defined                            no-undef
+   972:2   warning  'temp' is not defined                            no-undef
+   974:3   warning  'temp' is not defined                            no-undef
+   976:36  warning  'temp' is not defined                            no-undef
+  1019:10  warning  'Schedule' is defined but never used             no-unused-vars
+  1060:3   warning  'Priority' is not defined                        no-undef
+  1137:3   warning  'tmp' is not defined                             no-undef
+  1139:4   warning  'tmp' is not defined                             no-undef
+  1140:29  warning  'tmp' is not defined                             no-undef
+  1142:4   warning  'tmp' is not defined                             no-undef
+  1143:28  warning  'tmp' is not defined                             no-undef
+  1200:10  warning  'Tick' is defined but never used                 no-unused-vars
+  1206:3   warning  'idx' is not defined                             no-undef
+  1208:19  warning  'idx' is not defined                             no-undef
+  1209:20  warning  'idx' is not defined                             no-undef
+  1528:3   warning  'ready' is not defined                           no-undef
+  1539:3   warning  'terminated' is not defined                      no-undef
+  1544:3   warning  'completed' is not defined                       no-undef
+  1545:3   warning  'map' is not defined                             no-undef
+  1548:4   warning  Mixed spaces and tabs                            no-mixed-spaces-and-tabs
+  1549:4   warning  Mixed spaces and tabs                            no-mixed-spaces-and-tabs
+  1550:4   warning  Mixed spaces and tabs                            no-mixed-spaces-and-tabs
+  1551:4   warning  Mixed spaces and tabs                            no-mixed-spaces-and-tabs
+  1553:3   warning  'timer' is not defined                           no-undef
+  1564:4   warning  'ready' is not defined                           no-undef
+  1568:4   warning  'terminated' is not defined                      no-undef
+  1570:4   warning  'completed' is not defined                       no-undef
+  1574:4   warning  'map' is not defined                             no-undef
+  1576:4   warning  'timer' is not defined                           no-undef
+  1761:10  warning  'Undo' is defined but never used                 no-unused-vars
+  1789:10  warning  'Redo' is defined but never used                 no-unused-vars
+
+✖ 72 problems (0 errors, 72 warnings)
+
