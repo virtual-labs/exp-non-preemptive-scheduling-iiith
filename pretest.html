@@ -534,13 +534,130 @@
                     </div>
                     <p class="panel">Explanation</p>
                 </div>
+                
+                  <div class="question beginner">
+                    What is the primary drawback of non-preemptive scheduling?
+                  </div>
+                  
+                  <div class="answers">
+                    <div id="answer4a">
+                      <label>
+                        <input type="radio" name="question4" value="a">
+                        a: High context-switching overhead
+                      </label>
+                      <a href="#" id="explanation4a" class="accordion" onclick="return false;">Explanation</a>
+                    </div>
+                    <p class="panel">Explanation</p>
+                    <div id="answer4b">
+                      <label>
+                        <input type="radio" name="question4" value="b">
+                        b: Starvation of processes
+                      </label>
+                      <a href="#" id="explanation4b" class="accordion" onclick="return false;">Explanation</a>
+                    </div>
+                    <p class="panel">Explanation</p>
+                    <div id="answer4c">
+                      <label>
+                        <input type="radio" name="question4" value="c">
+                        c: Long waiting times for newly arrived processes
+                      </label>
+                      <a href="#" id="explanation4c" class="accordion" onclick="return false;">Explanation</a>
+                    </div>
+                    <p class="panel">Explanation</p>
+                    <div id="answer4d">
+                      <label>
+                        <input type="radio" name="question4" value="d">
+                        d: Increased response time
+                      </label>
+                      <a href="#" id="explanation4d" class="accordion" onclick="return false;">Explanation</a>
+                    </div>
+                    <p class="panel">Explanation</p>
+                </div>
+                
+                  <div class="question intermediate">
+                    Which of these metrics was least affected by the choice of scheduling type in the simulation?
+                  </div>
+                  
+                  <div class="answers">
+                    <div id="answer5a">
+                      <label>
+                        <input type="radio" name="question5" value="a">
+                        a: Waiting time
+                      </label>
+                      <a href="#" id="explanation5a" class="accordion" onclick="return false;">Explanation</a>
+                    </div>
+                    <p class="panel">Explanation</p>
+                    <div id="answer5b">
+                      <label>
+                        <input type="radio" name="question5" value="b">
+                        b: Throughput
+                      </label>
+                      <a href="#" id="explanation5b" class="accordion" onclick="return false;">Explanation</a>
+                    </div>
+                    <p class="panel">Explanation</p>
+                    <div id="answer5c">
+                      <label>
+                        <input type="radio" name="question5" value="c">
+                        c: Context-switching overhead
+                      </label>
+                      <a href="#" id="explanation5c" class="accordion" onclick="return false;">Explanation</a>
+                    </div>
+                    <p class="panel">Explanation</p>
+                    <div id="answer5d">
+                      <label>
+                        <input type="radio" name="question5" value="d">
+                        d: Turnaround time
+                      </label>
+                      <a href="#" id="explanation5d" class="accordion" onclick="return false;">Explanation</a>
+                    </div>
+                    <p class="panel">Explanation</p>
+                </div>
+                
+                  <div class="question beginner">
+                    In preemptive scheduling, the CPU is allocated to a process:
+                  </div>
+                  
+                  <div class="answers">
+                    <div id="answer6a">
+                      <label>
+                        <input type="radio" name="question6" value="a">
+                        a: Until it voluntarily relinquishes control
+                      </label>
+                      <a href="#" id="explanation6a" class="accordion" onclick="return false;">Explanation</a>
+                    </div>
+                    <p class="panel">Explanation</p>
+                    <div id="answer6b">
+                      <label>
+                        <input type="radio" name="question6" value="b">
+                        b: For a fixed time slice
+                      </label>
+                      <a href="#" id="explanation6b" class="accordion" onclick="return false;">Explanation</a>
+                    </div>
+                    <p class="panel">Explanation</p>
+                    <div id="answer6c">
+                      <label>
+                        <input type="radio" name="question6" value="c">
+                        c: Until a higher-priority process arrives
+                      </label>
+                      <a href="#" id="explanation6c" class="accordion" onclick="return false;">Explanation</a>
+                    </div>
+                    <p class="panel">Explanation</p>
+                    <div id="answer6d">
+                      <label>
+                        <input type="radio" name="question6" value="d">
+                        d: Until the process completes its execution
+                      </label>
+                      <a href="#" id="explanation6d" class="accordion" onclick="return false;">Explanation</a>
+                    </div>
+                    <p class="panel">Explanation</p>
+                </div>
                </div>
                 <button id="submit" class="btn btn-primary">Submit Quiz</button>
                 <div id="results"></div>
           </div>
             
             <script>
-              const myQuestions = [{"question":"What is the difference between preemption and non-preemption?","answers":{"a":"Whether or not a ready process can be involuntarily terminated","b":"Whether or not a process in the middle of execution can be  interrupted","c":"Whether or not a blocked process can have its resources involuntarily taken away from it","d":"Waiting time is more in preemptive scheduling and less in non-preemptive"},"explanations":{"a":"Explanation 1","b":"Preemptive scheduling - Processor can be preempted to execute a different process in the middle of execution of any current process.Non-preemptive scheduling - Once a Processor starts to execute a process it must finish it before executing the other. It cannot be paused in the middle.","c":"Explanation 2","d":"Explanation 2"},"correctAnswer":"b","difficulty":"beginner"},{"question":"In which of the following Algorithms does the first process get allocated to the CPU first?","answers":{"a":"FCFS","b":"SJF","c":"Round Robin","d":"None of the above"},"explanations":{"a":"Explanation 1  <a href='www.google.com'>here</a>","b":"Explanation 2","c":"Explanation 2","d":"Explanation 2"},"correctAnswer":"a","difficulty":"beginner"},{"question":"The SJF algorithm is :","answers":{"a":"nonpreemptive only","b":"preemptive only","c":"can be preeptive or non preemptive","d":"None of the above"},"explanations":{"a":"Explanation 1  <a href='www.google.com'>here</a>","b":"Explanation 2","c":"Explanation 2","d":"Explanation 2"},"correctAnswer":"c","difficulty":"beginner"},{"question":"In RR algorithm the new process will go to the :","answers":{"a":"top of the ready queue","b":"tail of the ready queue","c":"anywhere in the ready queue","d":"None of the above"},"explanations":{"a":"Explanation 1  <a href='www.google.com'>here</a>","b":"Explanation 2","c":"Explanation 2","d":"Explanation 2"},"correctAnswer":"b","difficulty":"beginner"}];
+              const myQuestions = [{"question":"What is the difference between preemption and non-preemption?","answers":{"a":"Whether or not a ready process can be involuntarily terminated","b":"Whether or not a process in the middle of execution can be  interrupted","c":"Whether or not a blocked process can have its resources involuntarily taken away from it","d":"Waiting time is more in preemptive scheduling and less in non-preemptive"},"explanations":{"a":"Explanation 1","b":"Preemptive scheduling - Processor can be preempted to execute a different process in the middle of execution of any current process.Non-preemptive scheduling - Once a Processor starts to execute a process it must finish it before executing the other. It cannot be paused in the middle.","c":"Explanation 2","d":"Explanation 2"},"correctAnswer":"b","difficulty":"beginner"},{"question":"In which of the following Algorithms does the first process get allocated to the CPU first?","answers":{"a":"FCFS","b":"SJF","c":"Round Robin","d":"None of the above"},"explanations":{"a":"Explanation 1  <a href='www.google.com'>here</a>","b":"Explanation 2","c":"Explanation 2","d":"Explanation 2"},"correctAnswer":"a","difficulty":"beginner"},{"question":"The SJF algorithm is :","answers":{"a":"nonpreemptive only","b":"preemptive only","c":"can be preeptive or non preemptive","d":"None of the above"},"explanations":{"a":"Explanation 1  <a href='www.google.com'>here</a>","b":"Explanation 2","c":"Explanation 2","d":"Explanation 2"},"correctAnswer":"c","difficulty":"beginner"},{"question":"In RR algorithm the new process will go to the :","answers":{"a":"top of the ready queue","b":"tail of the ready queue","c":"anywhere in the ready queue","d":"None of the above"},"explanations":{"a":"Explanation 1  <a href='www.google.com'>here</a>","b":"Explanation 2","c":"Explanation 2","d":"Explanation 2"},"correctAnswer":"b","difficulty":"beginner"},{"question":"What is the primary drawback of non-preemptive scheduling?","answers":{"a":"High context-switching overhead","b":"Starvation of processes","c":"Long waiting times for newly arrived processes","d":"Increased response time"},"explanations":{"a":"Explanation 1","b":"In non-preemptive scheduling, once a process starts executing, it cannot be preempted. This can cause lower-priority processes to starve if higher-priority processes are continuously running.","c":"Explanation 2","d":"Explanation 2"},"correctAnswer":"c","difficulty":"beginner"},{"question":"Which of these metrics was least affected by the choice of scheduling type in the simulation?","answers":{"a":"Waiting time","b":"Throughput","c":"Context-switching overhead","d":"Turnaround time"},"explanations":{"a":"Explanation 1","b":"Throughput is mostly independent of scheduling type and can be consistent across different scheduling strategies, as it measures the number of processes completed per unit of time.","c":"Explanation 2","d":"Explanation 2"},"correctAnswer":"b","difficulty":"intermediate"},{"question":"In preemptive scheduling, the CPU is allocated to a process:","answers":{"a":"Until it voluntarily relinquishes control","b":"For a fixed time slice","c":"Until a higher-priority process arrives","d":"Until the process completes its execution"},"explanations":{"a":"Explanation 1","b":"In preemptive scheduling, the CPU is allocated for a fixed time slice, after which the CPU can be taken away from the running process to be given to another process.","c":"Explanation 2","d":"Explanation 2"},"correctAnswer":"b","difficulty":"beginner"}];
             </script>
               <script src="./assets/js/assessment_v2.js"></script>  
           <div class="bug-report-mobile">

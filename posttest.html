@@ -379,15 +379,15 @@
                   <div id="quiz" class="versiontrue" style="margin-top: 1rem">
                 
                 
-                  <div class="question beginner">
-                    This is a Sample Question 1?
+                  <div class="question intermediate">
+                    How does preemptive scheduling affect the waiting time of processes?
                   </div>
                   
                   <div class="answers">
                     <div id="answer0a">
                       <label>
                         <input type="radio" name="question0" value="a">
-                        a: answer1
+                        a: It increases the waiting time due to context switching
                       </label>
                       <a href="#" id="explanation0a" class="accordion" onclick="return false;">Explanation</a>
                     </div>
@@ -395,7 +395,7 @@
                     <div id="answer0b">
                       <label>
                         <input type="radio" name="question0" value="b">
-                        b: answer2
+                        b: It decreases the waiting time by allowing higher-priority processes to execute first
                       </label>
                       <a href="#" id="explanation0b" class="accordion" onclick="return false;">Explanation</a>
                     </div>
@@ -403,7 +403,7 @@
                     <div id="answer0c">
                       <label>
                         <input type="radio" name="question0" value="c">
-                        c: answer3
+                        c: It does not affect the waiting time
                       </label>
                       <a href="#" id="explanation0c" class="accordion" onclick="return false;">Explanation</a>
                     </div>
@@ -411,22 +411,22 @@
                     <div id="answer0d">
                       <label>
                         <input type="radio" name="question0" value="d">
-                        d: answer4
+                        d: It causes no effect on the process execution order
                       </label>
                       <a href="#" id="explanation0d" class="accordion" onclick="return false;">Explanation</a>
                     </div>
                     <p class="panel">Explanation</p>
                 </div>
                 
-                  <div class="question beginner">
-                    This is a Sample Question 2?
+                  <div class="question intermediate">
+                    Which of the following is an advantage of non-preemptive scheduling?
                   </div>
                   
                   <div class="answers">
                     <div id="answer1a">
                       <label>
                         <input type="radio" name="question1" value="a">
-                        a: answer1
+                        a: Lower waiting times
                       </label>
                       <a href="#" id="explanation1a" class="accordion" onclick="return false;">Explanation</a>
                     </div>
@@ -434,7 +434,7 @@
                     <div id="answer1b">
                       <label>
                         <input type="radio" name="question1" value="b">
-                        b: answer2
+                        b: Reduced context switching overhead
                       </label>
                       <a href="#" id="explanation1b" class="accordion" onclick="return false;">Explanation</a>
                     </div>
@@ -442,7 +442,7 @@
                     <div id="answer1c">
                       <label>
                         <input type="radio" name="question1" value="c">
-                        c: answer3
+                        c: Higher throughput
                       </label>
                       <a href="#" id="explanation1c" class="accordion" onclick="return false;">Explanation</a>
                     </div>
@@ -450,9 +450,321 @@
                     <div id="answer1d">
                       <label>
                         <input type="radio" name="question1" value="d">
-                        d: answer4
+                        d: Faster response time
                       </label>
                       <a href="#" id="explanation1d" class="accordion" onclick="return false;">Explanation</a>
+                    </div>
+                    <p class="panel">Explanation</p>
+                </div>
+                
+                  <div class="question intermediate">
+                    Which scheduling type is more likely to lead to starvation of lower-priority processes?
+                  </div>
+                  
+                  <div class="answers">
+                    <div id="answer2a">
+                      <label>
+                        <input type="radio" name="question2" value="a">
+                        a: Round-robin
+                      </label>
+                      <a href="#" id="explanation2a" class="accordion" onclick="return false;">Explanation</a>
+                    </div>
+                    <p class="panel">Explanation</p>
+                    <div id="answer2b">
+                      <label>
+                        <input type="radio" name="question2" value="b">
+                        b: Preemptive scheduling
+                      </label>
+                      <a href="#" id="explanation2b" class="accordion" onclick="return false;">Explanation</a>
+                    </div>
+                    <p class="panel">Explanation</p>
+                    <div id="answer2c">
+                      <label>
+                        <input type="radio" name="question2" value="c">
+                        c: Non-preemptive scheduling
+                      </label>
+                      <a href="#" id="explanation2c" class="accordion" onclick="return false;">Explanation</a>
+                    </div>
+                    <p class="panel">Explanation</p>
+                    <div id="answer2d">
+                      <label>
+                        <input type="radio" name="question2" value="d">
+                        d: First-come, first-served
+                      </label>
+                      <a href="#" id="explanation2d" class="accordion" onclick="return false;">Explanation</a>
+                    </div>
+                    <p class="panel">Explanation</p>
+                </div>
+                
+                  <div class="question beginner">
+                    Which of the following factors affects the performance of preemptive scheduling?
+                  </div>
+                  
+                  <div class="answers">
+                    <div id="answer3a">
+                      <label>
+                        <input type="radio" name="question3" value="a">
+                        a: Time slice length
+                      </label>
+                      <a href="#" id="explanation3a" class="accordion" onclick="return false;">Explanation</a>
+                    </div>
+                    <p class="panel">Explanation</p>
+                    <div id="answer3b">
+                      <label>
+                        <input type="radio" name="question3" value="b">
+                        b: Number of processes in the queue
+                      </label>
+                      <a href="#" id="explanation3b" class="accordion" onclick="return false;">Explanation</a>
+                    </div>
+                    <p class="panel">Explanation</p>
+                    <div id="answer3c">
+                      <label>
+                        <input type="radio" name="question3" value="c">
+                        c: Priority of processes
+                      </label>
+                      <a href="#" id="explanation3c" class="accordion" onclick="return false;">Explanation</a>
+                    </div>
+                    <p class="panel">Explanation</p>
+                    <div id="answer3d">
+                      <label>
+                        <input type="radio" name="question3" value="d">
+                        d: Amount of available memory
+                      </label>
+                      <a href="#" id="explanation3d" class="accordion" onclick="return false;">Explanation</a>
+                    </div>
+                    <p class="panel">Explanation</p>
+                </div>
+                
+                  <div class="question beginner">
+                    In a non-preemptive scheduling system, how does the system handle a newly arrived process?
+                  </div>
+                  
+                  <div class="answers">
+                    <div id="answer4a">
+                      <label>
+                        <input type="radio" name="question4" value="a">
+                        a: It immediately interrupts the current process to start the new one
+                      </label>
+                      <a href="#" id="explanation4a" class="accordion" onclick="return false;">Explanation</a>
+                    </div>
+                    <p class="panel">Explanation</p>
+                    <div id="answer4b">
+                      <label>
+                        <input type="radio" name="question4" value="b">
+                        b: It waits until the current process finishes before starting the new one
+                      </label>
+                      <a href="#" id="explanation4b" class="accordion" onclick="return false;">Explanation</a>
+                    </div>
+                    <p class="panel">Explanation</p>
+                    <div id="answer4c">
+                      <label>
+                        <input type="radio" name="question4" value="c">
+                        c: It assigns a priority to the new process and waits for the next time slice
+                      </label>
+                      <a href="#" id="explanation4c" class="accordion" onclick="return false;">Explanation</a>
+                    </div>
+                    <p class="panel">Explanation</p>
+                    <div id="answer4d">
+                      <label>
+                        <input type="radio" name="question4" value="d">
+                        d: It executes the new process in parallel with the current one
+                      </label>
+                      <a href="#" id="explanation4d" class="accordion" onclick="return false;">Explanation</a>
+                    </div>
+                    <p class="panel">Explanation</p>
+                </div>
+                
+                  <div class="question intermediate">
+                    Which factor is least affected by the choice of scheduling method?
+                  </div>
+                  
+                  <div class="answers">
+                    <div id="answer5a">
+                      <label>
+                        <input type="radio" name="question5" value="a">
+                        a: Turnaround time
+                      </label>
+                      <a href="#" id="explanation5a" class="accordion" onclick="return false;">Explanation</a>
+                    </div>
+                    <p class="panel">Explanation</p>
+                    <div id="answer5b">
+                      <label>
+                        <input type="radio" name="question5" value="b">
+                        b: Context switching time
+                      </label>
+                      <a href="#" id="explanation5b" class="accordion" onclick="return false;">Explanation</a>
+                    </div>
+                    <p class="panel">Explanation</p>
+                    <div id="answer5c">
+                      <label>
+                        <input type="radio" name="question5" value="c">
+                        c: CPU utilization
+                      </label>
+                      <a href="#" id="explanation5c" class="accordion" onclick="return false;">Explanation</a>
+                    </div>
+                    <p class="panel">Explanation</p>
+                    <div id="answer5d">
+                      <label>
+                        <input type="radio" name="question5" value="d">
+                        d: Response time
+                      </label>
+                      <a href="#" id="explanation5d" class="accordion" onclick="return false;">Explanation</a>
+                    </div>
+                    <p class="panel">Explanation</p>
+                </div>
+                
+                  <div class="question intermediate">
+                    What is the main cause of higher context switching overhead in preemptive scheduling?
+                  </div>
+                  
+                  <div class="answers">
+                    <div id="answer6a">
+                      <label>
+                        <input type="radio" name="question6" value="a">
+                        a: Frequent process interruptions
+                      </label>
+                      <a href="#" id="explanation6a" class="accordion" onclick="return false;">Explanation</a>
+                    </div>
+                    <p class="panel">Explanation</p>
+                    <div id="answer6b">
+                      <label>
+                        <input type="radio" name="question6" value="b">
+                        b: Low process priority
+                      </label>
+                      <a href="#" id="explanation6b" class="accordion" onclick="return false;">Explanation</a>
+                    </div>
+                    <p class="panel">Explanation</p>
+                    <div id="answer6c">
+                      <label>
+                        <input type="radio" name="question6" value="c">
+                        c: Long time slice duration
+                      </label>
+                      <a href="#" id="explanation6c" class="accordion" onclick="return false;">Explanation</a>
+                    </div>
+                    <p class="panel">Explanation</p>
+                    <div id="answer6d">
+                      <label>
+                        <input type="radio" name="question6" value="d">
+                        d: Excessive CPU utilization
+                      </label>
+                      <a href="#" id="explanation6d" class="accordion" onclick="return false;">Explanation</a>
+                    </div>
+                    <p class="panel">Explanation</p>
+                </div>
+                
+                  <div class="question beginner">
+                    How does the non-preemptive scheduling method affect system responsiveness?
+                  </div>
+                  
+                  <div class="answers">
+                    <div id="answer7a">
+                      <label>
+                        <input type="radio" name="question7" value="a">
+                        a: It improves system responsiveness by quickly switching between tasks
+                      </label>
+                      <a href="#" id="explanation7a" class="accordion" onclick="return false;">Explanation</a>
+                    </div>
+                    <p class="panel">Explanation</p>
+                    <div id="answer7b">
+                      <label>
+                        <input type="radio" name="question7" value="b">
+                        b: It degrades system responsiveness as a process must complete before another can start
+                      </label>
+                      <a href="#" id="explanation7b" class="accordion" onclick="return false;">Explanation</a>
+                    </div>
+                    <p class="panel">Explanation</p>
+                    <div id="answer7c">
+                      <label>
+                        <input type="radio" name="question7" value="c">
+                        c: It does not affect system responsiveness
+                      </label>
+                      <a href="#" id="explanation7c" class="accordion" onclick="return false;">Explanation</a>
+                    </div>
+                    <p class="panel">Explanation</p>
+                    <div id="answer7d">
+                      <label>
+                        <input type="radio" name="question7" value="d">
+                        d: It leads to faster execution of critical processes
+                      </label>
+                      <a href="#" id="explanation7d" class="accordion" onclick="return false;">Explanation</a>
+                    </div>
+                    <p class="panel">Explanation</p>
+                </div>
+                
+                  <div class="question advanced">
+                    Which scheduling algorithm is more likely to maximize CPU utilization?
+                  </div>
+                  
+                  <div class="answers">
+                    <div id="answer8a">
+                      <label>
+                        <input type="radio" name="question8" value="a">
+                        a: Preemptive scheduling
+                      </label>
+                      <a href="#" id="explanation8a" class="accordion" onclick="return false;">Explanation</a>
+                    </div>
+                    <p class="panel">Explanation</p>
+                    <div id="answer8b">
+                      <label>
+                        <input type="radio" name="question8" value="b">
+                        b: Non-preemptive scheduling
+                      </label>
+                      <a href="#" id="explanation8b" class="accordion" onclick="return false;">Explanation</a>
+                    </div>
+                    <p class="panel">Explanation</p>
+                    <div id="answer8c">
+                      <label>
+                        <input type="radio" name="question8" value="c">
+                        c: Round-robin
+                      </label>
+                      <a href="#" id="explanation8c" class="accordion" onclick="return false;">Explanation</a>
+                    </div>
+                    <p class="panel">Explanation</p>
+                    <div id="answer8d">
+                      <label>
+                        <input type="radio" name="question8" value="d">
+                        d: First-come, first-served
+                      </label>
+                      <a href="#" id="explanation8d" class="accordion" onclick="return false;">Explanation</a>
+                    </div>
+                    <p class="panel">Explanation</p>
+                </div>
+                
+                  <div class="question beginner">
+                    In a preemptive scheduling system, what happens when a process runs out of its time slice?
+                  </div>
+                  
+                  <div class="answers">
+                    <div id="answer9a">
+                      <label>
+                        <input type="radio" name="question9" value="a">
+                        a: The process is removed from the queue
+                      </label>
+                      <a href="#" id="explanation9a" class="accordion" onclick="return false;">Explanation</a>
+                    </div>
+                    <p class="panel">Explanation</p>
+                    <div id="answer9b">
+                      <label>
+                        <input type="radio" name="question9" value="b">
+                        b: The process is paused and added back to the ready queue
+                      </label>
+                      <a href="#" id="explanation9b" class="accordion" onclick="return false;">Explanation</a>
+                    </div>
+                    <p class="panel">Explanation</p>
+                    <div id="answer9c">
+                      <label>
+                        <input type="radio" name="question9" value="c">
+                        c: The process is completed and removed from the system
+                      </label>
+                      <a href="#" id="explanation9c" class="accordion" onclick="return false;">Explanation</a>
+                    </div>
+                    <p class="panel">Explanation</p>
+                    <div id="answer9d">
+                      <label>
+                        <input type="radio" name="question9" value="d">
+                        d: The process is immediately restarted from the beginning
+                      </label>
+                      <a href="#" id="explanation9d" class="accordion" onclick="return false;">Explanation</a>
                     </div>
                     <p class="panel">Explanation</p>
                 </div>
@@ -462,7 +774,7 @@
           </div>
             
             <script>
-              const myQuestions = [{"question":"This is a Sample Question 1?","answers":{"a":"answer1","b":"answer2","c":"answer3","d":"answer4"},"explanations":{"a":"Explanation 1  <a href='www.google.com'>here</a>","b":"Explanation 2","c":"Explanation 2","d":"Explanation 2"},"correctAnswer":"a","difficulty":"beginner"},{"question":"This is a Sample Question 2?","answers":{"a":"answer1","b":"answer2","c":"answer3","d":"answer4"},"explanations":{"a":"Explanation 1  <a href='www.google.com'>here</a>","b":"Explanation 2","c":"Explanation 2","d":"Explanation 2"},"correctAnswer":"c","difficulty":"beginner"}];
+              const myQuestions = [{"question":"How does preemptive scheduling affect the waiting time of processes?","answers":{"a":"It increases the waiting time due to context switching","b":"It decreases the waiting time by allowing higher-priority processes to execute first","c":"It does not affect the waiting time","d":"It causes no effect on the process execution order"},"explanations":{"a":"In preemptive scheduling, context switching can lead to an increase in waiting time, as processes are interrupted frequently.","b":"In preemptive scheduling, higher-priority processes are given preference, reducing waiting time for critical tasks.","c":"Explanation 2","d":"Explanation 2"},"correctAnswer":"a","difficulty":"intermediate"},{"question":"Which of the following is an advantage of non-preemptive scheduling?","answers":{"a":"Lower waiting times","b":"Reduced context switching overhead","c":"Higher throughput","d":"Faster response time"},"explanations":{"a":"Explanation 1","b":"Non-preemptive scheduling requires fewer context switches as processes run to completion once started, reducing overhead.","c":"Explanation 2","d":"Explanation 2"},"correctAnswer":"b","difficulty":"intermediate"},{"question":"Which scheduling type is more likely to lead to starvation of lower-priority processes?","answers":{"a":"Round-robin","b":"Preemptive scheduling","c":"Non-preemptive scheduling","d":"First-come, first-served"},"explanations":{"a":"Explanation 1","b":"Preemptive scheduling is less likely to cause starvation compared to non-preemptive scheduling, as it ensures each process is given a time slice to execute.","c":"Non-preemptive scheduling can lead to starvation as a higher-priority process may keep running, preventing lower-priority processes from getting CPU time.","d":"Explanation 2"},"correctAnswer":"c","difficulty":"intermediate"},{"question":"Which of the following factors affects the performance of preemptive scheduling?","answers":{"a":"Time slice length","b":"Number of processes in the queue","c":"Priority of processes","d":"Amount of available memory"},"explanations":{"a":"In preemptive scheduling, the time slice length directly impacts how frequently context switching occurs and how well the scheduling algorithm performs.","b":"Explanation 2","c":"Explanation 2","d":"Explanation 2"},"correctAnswer":"a","difficulty":"beginner"},{"question":"In a non-preemptive scheduling system, how does the system handle a newly arrived process?","answers":{"a":"It immediately interrupts the current process to start the new one","b":"It waits until the current process finishes before starting the new one","c":"It assigns a priority to the new process and waits for the next time slice","d":"It executes the new process in parallel with the current one"},"explanations":{"a":"Explanation 1","b":"In non-preemptive scheduling, a newly arrived process must wait until the currently executing process completes.","c":"Explanation 2","d":"Explanation 2"},"correctAnswer":"b","difficulty":"beginner"},{"question":"Which factor is least affected by the choice of scheduling method?","answers":{"a":"Turnaround time","b":"Context switching time","c":"CPU utilization","d":"Response time"},"explanations":{"a":"Turnaround time may vary based on scheduling method, especially when processes are interrupted frequently in preemptive scheduling.","b":"Context switching time is usually lower in non-preemptive scheduling, as the CPU is not frequently interrupted.","c":"CPU utilization remains fairly consistent across most scheduling methods.","d":"Explanation 2"},"correctAnswer":"c","difficulty":"intermediate"},{"question":"What is the main cause of higher context switching overhead in preemptive scheduling?","answers":{"a":"Frequent process interruptions","b":"Low process priority","c":"Long time slice duration","d":"Excessive CPU utilization"},"explanations":{"a":"In preemptive scheduling, processes are frequently interrupted, causing more time spent on context switching rather than process execution.","b":"Explanation 2","c":"Explanation 2","d":"Explanation 2"},"correctAnswer":"a","difficulty":"intermediate"},{"question":"How does the non-preemptive scheduling method affect system responsiveness?","answers":{"a":"It improves system responsiveness by quickly switching between tasks","b":"It degrades system responsiveness as a process must complete before another can start","c":"It does not affect system responsiveness","d":"It leads to faster execution of critical processes"},"explanations":{"a":"Explanation 1","b":"In non-preemptive scheduling, processes must finish before another can be executed, which may lead to slower system responsiveness.","c":"Explanation 2","d":"Explanation 2"},"correctAnswer":"b","difficulty":"beginner"},{"question":"Which scheduling algorithm is more likely to maximize CPU utilization?","answers":{"a":"Preemptive scheduling","b":"Non-preemptive scheduling","c":"Round-robin","d":"First-come, first-served"},"explanations":{"a":"Preemptive scheduling allows the system to allocate CPU time to the most important processes, improving overall CPU utilization.","b":"Explanation 2","c":"Explanation 2","d":"Explanation 2"},"correctAnswer":"a","difficulty":"advanced"},{"question":"In a preemptive scheduling system, what happens when a process runs out of its time slice?","answers":{"a":"The process is removed from the queue","b":"The process is paused and added back to the ready queue","c":"The process is completed and removed from the system","d":"The process is immediately restarted from the beginning"},"explanations":{"a":"Explanation 1","b":"In preemptive scheduling, when a process runs out of its time slice, it is paused and placed back in the ready queue for future execution.","c":"Explanation 2","d":"Explanation 2"},"correctAnswer":"b","difficulty":"beginner"}];
             </script>
               <script src="./assets/js/assessment_v2.js"></script>  
           <div class="bug-report-mobile">
