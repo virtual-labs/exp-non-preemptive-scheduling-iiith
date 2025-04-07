@@ -1,0 +1,56 @@
+#+TITLE: UI Model for Scheduling
+
+** What are the components?
+We basically have two type of components. 
+- Scheduling system buttons
+- Environment buttons
+
+The above two kind of buttons again have different purposes and functions. 
+
+** What are available to the student?
+*** Buttons in the environment subsystem
+- The "tick" button
+This button works all the time. Onclick, one cycle of the system is completed. This click is enbaled always, when the CPU is active, when it is idle, when we want to schedule, when we are waiting for IO etc.. The user needs to understand that the system is efficient only when CPU is not idle and wasting the clock cycles. The experiment hence provides the functionalities that can help the CPU work at maximum efficieny.
+- The "New process" button
+This button helps the student to create a new process with a burst time anywhere between 1 to 30cycles. But clicking this button itself is not enough. In a real system, all these functionalities happen only when a cycle is done. For this we need the tick button discussed above. The student have to complete one clock cycle when needed to execute the functionality of "New process".
+- The "Terminate" button
+This button terminates the currently running process on the CPU. This too needs a clock cycle to complete it's function. Hence the student have to choose "tick" after selecting the "Terminate" button.
+- The "Undo" button
+This button helps the student to undo an previous action. This functionality is designed to help the student analyse the effect of their choosen actions on the system. 
+
+*** Buttons in the shceduling subsystem
+- Choose the scheduling algorithm
+Student is free to choose and change the shceduling algorithm during the experiment. The other options like timer count will be enabled depending on the algorithm.
+- Select the process
+Student is supposed to select the correct process according to the choosen scheduling algorithm. The feedback of the scheduling process will be dislayed in the dialogue box accordingly. 
+- The "Schedule" button
+This button moves the selected process in the processes table of the Plant to the CPU of Plant. The status of CPU is active from idle, and the state of process changes from ready to running. 
+
+** How to guide the student about the above functionalities?
+- Color codes
+- Dialogue box
+- "info" icons
+- Animated arrows
+
+** Color codes
+Color codes helps in identifying the safe buttons. The "Terminate" button, color coded in red cautions the student to be sure before using the functionality it provides since it is forcefully stopping a process from completing it's execution. The "New process" button, color coded in green hints that creating a new process will not harm the system and it's usage it encouraged since this will help in creating a divered processes table and understand the experiment better.
+
+Current color codes:
+
+- Red --> Terminated, caution 
+- Blue --> Waiting 
+- Orange --> Ready status 
+- Green --> Running status 
+
+The grey color of the buttons which appear and disapper during the experiment indicate that the functionalities provided by those buttons are disabled temporarily. These functions will be restored again based on the current state of our system.
+
+** Dialogue box
+Every action of the student is given an feedback in the diaogue box. The dialogues appearing here will guide the student to the next possible action and comment whether an action performed is acceptable or not. All the user actions are stored in a log which can be accessed by the student. One can trace back their actions using this log. 
+
+** "info" icons
+These hoverable icons gives a brief understanding of what functionality a particular buttons provides. A better desciption of the experiment and it's deliverables is present in the bottom rightmost corner of the experiment. 
+
+** Animated arrows
+These arrows guide the student to the appropriate buttons available at the start of the experiment. For example, the student will have to select a scheduling a scheduling policy before they can schedule a process. This arrows guides the user to first select the scheduling process at the start of the process. The student can then use other available option slike creating a new process, terminating a currently running process etc.
+
+>>>>>>> dc01fb7f83671675c988f980d6ac615641164fcc

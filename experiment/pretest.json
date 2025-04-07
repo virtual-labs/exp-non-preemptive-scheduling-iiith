@@ -10,10 +10,10 @@
         "d": "Waiting time is more in preemptive scheduling and less in non-preemptive"
       },
       "explanations": {
-        "a": "Incorrect",
+        "a": "Explanation 1",
         "b": "Preemptive scheduling - Processor can be preempted to execute a different process in the middle of execution of any current process.Non-preemptive scheduling - Once a Processor starts to execute a process it must finish it before executing the other. It cannot be paused in the middle.",
-        "c": "Incorrect",
-        "d": "Incorrect"
+        "c": "Explanation 2",
+        "d": "Explanation 2"
       },
       "correctAnswer": "b",
       "difficulty": "beginner"
@@ -63,13 +63,65 @@
         "d": "None of the above"
       },
       "explanations": {
-        "a": "Incorrect",
-        "b": "Correct ",
-        "c": "Incorrect",
-        "d": "Incorrect"
+        "a": "Explanation 1  <a href='www.google.com'>here</a>",
+        "b": "Explanation 2",
+        "c": "Explanation 2",
+        "d": "Explanation 2"
+      },
+      "correctAnswer": "b",
+      "difficulty": "beginner"
+    },
+    {
+      "question": "What is the primary drawback of non-preemptive scheduling?",
+      "answers": {
+        "a": "High context-switching overhead",
+        "b": "Starvation of processes",
+        "c": "Long waiting times for newly arrived processes",
+        "d": "Increased response time"
+      },
+      "explanations": {
+        "a": "Explanation 1",
+        "b": "In non-preemptive scheduling, once a process starts executing, it cannot be preempted. This can cause lower-priority processes to starve if higher-priority processes are continuously running.",
+        "c": "Explanation 2",
+        "d": "Explanation 2"
+      },
+      "correctAnswer": "c",
+      "difficulty": "beginner"
+    },
+    {
+      "question": "Which of these metrics was least affected by the choice of scheduling type in the simulation?",
+      "answers": {
+        "a": "Waiting time",
+        "b": "Throughput",
+        "c": "Context-switching overhead",
+        "d": "Turnaround time"
+      },
+      "explanations": {
+        "a": "Explanation 1",
+        "b": "Throughput is mostly independent of scheduling type and can be consistent across different scheduling strategies, as it measures the number of processes completed per unit of time.",
+        "c": "Explanation 2",
+        "d": "Explanation 2"
+      },
+      "correctAnswer": "b",
+      "difficulty": "intermediate"
+    },
+    {
+      "question": "In preemptive scheduling, the CPU is allocated to a process:",
+      "answers": {
+        "a": "Until it voluntarily relinquishes control",
+        "b": "For a fixed time slice",
+        "c": "Until a higher-priority process arrives",
+        "d": "Until the process completes its execution"
+      },
+      "explanations": {
+        "a": "Explanation 1",
+        "b": "In preemptive scheduling, the CPU is allocated for a fixed time slice, after which the CPU can be taken away from the running process to be given to another process.",
+        "c": "Explanation 2",
+        "d": "Explanation 2"
       },
       "correctAnswer": "b",
       "difficulty": "beginner"
     }
+                
   ]
 }

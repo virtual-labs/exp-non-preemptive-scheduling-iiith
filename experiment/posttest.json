@@ -1,73 +1,184 @@
 {
-  "version": 2.0,
-  "questions": [
-    {
-      "question": "In RR each process has given a fairly _____ time and is concidered to be ____ type of algorithm",
-      "answers": {
-        "a": "fixed,preemptive",
-        "b": "random,non-preemptive",
-        "c": "fixed,non-preemptive",
-        "d": "random,preemptive"
-      },
-      "explanations": {
-        "a": "Round robin seems to be fair as every process gets an equal share of CPU.",
-        "b": "neither is true",
-        "c": "while it is fixed it is not non preemptive",
-        "d": "preemptive but not random"
-      },
-      "correctAnswer": "a",
-      "difficulty": "beginner"
-    },
-    {
-      "question": "The main drawback of FCFS algorithm is ____ and is implemented by using ____ queue",
-      "answers": {
-        "a": "process starvation,FILO",
-        "b": "wait time,FIFO",
-        "c": "wait time,FILO",
-        "d": "overload on CPU,FIFO"
-      },
-      "explanations": {
-        "a": "its biggest draw back is wait time causing a convoy effect and follows FIFO",
-        "b": "its biggest draw back is wait time causing a convoy effect and does follow FIFO queue,FIFO stands for First in First Out and this is what is used in FCFS algorithm.",
-        "c": "its biggest draw back is wait time causing a convoy effect and follows FIFO queue",
-        "d": "its biggest draw back is wait time causing a convoy effect but FIFO is correct"
-      },
-      "correctAnswer": "b",
-      "difficulty": "beginner"
-    },
-      {
-      "question": "In SJF algorithm the process to be executded is based on the _____ and has ______ ",
-      "answers": {
-        "a": "shortest execution time,high wait time",
-        "b": "priority,high wait time",
-        "c": "shortest execution time,low wait time",
-        "d": "priority,low wait time"
-      },
-      "explanations": {
-        "a": "Incorrect",
-        "b": "Incorrect",
-        "c": "Correct",
-        "d": "Incorrect"
-      },
-      "correctAnswer": "c",
-      "difficulty": "beginner"
-    },
-    {
-      "question": "Select the correct order in which the complexities of the algorithms go from least to highest.",
-      "answers": {
-        "a": "FCFS<SJF<RR",
-        "b": "SJF<FCFS<RR",
-        "c": "fRR<SJF<FCFS",
-        "d": "SJF<RR<FCFS"
-      },
-      "explanations": {
-        "a": "Correct",
-        "b": "Incorrect",
-        "c": "Incorrect",
-        "d": "Incorrect"
-      },
-      "correctAnswer": "a",
-      "difficulty": "beginner"
-    }
-  ]
+	"version": 2.0,
+	"questions": [
+		{
+			"question": "How does preemptive scheduling affect the waiting time of processes?",
+			"answers": {
+				"a": "It increases the waiting time due to context switching",
+				"b": "It decreases the waiting time by allowing higher-priority processes to execute first",
+				"c": "It does not affect the waiting time",
+				"d": "It causes no effect on the process execution order"
+			},
+			"explanations": {
+				"a": "In preemptive scheduling, context switching can lead to an increase in waiting time, as processes are interrupted frequently.",
+				"b": "In preemptive scheduling, higher-priority processes are given preference, reducing waiting time for critical tasks.",
+				"c": "Explanation 2",
+				"d": "Explanation 2"
+			},
+			"correctAnswer": "a",
+			"difficulty": "intermediate"
+		},
+
+		{
+			"question": "Which of the following is an advantage of non-preemptive scheduling?",
+			"answers": {
+				"a": "Lower waiting times",
+				"b": "Reduced context switching overhead",
+				"c": "Higher throughput",
+				"d": "Faster response time"
+			},
+			"explanations": {
+				"a": "Explanation 1",
+				"b": "Non-preemptive scheduling requires fewer context switches as processes run to completion once started, reducing overhead.",
+				"c": "Explanation 2",
+				"d": "Explanation 2"
+			},
+			"correctAnswer": "b",
+			"difficulty": "intermediate"
+		},
+
+		{
+			"question": "Which scheduling type is more likely to lead to starvation of lower-priority processes?",
+			"answers": {
+				"a": "Round-robin",
+				"b": "Preemptive scheduling",
+				"c": "Non-preemptive scheduling",
+				"d": "First-come, first-served"
+			},
+			"explanations": {
+				"a": "Explanation 1",
+				"b": "Preemptive scheduling is less likely to cause starvation compared to non-preemptive scheduling, as it ensures each process is given a time slice to execute.",
+				"c": "Non-preemptive scheduling can lead to starvation as a higher-priority process may keep running, preventing lower-priority processes from getting CPU time.",
+				"d": "Explanation 2"
+			},
+			"correctAnswer": "c",
+			"difficulty": "intermediate"
+		},
+
+		{
+			"question": "Which of the following factors affects the performance of preemptive scheduling?",
+			"answers": {
+				"a": "Time slice length",
+				"b": "Number of processes in the queue",
+				"c": "Priority of processes",
+				"d": "Amount of available memory"
+			},
+			"explanations": {
+				"a": "In preemptive scheduling, the time slice length directly impacts how frequently context switching occurs and how well the scheduling algorithm performs.",
+				"b": "Explanation 2",
+				"c": "Explanation 2",
+				"d": "Explanation 2"
+			},
+			"correctAnswer": "a",
+			"difficulty": "beginner"
+		},
+
+		{
+			"question": "In a non-preemptive scheduling system, how does the system handle a newly arrived process?",
+			"answers": {
+				"a": "It immediately interrupts the current process to start the new one",
+				"b": "It waits until the current process finishes before starting the new one",
+				"c": "It assigns a priority to the new process and waits for the next time slice",
+				"d": "It executes the new process in parallel with the current one"
+			},
+			"explanations": {
+				"a": "Explanation 1",
+				"b": "In non-preemptive scheduling, a newly arrived process must wait until the currently executing process completes.",
+				"c": "Explanation 2",
+				"d": "Explanation 2"
+			},
+			"correctAnswer": "b",
+			"difficulty": "beginner"
+		},
+
+		{
+			"question": "Which factor is least affected by the choice of scheduling method?",
+			"answers": {
+				"a": "Turnaround time",
+				"b": "Context switching time",
+				"c": "CPU utilization",
+				"d": "Response time"
+			},
+			"explanations": {
+				"a": "Turnaround time may vary based on scheduling method, especially when processes are interrupted frequently in preemptive scheduling.",
+				"b": "Context switching time is usually lower in non-preemptive scheduling, as the CPU is not frequently interrupted.",
+				"c": "CPU utilization remains fairly consistent across most scheduling methods.",
+				"d": "Explanation 2"
+			},
+			"correctAnswer": "c",
+			"difficulty": "intermediate"
+		},
+
+		{
+			"question": "What is the main cause of higher context switching overhead in preemptive scheduling?",
+			"answers": {
+				"a": "Frequent process interruptions",
+				"b": "Low process priority",
+				"c": "Long time slice duration",
+				"d": "Excessive CPU utilization"
+			},
+			"explanations": {
+				"a": "In preemptive scheduling, processes are frequently interrupted, causing more time spent on context switching rather than process execution.",
+				"b": "Explanation 2",
+				"c": "Explanation 2",
+				"d": "Explanation 2"
+			},
+			"correctAnswer": "a",
+			"difficulty": "intermediate"
+		},
+
+		{
+			"question": "How does the non-preemptive scheduling method affect system responsiveness?",
+			"answers": {
+				"a": "It improves system responsiveness by quickly switching between tasks",
+				"b": "It degrades system responsiveness as a process must complete before another can start",
+				"c": "It does not affect system responsiveness",
+				"d": "It leads to faster execution of critical processes"
+			},
+			"explanations": {
+				"a": "Explanation 1",
+				"b": "In non-preemptive scheduling, processes must finish before another can be executed, which may lead to slower system responsiveness.",
+				"c": "Explanation 2",
+				"d": "Explanation 2"
+			},
+			"correctAnswer": "b",
+			"difficulty": "beginner"
+		},
+
+		{
+			"question": "Which scheduling algorithm is more likely to maximize CPU utilization?",
+			"answers": {
+				"a": "Preemptive scheduling",
+				"b": "Non-preemptive scheduling",
+				"c": "Round-robin",
+				"d": "First-come, first-served"
+			},
+			"explanations": {
+				"a": "Preemptive scheduling allows the system to allocate CPU time to the most important processes, improving overall CPU utilization.",
+				"b": "Explanation 2",
+				"c": "Explanation 2",
+				"d": "Explanation 2"
+			},
+			"correctAnswer": "a",
+			"difficulty": "advanced"
+		},
+
+		{
+			"question": "In a preemptive scheduling system, what happens when a process runs out of its time slice?",
+			"answers": {
+				"a": "The process is removed from the queue",
+				"b": "The process is paused and added back to the ready queue",
+				"c": "The process is completed and removed from the system",
+				"d": "The process is immediately restarted from the beginning"
+			},
+			"explanations": {
+				"a": "Explanation 1",
+				"b": "In preemptive scheduling, when a process runs out of its time slice, it is paused and placed back in the ready queue for future execution.",
+				"c": "Explanation 2",
+				"d": "Explanation 2"
+			},
+			"correctAnswer": "b",
+			"difficulty": "beginner"
+		}
+	]
 }
