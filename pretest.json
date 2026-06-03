@@ -1,0 +1,124 @@
+{
+  "version": 2.0,
+  "questions": [
+    {
+      "question": "What is the difference between preemption and non-preemption?",
+      "answers": {
+        "a": "Whether or not a ready process can be involuntarily terminated",
+        "b": "Whether or not a process in the middle of execution can be interrupted",
+        "c": "Whether or not a blocked process can have its resources involuntarily taken away from it",
+        "d": "Waiting time is more in preemptive scheduling and less in non-preemptive"
+      },
+      "explanations": {
+        "a": "Incorrect. Preemption does not refer to termination of a ready process, but rather pausing a running process.",
+        "b": "Correct. Preemptive scheduling allows the CPU to interrupt a running process and assign it to another. Non-preemptive scheduling does not allow interruption once a process starts executing.",
+        "c": "Incorrect. Preemption deals with running processes, not blocked ones or resource allocation.",
+        "d": "Incorrect. Waiting time may vary depending on scheduling strategy, but this is not the defining characteristic of preemption."
+      },
+      "correctAnswer": "b",
+      "difficulty": "beginner"
+    },
+    {
+      "question": "In which of the following Algorithms does the first process get allocated to the CPU first?",
+      "answers": {
+        "a": "FCFS",
+        "b": "SJF",
+        "c": "Round Robin",
+        "d": "None of the above"
+      },
+      "explanations": {
+        "a": "Correct. First-Come, First-Served (FCFS) schedules processes in the order they arrive.",
+        "b": "Incorrect. Shortest Job First selects the process with the shortest burst time, not necessarily the first one.",
+        "c": "Incorrect. Round Robin uses time slicing and follows order but with preemption.",
+        "d": "Incorrect. FCFS fits the condition mentioned in the question."
+      },
+      "correctAnswer": "a",
+      "difficulty": "beginner"
+    },
+    {
+      "question": "The SJF algorithm is :",
+      "answers": {
+        "a": "nonpreemptive only",
+        "b": "preemptive only",
+        "c": "can be preeptive or non preemptive",
+        "d": "None of the above"
+      },
+      "explanations": {
+        "a": "Incorrect. SJF can be implemented as both preemptive and non-preemptive.",
+        "b": "Incorrect. SJF is not limited to only preemptive scheduling.",
+        "c": "Correct. SJF (Shortest Job First) can be used in both forms. The preemptive version is known as Shortest Remaining Time First (SRTF).",
+        "d": "Incorrect. Option C is accurate."
+      },
+      "correctAnswer": "c",
+      "difficulty": "beginner"
+    },
+    {
+      "question": "In RR algorithm the new process will go to the :",
+      "answers": {
+        "a": "top of the ready queue",
+        "b": "tail of the ready queue",
+        "c": "anywhere in the ready queue",
+        "d": "None of the above"
+      },
+      "explanations": {
+        "a": "Incorrect. In Round Robin, new processes are added to the tail of the ready queue, not the top.",
+        "b": "Correct. Round Robin scheduling adds new processes to the end of the queue to ensure fair time sharing.",
+        "c": "Incorrect. There is a strict queue order in Round Robin scheduling; insertion is always at the tail.",
+        "d": "Incorrect. Option B is the correct behavior."
+      },
+      "correctAnswer": "b",
+      "difficulty": "beginner"
+    },
+    {
+      "question": "What is the primary drawback of non-preemptive scheduling?",
+      "answers": {
+        "a": "High context-switching overhead",
+        "b": "Starvation of processes",
+        "c": "Long waiting times for newly arrived processes",
+        "d": "Increased response time"
+      },
+      "explanations": {
+        "a": "Incorrect. Non-preemptive scheduling actually has lower context-switching overhead because it involves fewer switches.",
+        "b": "Incorrect. Starvation is more of a concern in certain priority-based systems, but not a primary drawback of non-preemptive scheduling.",
+        "c": "Correct. Non-preemptive scheduling can result in long waits for new processes, as the CPU won’t switch until the current process finishes.",
+        "d": "Incorrect. While response time might be affected, the more significant drawback is increased waiting time for new arrivals."
+      },
+      "correctAnswer": "c",
+      "difficulty": "beginner"
+    },
+    {
+      "question": "Which of these metrics was least affected by the choice of scheduling type in the simulation?",
+      "answers": {
+        "a": "Waiting time",
+        "b": "Throughput",
+        "c": "Context-switching overhead",
+        "d": "Turnaround time"
+      },
+      "explanations": {
+        "a": "Incorrect. Waiting time varies significantly with different scheduling algorithms.",
+        "b": "Correct. Throughput, the number of processes completed per unit time, can remain relatively consistent across different algorithms, especially when total processing time is constant.",
+        "c": "Incorrect. Preemptive scheduling tends to have higher context-switching overhead compared to non-preemptive.",
+        "d": "Incorrect. Turnaround time is affected by the scheduling strategy since it includes waiting and execution times."
+      },
+      "correctAnswer": "b",
+      "difficulty": "intermediate"
+    },
+    {
+      "question": "In preemptive scheduling, the CPU is allocated to a process:",
+      "answers": {
+        "a": "Until it voluntarily relinquishes control",
+        "b": "For a fixed time slice",
+        "c": "Until a higher-priority process arrives",
+        "d": "Until the process completes its execution"
+      },
+      "explanations": {
+        "a": "Incorrect. This behavior is associated with non-preemptive scheduling.",
+        "b": "Correct. In preemptive scheduling like Round Robin, the CPU is assigned for a fixed time slice (quantum) after which it can be taken back.",
+        "c": "Incorrect. Although this can happen in priority scheduling, not all preemptive scheduling is priority-based.",
+        "d": "Incorrect. This is true in non-preemptive systems, not preemptive ones."
+      },
+      "correctAnswer": "b",
+      "difficulty": "beginner"
+    }
+  ]
+}
